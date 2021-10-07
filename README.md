@@ -2,9 +2,9 @@
 ## Created by:
 Scrum and Coke team
 ## Members:
-- Kayli Thulin
-- Benjamin Murray
-- Dennis Dean
-- Jaren Lindsey
-- Omavi Collison
-- John Engh
+- Kayli Thulin @kaylithulin
+- Benjamin Murray @BMURRAY002
+- Dennis Dean @dennisd001 
+- Jaren Lindsey @jlindsey001
+- Omavi Collison @ocollison
+- John Engh @bluebous
