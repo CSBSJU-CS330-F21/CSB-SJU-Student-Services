@@ -1,0 +1,168 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    background: url(https://www.csbsju.edu/documents/CSB%20Alumnae/beni-411/2019-campus-aerial-16x9-screensavers.jpg);
+    background-size: cover;
+    font-family: sans-serif;
+}
+.LoginBox {
+    position:absolute;
+    bottom: -30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 420px;
+    padding: 80px 40px;
+    background-color: rgba(52, 58, 64, 0.6);
+}
+.menuBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1200px;
+    height: 500px;
+    padding: 80px 40px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, .5);
+}
+
+.logo {
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    box-sizing: border-box;
+    top: 410px;
+    left: 130px;
+}
+h1 {
+    color: #efed40;
+    text-align: center;
+}
+h2 {
+    margin: 0;
+    padding: 0 0 20px;
+    color: #ffffff;
+    text-align: center;
+}
+h3 {
+    color: #efed40;
+    margin: 0;
+    padding: 0 0 10px;
+    text-align: center;
+    font-size: 14px;
+}
+.LoginBox p
+{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    color: #ffff;
+}
+.LoginBox input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.LoginBox input[type="text"],
+.LoginBox input[type="password"]
+{
+    border: none;
+    border-bottom: 1px solid #ffff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px
+}
+::placeholder
+{
+    color: #ffffff;
+}
+.LoginBox input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    color: #ffffff;
+    font-size: 16px;
+    background: #dc3545;
+    cursor: pointer;
+    border-radius: 20px;
+}
+.LoginBox input[type ="submit"]:hover
+{
+    background: #efed40;
+    color: #262626;
+}
+.LoginBox a
+{
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.LoginBox input[type="button"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    color: #ffffff;
+    font-size: 16px;
+    background: #dc3545;
+    cursor: pointer;
+    border-radius: 20px;
+}
+.LoginBox input[type ="button"]:hover
+{
+    background: #efed40;
+    color: #262626;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
+    width: 90%;
+    margin: 0 auto;
+}
+header{
+    width: 100%;
+    height: 100px;
+    background: #dc3545;
+    position: fixed;
+}
+.title{
+    width: 40%;
+    float: left;
+    text-align: left;
+    font-weight: bolder;
+    line-height: 100px;
+}
+.title a{
+    text-decoration: none;
+    font-size: 30px;
+    font-family: "Baskerville Old Face";
+    color: #ffffff;
+    letter-spacing: 4px;
+}
+nav{
+    float: right;
+    line-height:100px;
+}
+nav a{
+    text-decoration: none;
+    font-family: Georgia;
+    letter-spacing: 3px;
+    font-size: 20px;
+    color: #ffffff;
+    padding: 36px 10px;
+    margin: 0 1px;
+}
+nav a:hover{
+    font-weight: 700;
+    color: white;
+}
