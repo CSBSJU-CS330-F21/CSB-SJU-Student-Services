@@ -22,4 +22,15 @@ public class Account {
     public String getPassword() {
         return password;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (this.getClass() != o.getClass())
+            return false;
+        Account account = (Account) o;
+        return  (this.getUsername().equals(account.getUsername()) && this.getPassword().equals(account.getPassword()));
+
+    }
 }

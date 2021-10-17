@@ -16,7 +16,7 @@ public class SQLDatabaseConnection {
                         + "loginTimeout=30;";
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);) {
-            String query = "";
+            String query = "FROM ";
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
