@@ -11,6 +11,7 @@ class DBControllerTest {
 
     @BeforeEach
     void setUp() {
+        // add table with dummy info
     }
 
     @Test
@@ -24,5 +25,6 @@ class DBControllerTest {
 
     @AfterEach
     void tearDown() {
+        //remove table
     }
 }
