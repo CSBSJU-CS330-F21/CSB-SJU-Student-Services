@@ -30,6 +30,9 @@ public class Account {
         if (this.getClass() != o.getClass())
             return false;
         Account account = (Account) o;
+        if (account.getUsername() == this.getUsername() && account.getPassword() == this.getPassword()) {
+            return true;
+        }
         return  (this.getUsername().equals(account.getUsername()) && this.getPassword().equals(account.getPassword()));
 
     }
