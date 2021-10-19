@@ -2,18 +2,10 @@ package Student_Services.Database;
 
 import Student_Services.User.Account;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
-import java.sql.Timestamp;
-
-import com.microsoft.sqlserver.jdbc.SQLServerResultSet;
-
-import microsoft.sql.DateTimeOffset;
 
 /**
  * @author johnengh
@@ -30,7 +22,7 @@ public class DBController {
                     + "loginTimeout=30;";
     public static Account getAccount(String Username, String Table) {
         try (Connection con = DriverManager.getConnection(connectionUrl);
-             Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);) {
+             Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             // SELECT * FROM test WHERE username='test1';
             String query = String.format("SELECT * FROM %s WHERE username='%s';", Table, Username);
             ResultSet rs = stmt.executeQuery(query);
@@ -38,7 +30,7 @@ public class DBController {
             return new Account(rs.getString(1), rs.getString(2));
         }
         // Handle any errors that may have occurred.
-        catch (SQLException throwables) {
+        catch (SQLException e) {
             return new Account(null, null);
         }
 
@@ -51,11 +43,11 @@ public class DBController {
             return false;
         }
         try (Connection con = DriverManager.getConnection(connectionUrl);
-             Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);) {
+             Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             String sql = String.format("insert into " + Table + " values('%s', '%s')", Username, Password);
             stmt.execute(sql);
             return true;
-        } catch (SQLException throwables) {
+        } catch (SQLException e) {
             return false;
         }
     }
