@@ -36,7 +36,7 @@ class DBControllerTest {
 
             stmt.execute(sql);
 
-            for (int i = 1; i < 20; i++) {
+            for (int i = 1; i <= 20; i++) {
                 String sql_ins = "insert into " + tableName + " values('test" + i + "', 'test" + i + "')";
                 stmt.execute(sql_ins);
             }
@@ -83,6 +83,7 @@ class DBControllerTest {
         assertFalse(DBController.createAccount(null, Userinfo, tableName));
         assertFalse(DBController.createAccount("", "", tableName));
         assertFalse(DBController.createAccount(null, null, tableName));
+        //TODO add checks for usernames w/ spaces
     }
 
     @AfterAll

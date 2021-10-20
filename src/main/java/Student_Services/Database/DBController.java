@@ -20,6 +20,13 @@ public class DBController {
                     + "encrypt=true;"
                     + "trustServerCertificate=false;"
                     + "loginTimeout=30;";
+
+    /**
+     * Gets account from database, returns an account filled with null values if account doesn't exist
+     * @param Username username of account to retrieve
+     * @param Table table to use for account lookup
+     * @return Account object filled with values from table if it exists, otherwise account filled with null values
+     */
     public static Account getAccount(String Username, String Table) {
         try (Connection con = DriverManager.getConnection(connectionUrl);
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
@@ -35,9 +42,21 @@ public class DBController {
         }
 
     }
+
+    /**
+     * @param Username username of account to retrieve
+     * @return Account object filled with values from table if it exists, otherwise account filled with null values
+     */
     public static Account getAccount(String Username) {
         return getAccount(Username, "users");
     }
+
+    /**
+     * @param Username Username to use for new account
+     * @param Password password to use for new account
+     * @param Table table to insert user into
+     * @return account object with specified values
+     */
     public static boolean createAccount(String Username, String Password, String Table) {
         if (Username == null || Username.equals("") || Password == null || Password.equals("")) {
             return false;
