@@ -12,8 +12,11 @@ public class LoginController {
      * @param password password provided by the user via log in page.
      * @return boolean that verifies the username and password exists in the database
      */
-    public static boolean loginUser(String username, String password ) {
+    public static boolean loginUser(String username, String password) {
         Account loginAccount = DBController.getAccount(username);
+        if (loginAccount.getUsername() == null || loginAccount.getPassword() == null) {
+            return false;
+        }
         return (loginAccount.getUsername().equals(username)) && (loginAccount.getPassword().equals(password));
     }
 

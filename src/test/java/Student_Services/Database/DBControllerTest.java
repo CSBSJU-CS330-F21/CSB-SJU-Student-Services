@@ -32,7 +32,7 @@ class DBControllerTest {
             //remove any leftover table
             stmt.executeUpdate("if object_id('" + tableName + "','U') is not null" + " drop table " + tableName);
 
-            String sql = "create table " + tableName + " (" + "username varchar(max) NOT NULL," + "user_password varchar(max) NOT NULL " + ");";
+            String sql = "create table " + tableName + " (" + "username nvarchar(max) NOT NULL," + "user_password nvarchar(max) NOT NULL " + ");";
 
             stmt.execute(sql);
 
@@ -60,9 +60,9 @@ class DBControllerTest {
     @Test
     public void testGetUserFail() {
         String userinfo = "failure";
-        Account failAccount1 = new Account(null, null);
+        Account nullAccount = new Account(null, null);
         Account retrievedAccount1 = DBController.getAccount(userinfo, tableName);
-        assertEquals(failAccount1, retrievedAccount1);
+        assertEquals(nullAccount, retrievedAccount1);
     }
 
     @Test
