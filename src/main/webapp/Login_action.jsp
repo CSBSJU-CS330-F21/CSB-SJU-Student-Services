@@ -12,7 +12,7 @@
 <%
     String username = request.getParameter("username");
     String password = request.getParameter("password");
-    if (LoginController.loginUser(username, password) == true){
+    if (LoginController.loginUser(username, password)){
         response.sendRedirect("Well.jsp");
         //session.setAttribute("test", test);
     }
