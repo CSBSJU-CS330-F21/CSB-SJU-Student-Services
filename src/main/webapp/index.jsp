@@ -24,7 +24,7 @@
 <div class="LoginBox">
     <img alt="" src="csbsju_logo.png" class="logo">
     <h2>User Login</h2>
-    <form action="LoginAction.jsp" method="post">
+    <form action="Login_action.jsp" method="post">
         <p>Username</p>
         <input type="text" name="username" placeholder="Enter Username" required>
         <p>Password</p>

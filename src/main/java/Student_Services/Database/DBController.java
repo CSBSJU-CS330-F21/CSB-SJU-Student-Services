@@ -48,7 +48,7 @@ public class DBController {
      * @return Account object filled with values from table if it exists, otherwise account filled with null values
      */
     public static Account getAccount(String Username) {
-        return getAccount(Username, "users");
+        return getAccount(Username, "test");
     }
 
     /**
@@ -71,7 +71,7 @@ public class DBController {
         }
     }
     public static boolean createAccount(String Username, String Password) {
-        return createAccount(Username, Password, "users");
+        return createAccount(Username, Password, "test");
     }
 
 }
