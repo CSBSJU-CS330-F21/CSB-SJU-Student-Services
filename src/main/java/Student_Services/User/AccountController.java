@@ -7,8 +7,7 @@ import Student_Services.Database.DBControllerSQLServer;
  * Login Controller gets an account username and verifies that the password associated is correct.
  */
 public class AccountController {
-    static String userTable = "users";
-    static DBController dbController = new DBControllerSQLServer(userTable);
+    static DBController dbController = new DBControllerSQLServer("users");
     /**
      * Method verifies that username exists and password is correct.
      * @param username username provided by the user via log in page.
@@ -30,10 +29,12 @@ public class AccountController {
      * @return returns true if account was successfully created
      */
     public static boolean createUser(String username, String password) {
+        if (!(username.endsWith("@csbsju.edu"))) {
+            return false;
+        }
         return dbController.createAccount(username, password);
     }
     public static void setUserTable(String userTable) {
-        userTable = userTable;
         dbController = new DBControllerSQLServer(userTable);
     }
 
