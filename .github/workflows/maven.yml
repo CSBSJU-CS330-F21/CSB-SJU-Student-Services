@@ -20,6 +20,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+        cache: 'maven'
     - run: mvn --batch-mode --update-snapshots verify
     - run: mkdir staging && cp target/*.war staging
     - uses: actions/upload-artifact@v2
