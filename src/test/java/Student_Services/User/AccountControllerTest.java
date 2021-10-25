@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountControllerTest {
     private static final String tableName = "AccTestTable";
-    //TODO Login controller uses main table instead of test table
 
     @BeforeAll
     static void setUp() {
