@@ -26,12 +26,13 @@ class AccountControllerTest {
 
             String sql = "create table " + tableName + " (" + "username nvarchar(max) NOT NULL," + "user_password nvarchar(max) NOT NULL " + ");";
 
-            stmt.execute(sql);
+            stmt.addBatch(sql);
 
             for (int i = 1; i <= 20; i++) {
                 String sql_ins = "insert into " + tableName + " values('test" + i + "@csbsju.edu" + "', 'test" + i + "')";
-                stmt.execute(sql_ins);
+                stmt.addBatch(sql_ins);
             }
+            stmt.executeBatch();
 
 
         }

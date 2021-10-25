@@ -13,6 +13,7 @@ import java.sql.Statement;
  * The database Controller is the go between for the SQL database and the java
  */
 public class DBControllerSQLServer extends DBController {
+    private final boolean debug = false;
 
     public DBControllerSQLServer(String tableName) {
         super(tableName);
@@ -40,7 +41,9 @@ public class DBControllerSQLServer extends DBController {
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
-            e.printStackTrace();
+            if (debug) {
+                e.printStackTrace();
+            }
             return new Account(null, null);
         }
 
@@ -68,6 +71,9 @@ public class DBControllerSQLServer extends DBController {
             stmt.execute(sql);
             return true;
         } catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
             return false;
         }
     }
