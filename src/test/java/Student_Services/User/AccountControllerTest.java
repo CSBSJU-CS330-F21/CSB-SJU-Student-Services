@@ -1,5 +1,6 @@
 package Student_Services.User;
 
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import org.junit.jupiter.api.*;
 
 import java.sql.*;
@@ -7,21 +8,19 @@ import java.sql.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountControllerTest {
-    private static final String connectionUrl =
-            "jdbc:sqlserver://scrum-coke.database.windows.net:1433;"
-                    + "database=Student Services Database;"
-                    + "user=developer@scrum-coke;"
-                    + "password=Charge-Operator-Bush-Pupil-6;"
-                    + "encrypt=true;"
-                    + "trustServerCertificate=false;"
-                    + "loginTimeout=30;";
     private static final String tableName = "test";
     //TODO Login controller uses main table instead of test table
 
     @BeforeAll
     static void setUp() {
         // add table with dummy info
-        try (Connection con = DriverManager.getConnection(connectionUrl);
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setUser("scrummy@scrum-n-coke");
+        ds.setPassword("qwdluief3qvwt4o!");
+        ds.setServerName("scrum-n-coke.database.windows.net");
+        ds.setPortNumber(Integer.parseInt("1433"));
+        ds.setDatabaseName("scrum-n-coke-db");
+        try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             //remove any leftover table
             stmt.executeUpdate("if object_id('" + tableName + "','U') is not null" + " drop table " + tableName);
@@ -46,7 +45,13 @@ class AccountControllerTest {
     @AfterAll
     static void tearDown() {
         //remove table
-        try (Connection con = DriverManager.getConnection(connectionUrl);
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setUser("scrummy@scrum-n-coke");
+        ds.setPassword("qwdluief3qvwt4o!");
+        ds.setServerName("scrum-n-coke.database.windows.net");
+        ds.setPortNumber(Integer.parseInt("1433"));
+        ds.setDatabaseName("scrum-n-coke-db");
+        try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             String sql = "drop table " + tableName;
             //remove  table
