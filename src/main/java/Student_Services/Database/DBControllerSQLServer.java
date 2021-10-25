@@ -2,11 +2,9 @@ package Student_Services.Database;
 
 import Student_Services.User.Account;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * @author johnengh
@@ -26,16 +24,11 @@ public class DBControllerSQLServer extends DBController {
      * @return Account object filled with values from table if it exists, otherwise account filled with null values
      */
     public Account getAccount(String Username, String Table) {
-        SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setUser("scrummy@scrum-n-coke");
-        ds.setPassword("qwdluief3qvwt4o!");
-        ds.setServerName("scrum-n-coke.database.windows.net");
-        ds.setPortNumber(Integer.parseInt("1433"));
-        ds.setDatabaseName("scrum-n-coke-db");
-        try (Connection con = ds.getConnection();
-             Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
-            String query = String.format("SELECT * FROM %s WHERE username='%s';", Table, Username);
-            ResultSet rs = stmt.executeQuery(query);
+        try (Connection con = createConnection()) {
+            String query = "SELECT * FROM " + Table + " WHERE username= ?;";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1,Username);
+            ResultSet rs = pstmt.executeQuery();
             rs.next();
             return new Account(rs.getString(1), rs.getString(2));
         }
@@ -59,16 +52,12 @@ public class DBControllerSQLServer extends DBController {
         if (Username == null || Username.equals("") || Password == null || Password.equals("")) {
             return false;
         }
-        SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setUser("scrummy@scrum-n-coke");
-        ds.setPassword("qwdluief3qvwt4o!");
-        ds.setServerName("scrum-n-coke.database.windows.net");
-        ds.setPortNumber(Integer.parseInt("1433"));
-        ds.setDatabaseName("scrum-n-coke-db");
-        try (Connection con = ds.getConnection();
-             Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
-            String sql = String.format("insert into " + Table + " values('%s', '%s')", Username, Password);
-            stmt.execute(sql);
+        try (Connection con = createConnection()) {
+            String sql = "insert into " + Table + " values(?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, Username);
+            pstmt.setString(2, Password);
+            pstmt.execute();
             return true;
         } catch (SQLException e) {
             if (debug) {
@@ -76,6 +65,21 @@ public class DBControllerSQLServer extends DBController {
             }
             return false;
         }
+    }
+
+    /**
+     * Creates a new database connection for query
+     * @return new connection to the scrum-n-coke-db database
+     * @throws SQLServerException
+     */
+    private Connection createConnection() throws SQLServerException {
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setUser("scrummy@scrum-n-coke");
+        ds.setPassword("qwdluief3qvwt4o!");
+        ds.setServerName("scrum-n-coke.database.windows.net");
+        ds.setPortNumber(Integer.parseInt("1433"));
+        ds.setDatabaseName("scrum-n-coke-db");
+        return ds.getConnection();
     }
 
 }
