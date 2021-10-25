@@ -13,7 +13,7 @@
     String username = request.getParameter("username");
     String password = request.getParameter("password");
     if (AccountController.loginUser(username, password)){
-        response.sendRedirect("Well.jsp");
+        response.sendRedirect("StandIn.jsp");
         //session.setAttribute("test", test);
     }
 

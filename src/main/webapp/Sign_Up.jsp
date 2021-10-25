@@ -14,13 +14,16 @@
 <body>
 <div class="LoginBox">
     <h2>Sign Up</h2>
-    <form>
+    <form action="SignUp_action.jsp" method="post">
         <p>Email</p>
         <input type="text" name="username" placeholder="Enter CSBSJU domain email" required>
         <p>Password</p>
         <input type="password" name="password" placeholder="Enter Password" required>
         <p>Confirm Password</p>
-        <input type="password" placeholder="Confirm Password" required>
+        <input type="password" name="confirmPass" placeholder="Confirm Password" required>
+        <% if (request.getParameter("error") != null) {%>
+        <h3> <%= request.getParameter("error") %> </h3>
+        <% } %>
         <input type="submit" value="Create Account">
         <h3>Already have an account?</h3>
         <input type="button" value="Login" onclick="window.location='index.jsp'" >
