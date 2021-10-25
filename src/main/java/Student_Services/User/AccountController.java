@@ -34,8 +34,8 @@ public class AccountController {
         }
         return dbController.createAccount(username, password);
     }
+
     public static void setUserTable(String userTable) {
         dbController = new DBControllerSQLServer(userTable);
     }
-
 }
