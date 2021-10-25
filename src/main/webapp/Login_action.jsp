@@ -5,14 +5,14 @@
   Time: 12:01 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="Student_Services.Database.DBController" %>
+<%@ page import="Student_Services.Database.DBControllerSQLServer" %>
 <%@ page import="Student_Services.User.Account" %>
-<%@ page import="Student_Services.User.LoginController" %>
+<%@ page import="Student_Services.User.AccountController" %>
 
 <%
     String username = request.getParameter("username");
     String password = request.getParameter("password");
-    if (LoginController.loginUser(username, password)){
+    if (AccountController.loginUser(username, password)){
         response.sendRedirect("Well.jsp");
         //session.setAttribute("test", test);
     }

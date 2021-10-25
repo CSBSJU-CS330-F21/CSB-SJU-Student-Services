@@ -6,7 +6,7 @@ import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoginControllerTest {
+class AccountControllerTest {
     private static final String connectionUrl =
             "jdbc:sqlserver://scrum-coke.database.windows.net:1433;"
                     + "database=Student Services Database;"
@@ -60,31 +60,31 @@ class LoginControllerTest {
 
     @Test
     void testLoginUserSuccessful() {
-        assertTrue(LoginController.loginUser("test1", "test1"));
-        assertTrue(LoginController.loginUser("test2", "test2"));
-        assertTrue(LoginController.loginUser("test3", "test3"));
-        assertTrue(LoginController.loginUser("test4", "test4"));
-        assertTrue(LoginController.loginUser("test5", "test5"));
-        assertTrue(LoginController.loginUser("test6", "test6"));
+        assertTrue(AccountController.loginUser("test1", "test1"));
+        assertTrue(AccountController.loginUser("test2", "test2"));
+        assertTrue(AccountController.loginUser("test3", "test3"));
+        assertTrue(AccountController.loginUser("test4", "test4"));
+        assertTrue(AccountController.loginUser("test5", "test5"));
+        assertTrue(AccountController.loginUser("test6", "test6"));
     }
 
     @Test
     void testLoginUserPassFail() {
-        assertFalse(LoginController.loginUser("test1", "fail"));
-        assertFalse(LoginController.loginUser("test2", "fail"));
-        assertFalse(LoginController.loginUser("test3", "fail"));
-        assertFalse(LoginController.loginUser("test4", "fail"));
-        assertFalse(LoginController.loginUser("test5", "fail"));
-        assertFalse(LoginController.loginUser("test6", "fail"));
+        assertFalse(AccountController.loginUser("test1", "fail"));
+        assertFalse(AccountController.loginUser("test2", "fail"));
+        assertFalse(AccountController.loginUser("test3", "fail"));
+        assertFalse(AccountController.loginUser("test4", "fail"));
+        assertFalse(AccountController.loginUser("test5", "fail"));
+        assertFalse(AccountController.loginUser("test6", "fail"));
     }
 
     @Test
     void testLoginUserUsernameFail() {
-        assertFalse(LoginController.loginUser("fail1", "test1"));
-        assertFalse(LoginController.loginUser("fail2", "test2"));
-        assertFalse(LoginController.loginUser("fail3", "test3"));
-        assertFalse(LoginController.loginUser("fail4", "test4"));
-        assertFalse(LoginController.loginUser("fail5", "test5"));
-        assertFalse(LoginController.loginUser("fail6", "test6"));
+        assertFalse(AccountController.loginUser("fail1", "test1"));
+        assertFalse(AccountController.loginUser("fail2", "test2"));
+        assertFalse(AccountController.loginUser("fail3", "test3"));
+        assertFalse(AccountController.loginUser("fail4", "test4"));
+        assertFalse(AccountController.loginUser("fail5", "test5"));
+        assertFalse(AccountController.loginUser("fail6", "test6"));
     }
 }

@@ -1,6 +1,7 @@
 package Student_Services.Database;
 
 import Student_Services.User.Account;
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -8,31 +9,29 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-class DBControllerTest {
-    private static final String connectionUrl =
-            "jdbc:sqlserver://scrum-coke.database.windows.net:1433;"
-                    + "database=Student Services Database;"
-                    + "user=developer@scrum-coke;"
-                    + "password=Charge-Operator-Bush-Pupil-6;"
-                    + "encrypt=true;"
-                    + "trustServerCertificate=false;"
-                    + "loginTimeout=30;";
+class DBControllerSQLServerTest {
+
     private static final String tableName = "dbTestTable";
+    protected static DBControllerSQLServer controller = new DBControllerSQLServer(tableName);
 
     @BeforeAll
     static void setUp() {
-        // add table with dummy info
-        try (Connection con = DriverManager.getConnection(connectionUrl);
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setUser("developer@scrum-coke");
+        ds.setPassword("Charge-Operator-Bush-Pupil-6");
+        ds.setServerName("scrum-coke.database.windows.net");
+        ds.setPortNumber(Integer.parseInt("1433"));
+        ds.setDatabaseName("Student Services Database");
+        try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             //remove any leftover table
             stmt.executeUpdate("if object_id('" + tableName + "','U') is not null" + " drop table " + tableName);
 
-            String sql = "create table " + tableName + " (" + "username nvarchar(max) NOT NULL," + "user_password nvarchar(max) NOT NULL " + ");";
+            String sql = "create table " + tableName + " (" + "username nvarchar," + "user_password nvarchar " + ");";
 
             stmt.execute(sql);
 
@@ -53,7 +52,7 @@ class DBControllerTest {
     public void testGetUserSuccessful() {
         String userinfo = "test1";
         Account testAccount1 = new Account(userinfo, userinfo);
-        Account retrievedAccount1 = DBController.getAccount(userinfo, tableName);
+        Account retrievedAccount1 = controller.getAccount(userinfo, tableName);
         assertEquals(testAccount1, retrievedAccount1);
     }
 
@@ -61,7 +60,7 @@ class DBControllerTest {
     public void testGetUserFail() {
         String userinfo = "failure";
         Account nullAccount = new Account(null, null);
-        Account retrievedAccount1 = DBController.getAccount(userinfo, tableName);
+        Account retrievedAccount1 = controller.getAccount(userinfo, tableName);
         assertEquals(nullAccount, retrievedAccount1);
     }
 
@@ -69,27 +68,33 @@ class DBControllerTest {
     public void testCreateAccountSuccessful() {
         String Userinfo = "create_test";
         Account createAccount1 = new Account(Userinfo, Userinfo);
-        assertTrue(DBController.createAccount(Userinfo, Userinfo, tableName));
-        Account retrievedAccount1 = DBController.getAccount(Userinfo, tableName);
+        assertTrue(controller.createAccount(Userinfo, Userinfo, tableName));
+        Account retrievedAccount1 = controller.getAccount(Userinfo, tableName);
         assertEquals(createAccount1, retrievedAccount1);
     }
 
     @Test
     public void testCreateAccountFail() {
         String Userinfo = "create_test_fail";
-        assertFalse(DBController.createAccount(Userinfo, "", tableName));
-        assertFalse(DBController.createAccount(Userinfo, null, tableName));
-        assertFalse(DBController.createAccount("", Userinfo, tableName));
-        assertFalse(DBController.createAccount(null, Userinfo, tableName));
-        assertFalse(DBController.createAccount("", "", tableName));
-        assertFalse(DBController.createAccount(null, null, tableName));
+        assertFalse(controller.createAccount(Userinfo, "", tableName));
+        assertFalse(controller.createAccount(Userinfo, null, tableName));
+        assertFalse(controller.createAccount("", Userinfo, tableName));
+        assertFalse(controller.createAccount(null, Userinfo, tableName));
+        assertFalse(controller.createAccount("", "", tableName));
+        assertFalse(controller.createAccount(null, null, tableName));
         //TODO add checks for usernames w/ spaces
     }
 
     @AfterAll
     static void tearDown() {
         //remove table
-        try (Connection con = DriverManager.getConnection(connectionUrl);
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setUser("developer@scrum-coke");
+        ds.setPassword("Charge-Operator-Bush-Pupil-6");
+        ds.setServerName("scrum-coke.database.windows.net");
+        ds.setPortNumber(Integer.parseInt("1433"));
+        ds.setDatabaseName("Student Services Database");
+        try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             String sql = "drop table " + tableName;
             //remove  table
