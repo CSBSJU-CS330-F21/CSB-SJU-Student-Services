@@ -1,6 +1,10 @@
 package Student_Services.Database;
 
 import Student_Services.User.Account;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class DBControllerSQLite extends DBController{
     public DBControllerSQLite(String tableName) {

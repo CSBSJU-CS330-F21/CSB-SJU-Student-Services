@@ -29,16 +29,17 @@ class DBControllerSQLServerTest {
         try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             //remove any leftover table
-            stmt.executeUpdate("if object_id('" + tableName + "','U') is not null" + " drop table " + tableName);
+            stmt.addBatch("if object_id('" + tableName + "','U') is not null" + " drop table " + tableName);
 
             String sql = "create table " + tableName + " (" + "username nvarchar(max)," + "user_password nvarchar(max) " + ");";
 
-            stmt.execute(sql);
+            stmt.addBatch(sql);
 
             for (int i = 1; i <= 20; i++) {
                 String sql_ins = "insert into " + tableName + " values('test" + i + "', 'test" + i + "')";
-                stmt.execute(sql_ins);
+                stmt.addBatch(sql_ins);
             }
+            stmt.executeBatch();
 
 
         }
