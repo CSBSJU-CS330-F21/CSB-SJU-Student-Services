@@ -21,17 +21,17 @@ class DBControllerSQLServerTest {
     @BeforeAll
     static void setUp() {
         SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setUser("developer@scrum-coke");
-        ds.setPassword("Charge-Operator-Bush-Pupil-6");
-        ds.setServerName("scrum-coke.database.windows.net");
+        ds.setUser("scrummy@scrum-n-coke");
+        ds.setPassword("qwdluief3qvwt4o!");
+        ds.setServerName("scrum-n-coke.database.windows.net");
         ds.setPortNumber(Integer.parseInt("1433"));
-        ds.setDatabaseName("Student Services Database");
+        ds.setDatabaseName("scrum-n-coke-db");
         try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             //remove any leftover table
             stmt.executeUpdate("if object_id('" + tableName + "','U') is not null" + " drop table " + tableName);
 
-            String sql = "create table " + tableName + " (" + "username nvarchar," + "user_password nvarchar " + ");";
+            String sql = "create table " + tableName + " (" + "username nvarchar(max)," + "user_password nvarchar(max) " + ");";
 
             stmt.execute(sql);
 
@@ -89,11 +89,11 @@ class DBControllerSQLServerTest {
     static void tearDown() {
         //remove table
         SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setUser("developer@scrum-coke");
-        ds.setPassword("Charge-Operator-Bush-Pupil-6");
-        ds.setServerName("scrum-coke.database.windows.net");
+        ds.setUser("scrummy@scrum-n-coke");
+        ds.setPassword("qwdluief3qvwt4o!");
+        ds.setServerName("scrum-n-coke.database.windows.net");
         ds.setPortNumber(Integer.parseInt("1433"));
-        ds.setDatabaseName("Student Services Database");
+        ds.setDatabaseName("scrum-n-coke-db");
         try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             String sql = "drop table " + tableName;

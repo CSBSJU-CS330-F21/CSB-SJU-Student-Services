@@ -26,11 +26,11 @@ public class DBControllerSQLServer extends DBController {
      */
     public Account getAccount(String Username, String Table) {
         SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setUser("developer@scrum-coke");
-        ds.setPassword("Charge-Operator-Bush-Pupil-6");
-        ds.setServerName("scrum-coke.database.windows.net");
+        ds.setUser("scrummy@scrum-n-coke");
+        ds.setPassword("qwdluief3qvwt4o!");
+        ds.setServerName("scrum-n-coke.database.windows.net");
         ds.setPortNumber(Integer.parseInt("1433"));
-        ds.setDatabaseName("Student Services Database");
+        ds.setDatabaseName("scrum-n-coke-db");
         try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             String query = String.format("SELECT * FROM %s WHERE username='%s';", Table, Username);
@@ -57,11 +57,11 @@ public class DBControllerSQLServer extends DBController {
             return false;
         }
         SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setUser("developer@scrum-coke");
-        ds.setPassword("Charge-Operator-Bush-Pupil-6");
-        ds.setServerName("scrum-coke.database.windows.net");
+        ds.setUser("scrummy@scrum-n-coke");
+        ds.setPassword("qwdluief3qvwt4o!");
+        ds.setServerName("scrum-n-coke.database.windows.net");
         ds.setPortNumber(Integer.parseInt("1433"));
-        ds.setDatabaseName("Student Services Database");
+        ds.setDatabaseName("scrum-n-coke-db");
         try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             String sql = String.format("insert into " + Table + " values('%s', '%s')", Username, Password);
