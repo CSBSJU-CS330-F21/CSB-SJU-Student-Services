@@ -22,7 +22,8 @@ class AccountControllerTest {
         try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             //remove any leftover table
-            stmt.executeUpdate("if object_id('" + tableName + "','U') is not null drop table " + tableName);
+            //stmt.executeUpdate("if object_id('" + tableName + "','U') is not null drop table " + tableName);
+            stmt.executeUpdate("drop table if exists " + tableName);
 
             String sql = "create table " + tableName + " (username nvarchar(max) NOT NULL, user_password nvarchar(max) NOT NULL);";
 
@@ -56,7 +57,7 @@ class AccountControllerTest {
         ds.setDatabaseName("scrum-n-coke-db");
         try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
-            String sql = "drop table " + tableName;
+            String sql = "drop table if exists " + tableName;
             //remove  table
             stmt.execute(sql);
         }
