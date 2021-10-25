@@ -31,11 +31,4 @@ public class AccountController {
     public static boolean createUser(String username, String password) {
         return dbController.createAccount(username, password);
     }
-    public static boolean passwordChecker(String pass) {
-        if (pass.length() <= 7 || !pass.matches(".*\\d.*")) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 }
