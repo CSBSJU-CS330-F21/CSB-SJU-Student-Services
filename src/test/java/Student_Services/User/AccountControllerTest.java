@@ -22,17 +22,20 @@ class AccountControllerTest {
         try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             //remove any leftover table
-            stmt.executeUpdate("if object_id('" + tableName + "','U') is not null" + " drop table " + tableName);
+            //stmt.executeUpdate("if object_id('" + tableName + "','U') is not null drop table " + tableName);
+            stmt.executeUpdate("drop table if exists " + tableName);
 
-            String sql = "create table " + tableName + " (" + "username nvarchar(max) NOT NULL," + "user_password nvarchar(max) NOT NULL " + ");";
+            String sql = "create table " + tableName + " (username nvarchar(max) NOT NULL, user_password nvarchar(max) NOT NULL);";
 
-            stmt.addBatch(sql);
+            stmt.executeUpdate(sql);
+            PreparedStatement addUserRow = con.prepareStatement("insert into " + tableName + " values(?, ?)");
 
             for (int i = 1; i <= 20; i++) {
-                String sql_ins = "insert into " + tableName + " values('test" + i + "@csbsju.edu" + "', 'test" + i + "')";
-                stmt.addBatch(sql_ins);
+                addUserRow.setString(1, "test" + i + "@csbsju.edu");
+                addUserRow.setString(2, "test" + i);
+                addUserRow.addBatch();
             }
-            stmt.executeBatch();
+            addUserRow.executeBatch();
 
 
         }
@@ -54,7 +57,7 @@ class AccountControllerTest {
         ds.setDatabaseName("scrum-n-coke-db");
         try (Connection con = ds.getConnection();
              Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
-            String sql = "drop table " + tableName;
+            String sql = "drop table if exists " + tableName;
             //remove  table
             stmt.execute(sql);
         }
@@ -110,12 +113,29 @@ class AccountControllerTest {
     }
 
     @Test
-    void testCreateUserFail() {
+    void testCreateUserFailBadDomain() {
         assertFalse(AccountController.createUser("createTest1@umn.edu", "test1"));
         assertFalse(AccountController.createUser("createTest2@gmail.com", "test2"));
         assertFalse(AccountController.createUser("createTest3", "test3"));
         assertFalse(AccountController.createUser("createTest4@", "test4"));
         assertFalse(AccountController.createUser("createTest5@yahoo.com", "test5"));
         assertFalse(AccountController.createUser("createTest6@csp.edu", "test6"));
+        //TODO add checks for usernames w/ spaces
+    }
+
+    @Test
+    void testCreateUserFailSpaces() {
+        assertFalse(AccountController.createUser("space test1", "test1"));
+        assertFalse(AccountController.createUser(" spaceTest2", "test1"));
+        assertFalse(AccountController.createUser(" spaceTest3 ", "test1"));
+        assertFalse(AccountController.createUser("spaceTest3 ", "test1"));
+    }
+
+    @Test
+    void testCreateUserFailSemicolon() {
+        assertFalse(AccountController.createUser("semicolon;test1", "test1"));
+        assertFalse(AccountController.createUser(";semicolonTest2;", "test1"));
+        assertFalse(AccountController.createUser(";semicolonTest3;", "test1"));
+        assertFalse(AccountController.createUser("semicolonTest4;", "test1"));
     }
 }

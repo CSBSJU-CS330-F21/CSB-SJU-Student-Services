@@ -1,8 +1,11 @@
 package Student_Services.User;
+
+import java.util.Objects;
+
 public class Account {
 
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
 
     /**
      *
@@ -30,20 +33,20 @@ public class Account {
         if (this.getClass() != o.getClass())
             return false;
         Account account = (Account) o;
-        if (account.getUsername() == this.getUsername() && account.getPassword() == this.getPassword()) {
+        if (Objects.equals(account.getUsername(), this.getUsername()) && Objects.equals(account.getPassword(), this.getPassword())) {
             return true;
         }
         return  (this.getUsername().equals(account.getUsername()) && this.getPassword().equals(account.getPassword()));
 
     }
 
+
+    public String toString() {
+        return "username: " + this.getUsername() + "\npassword: " + this.getPassword();
+    }
+
     public boolean DomainCheck(String username) {
-        if (username.endsWith("csbsju.edu")) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return username.endsWith("csbsju.edu");
 
 
     }
