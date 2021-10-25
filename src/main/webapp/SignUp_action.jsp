@@ -24,7 +24,5 @@
     }
     else{
         response.sendRedirect("Sign_Up.jsp?error=Please enter a valid username and password");
-
     }
-
 %>

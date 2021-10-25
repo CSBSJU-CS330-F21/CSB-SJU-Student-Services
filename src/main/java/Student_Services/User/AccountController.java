@@ -36,7 +36,6 @@ public class AccountController {
             return false;
         } else {
             return true;
-
         }
     }
 }
