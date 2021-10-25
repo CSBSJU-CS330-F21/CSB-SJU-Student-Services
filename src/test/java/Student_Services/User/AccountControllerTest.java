@@ -30,7 +30,7 @@ class AccountControllerTest {
             stmt.execute(sql);
 
             for (int i = 1; i <= 20; i++) {
-                String sql_ins = "insert into " + tableName + " values('test" + i + "', 'test" + i + "')";
+                String sql_ins = "insert into " + tableName + " values('test" + i + "@csbsju.edu" + "', 'test" + i + "')";
                 stmt.execute(sql_ins);
             }
 
@@ -66,31 +66,56 @@ class AccountControllerTest {
 
     @Test
     void testLoginUserSuccessful() {
-        assertTrue(AccountController.loginUser("test1", "test1"));
-        assertTrue(AccountController.loginUser("test2", "test2"));
-        assertTrue(AccountController.loginUser("test3", "test3"));
-        assertTrue(AccountController.loginUser("test4", "test4"));
-        assertTrue(AccountController.loginUser("test5", "test5"));
-        assertTrue(AccountController.loginUser("test6", "test6"));
+        assertTrue(AccountController.loginUser("test1@csbsju.edu", "test1"));
+        assertTrue(AccountController.loginUser("test2@csbsju.edu", "test2"));
+        assertTrue(AccountController.loginUser("test3@csbsju.edu", "test3"));
+        assertTrue(AccountController.loginUser("test4@csbsju.edu", "test4"));
+        assertTrue(AccountController.loginUser("test5@csbsju.edu", "test5"));
+        assertTrue(AccountController.loginUser("test6@csbsju.edu", "test6"));
     }
 
     @Test
     void testLoginUserPassFail() {
-        assertFalse(AccountController.loginUser("test1", "fail"));
-        assertFalse(AccountController.loginUser("test2", "fail"));
-        assertFalse(AccountController.loginUser("test3", "fail"));
-        assertFalse(AccountController.loginUser("test4", "fail"));
-        assertFalse(AccountController.loginUser("test5", "fail"));
-        assertFalse(AccountController.loginUser("test6", "fail"));
+        assertFalse(AccountController.loginUser("test1@csbsju.edu", "fail"));
+        assertFalse(AccountController.loginUser("test2@csbsju.edu", "fail"));
+        assertFalse(AccountController.loginUser("test3@csbsju.edu", "fail"));
+        assertFalse(AccountController.loginUser("test4@csbsju.edu", "fail"));
+        assertFalse(AccountController.loginUser("test5@csbsju.edu", "fail"));
+        assertFalse(AccountController.loginUser("test6@csbsju.edu", "fail"));
     }
 
     @Test
     void testLoginUserUsernameFail() {
-        assertFalse(AccountController.loginUser("fail1", "test1"));
-        assertFalse(AccountController.loginUser("fail2", "test2"));
-        assertFalse(AccountController.loginUser("fail3", "test3"));
-        assertFalse(AccountController.loginUser("fail4", "test4"));
-        assertFalse(AccountController.loginUser("fail5", "test5"));
-        assertFalse(AccountController.loginUser("fail6", "test6"));
+        assertFalse(AccountController.loginUser("fail1@csbsju.edu", "test1"));
+        assertFalse(AccountController.loginUser("fail2@csbsju.edu", "test2"));
+        assertFalse(AccountController.loginUser("fail3@csbsju.edu", "test3"));
+        assertFalse(AccountController.loginUser("fail4@csbsju.edu", "test4"));
+        assertFalse(AccountController.loginUser("fail5@csbsju.edu", "test5"));
+        assertFalse(AccountController.loginUser("fail6@csbsju.edu", "test6"));
+    }
+    @Test
+    void testLoginUserUsernameDomainFail() {
+        assertFalse(AccountController.loginUser("domainTest1@umn.edu", "test1"));
+        assertFalse(AccountController.loginUser("domainTest2@gmail.com", "test2"));
+        assertFalse(AccountController.loginUser("domainTest3", "test3"));
+        assertFalse(AccountController.loginUser("domainTest4@", "test4"));
+        assertFalse(AccountController.loginUser("domainTest5@yahoo.com", "test5"));
+        assertFalse(AccountController.loginUser("domainTest6@csp.edu", "test6"));
+    }
+
+    @Test
+    void testCreateUserSuccessful() {
+        assertTrue(AccountController.createUser("createTest1@csbsju.edu", "test1"));
+        assertTrue(AccountController.createUser("createTest2@csbsju.edu", "test2"));
+    }
+
+    @Test
+    void testCreateUserFail() {
+        assertFalse(AccountController.createUser("createTest1@umn.edu", "test1"));
+        assertFalse(AccountController.createUser("createTest2@gmail.com", "test2"));
+        assertFalse(AccountController.createUser("createTest3", "test3"));
+        assertFalse(AccountController.createUser("createTest4@", "test4"));
+        assertFalse(AccountController.createUser("createTest5@yahoo.com", "test5"));
+        assertFalse(AccountController.createUser("createTest6@csp.edu", "test6"));
     }
 }
