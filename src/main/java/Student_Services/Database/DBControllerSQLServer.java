@@ -12,11 +12,10 @@ import java.sql.Statement;
  * @author johnengh
  * The database Controller is the go between for the SQL database and the java
  */
-public class DBControllerSQLServer implements DBController{
-    private final String tableName;
+public class DBControllerSQLServer extends DBController {
 
     public DBControllerSQLServer(String tableName) {
-        this.tableName = tableName;
+        super(tableName);
     }
 
     /**
@@ -48,14 +47,6 @@ public class DBControllerSQLServer implements DBController{
     }
 
     /**
-     * @param Username username of account to retrieve
-     * @return Account object filled with values from table if it exists, otherwise account filled with null values
-     */
-    public Account getAccount(String Username) {
-        return getAccount(Username, tableName);
-    }
-
-    /**
      * @param Username Username to use for new account
      * @param Password password to use for new account
      * @param Table table to insert user into
@@ -79,15 +70,6 @@ public class DBControllerSQLServer implements DBController{
         } catch (SQLException e) {
             return false;
         }
-    }
-
-    /**
-     * @param Username Username to use for new account
-     * @param Password password to use for new account
-     * @return account object with specified values
-     */
-    public boolean createAccount(String Username, String Password) {
-        return createAccount(Username, Password, tableName);
     }
 
 }
