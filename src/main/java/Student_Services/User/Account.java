@@ -36,4 +36,15 @@ public class Account {
         return  (this.getUsername().equals(account.getUsername()) && this.getPassword().equals(account.getPassword()));
 
     }
+
+    public boolean DomainCheck(String username) {
+        if (username.endsWith("csbsju.edu")) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+
+    }
 }
