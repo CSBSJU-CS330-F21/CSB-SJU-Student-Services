@@ -40,7 +40,7 @@ public class DBControllerSQLServer extends DBController {
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             return new Account(null, null);
         }
 
