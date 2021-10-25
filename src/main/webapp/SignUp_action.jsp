@@ -15,6 +15,9 @@
     if (!confirm.equals(password)) {
         response.sendRedirect("Sign_Up.jsp?error=The passwords do not match!");
     }
+    else if (!AccountController.passwordChecker(password)) {
+        response.sendRedirect("Sign_Up.jsp?error=Password must be at least 8 characters long and have at least one digit");
+    }
     else if (AccountController.createUser(username, password)){
         response.sendRedirect("StandIn.jsp");
         //session.setAttribute("test", test);
