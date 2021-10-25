@@ -29,7 +29,7 @@ public class AccountController {
      * @return returns true if account was successfully created
      */
     public static boolean createUser(String username, String password) {
-        if (!(username.endsWith("@csbsju.edu"))) {
+        if (!(username.endsWith("@csbsju.edu")) || username.contains(" ") || username.contains(";")) {
             return false;
         }
         return dbController.createAccount(username, password);

@@ -1,34 +1,27 @@
 package Student_Services.Database;
 
 import Student_Services.User.Account;
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.sqlite.SQLiteDataSource;
+import org.junit.jupiter.api.*;
 
 import java.sql.*;
 
-class DBControllerSQLServerTest {
+import static org.junit.jupiter.api.Assertions.*;
 
+class DBControllerSQLiteTest {
     private static final String tableName = "dbTestTable";
-    protected static DBControllerSQLServer controller = new DBControllerSQLServer(tableName);
+    protected static DBControllerSQLite controller = new DBControllerSQLite(tableName);
 
     @BeforeAll
     static void setUp() {
-        SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setUser("scrummy@scrum-n-coke");
-        ds.setPassword("qwdluief3qvwt4o!");
-        ds.setServerName("scrum-n-coke.database.windows.net");
-        ds.setPortNumber(Integer.parseInt("1433"));
-        ds.setDatabaseName("scrum-n-coke-db");
+        SQLiteDataSource ds = new SQLiteDataSource();
+        ds.setUrl("jdbc:sqlite:../db.sqlite");
         try (Connection con = ds.getConnection();
-             Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
-            //remove any leftover table
-            stmt.executeUpdate("if object_id('" + tableName + "','U') is not null" + " drop table " + tableName);
+             Statement stmt = con.createStatement()) {
+//            remove any leftover table
+            stmt.executeUpdate("drop table if exists " + tableName);
 
-            String sql = "create table " + tableName + " (" + "username nvarchar(max)," + "user_password nvarchar(max) " + ");";
+            String sql = "create table " + tableName + " (username nvarchar, user_password nvarchar);";
 
             stmt.executeUpdate(sql);
 
@@ -49,26 +42,21 @@ class DBControllerSQLServerTest {
         }
     }
 
-    @AfterAll
-    static void tearDown() {
-        //remove table
-        SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setUser("scrummy@scrum-n-coke");
-        ds.setPassword("qwdluief3qvwt4o!");
-        ds.setServerName("scrum-n-coke.database.windows.net");
-        ds.setPortNumber(Integer.parseInt("1433"));
-        ds.setDatabaseName("scrum-n-coke-db");
-        try (Connection con = ds.getConnection();
-             Statement stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
-            String sql = "drop table " + tableName;
-            //remove  table
-            stmt.execute(sql);
-        }
-        // Handle any errors that may have occurred.
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    @AfterAll
+//    static void tearDown() {
+//        SQLiteDataSource ds = new SQLiteDataSource();
+//        ds.setDatabaseName("db.sqlite");
+//        try (Connection con = ds.getConnection();
+//             Statement stmt = con.createStatement()) {
+//            String sql = "drop table if exists " + tableName;
+//            //remove  table
+//            stmt.execute(sql);
+//        }
+//        // Handle any errors that may have occurred.
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Test
     public void testGetUserSuccessful() {
@@ -91,9 +79,9 @@ class DBControllerSQLServerTest {
     public void testCreateAccountSuccessful() {
         String Userinfo = "create_test";
         Account createAccount1 = new Account(Userinfo, Userinfo);
-        assertTrue(controller.createAccount(Userinfo, Userinfo, tableName), "Couldn't create account");
+        assertTrue(controller.createAccount(Userinfo, Userinfo, tableName));
         Account retrievedAccount1 = controller.getAccount(Userinfo, tableName);
-        assertEquals(createAccount1, retrievedAccount1, "Account did not match expected account");
+        assertEquals(createAccount1, retrievedAccount1);
     }
 
     @Test
