@@ -8,7 +8,7 @@ import java.sql.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountControllerTest {
-    private static final String tableName = "test";
+    private static final String tableName = "AccTestTable";
     //TODO Login controller uses main table instead of test table
 
     @BeforeAll
@@ -40,6 +40,7 @@ class AccountControllerTest {
         catch (SQLException e) {
             e.printStackTrace();
         }
+        AccountController.setUserTable(tableName);
     }
 
     @AfterAll
