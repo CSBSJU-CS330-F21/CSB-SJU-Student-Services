@@ -1,6 +1,7 @@
 package Student_Services.Database;
 
 import Student_Services.User.Account;
+import Student_Services.User.AccountFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,10 +28,10 @@ public abstract class DBController {
             pstmt.setString(1, Username);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return new Account(rs.getString(1), rs.getString(2));
+                return AccountFactory.newAccount(rs.getString(1), rs.getString(2));
             }
             else {
-                return new Account(null, null);
+                return AccountFactory.newAccount(null, null);
             }
 
         }
@@ -45,7 +46,7 @@ public abstract class DBController {
 
 
     /**
-     * creates new account from provided paramters
+     * creates new account from provided parameters
      * username and password must not be null or empty strings
      * @param Username Username to use for new account
      * @param Password password to use for new account

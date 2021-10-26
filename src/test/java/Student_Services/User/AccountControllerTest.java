@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class AccountControllerTest {
     private static final String tableName = "AccTestTable";
 
@@ -66,7 +66,7 @@ class AccountControllerTest {
     }
 
     @Test
-    void testLoginUserSuccessful() {
+    void test_Login_User_Successful() {
         assertTrue(AccountController.loginUser("test1@csbsju.edu", "test1"));
         assertTrue(AccountController.loginUser("test2@csbsju.edu", "test2"));
         assertTrue(AccountController.loginUser("test3@csbsju.edu", "test3"));
@@ -76,7 +76,7 @@ class AccountControllerTest {
     }
 
     @Test
-    void testLoginUserPassFail() {
+    void test_Login_User_Pass_Fail() {
         assertFalse(AccountController.loginUser("test1@csbsju.edu", "fail"));
         assertFalse(AccountController.loginUser("test2@csbsju.edu", "fail"));
         assertFalse(AccountController.loginUser("test3@csbsju.edu", "fail"));
@@ -86,7 +86,7 @@ class AccountControllerTest {
     }
 
     @Test
-    void testLoginUserUsernameFail() {
+    void test_Login_User_Username_Fail() {
         assertFalse(AccountController.loginUser("fail1@csbsju.edu", "test1"));
         assertFalse(AccountController.loginUser("fail2@csbsju.edu", "test2"));
         assertFalse(AccountController.loginUser("fail3@csbsju.edu", "test3"));
@@ -95,7 +95,7 @@ class AccountControllerTest {
         assertFalse(AccountController.loginUser("fail6@csbsju.edu", "test6"));
     }
     @Test
-    void testLoginUserUsernameDomainFail() {
+    void test_Login_User_Username_Domain_Fail() {
         assertFalse(AccountController.loginUser("domainTest1@umn.edu", "test1"));
         assertFalse(AccountController.loginUser("domainTest2@gmail.com", "test2"));
         assertFalse(AccountController.loginUser("domainTest3", "test3"));
@@ -105,13 +105,13 @@ class AccountControllerTest {
     }
 
     @Test
-    void testCreateUserSuccessful() {
-        assertTrue(AccountController.createUser("createTest1@csbsju.edu", "test1"));
-        assertTrue(AccountController.createUser("createTest2@csbsju.edu", "test2"));
+    void test_Create_User_Successful() {
+        assertTrue(AccountController.createUser("createTest1@csbsju.edu", "test12345678"));
+        assertTrue(AccountController.createUser("createTest2@csbsju.edu", "test22345690"));
     }
 
     @Test
-    void testCreateUserFailBadDomain() {
+    void test_Create_User_Fail_Bad_Domain() {
         assertFalse(AccountController.createUser("createTest1@umn.edu", "test1"));
         assertFalse(AccountController.createUser("createTest2@gmail.com", "test2"));
         assertFalse(AccountController.createUser("createTest3", "test3"));
@@ -122,7 +122,7 @@ class AccountControllerTest {
     }
 
     @Test
-    void testCreateUserFailSpaces() {
+    void test_Create_User_Fail_Spaces() {
         assertFalse(AccountController.createUser("space test1", "test1"));
         assertFalse(AccountController.createUser(" spaceTest2", "test1"));
         assertFalse(AccountController.createUser(" spaceTest3 ", "test1"));
@@ -130,10 +130,37 @@ class AccountControllerTest {
     }
 
     @Test
-    void testCreateUserFailSemicolon() {
+    void test_Create_User_Fail_Semicolon() {
         assertFalse(AccountController.createUser("semicolon;test1", "test1"));
         assertFalse(AccountController.createUser(";semicolonTest2;", "test1"));
         assertFalse(AccountController.createUser(";semicolonTest3;", "test1"));
         assertFalse(AccountController.createUser("semicolonTest4;", "test1"));
+    }
+
+    @Test
+    void test_Password_Checker_Good() {
+        assertTrue(AccountController.passwordChecker("12345678"));
+        assertTrue(AccountController.passwordChecker("qwertyuiop"));
+        assertTrue(AccountController.passwordChecker("ghvarvnai;wo"));
+        assertTrue(AccountController.passwordChecker("nusrte@vwaberytwve"));
+        assertTrue(AccountController.passwordChecker("aaaaaaaa"));
+        assertTrue(AccountController.passwordChecker("5432*^&12345678"));
+        assertTrue(AccountController.passwordChecker("qwert^(#%yuiop"));
+        assertTrue(AccountController.passwordChecker("ghvar}{:vnai;wo"));
+        assertTrue(AccountController.passwordChecker("nusrt|:{_*e@vwaberytwve"));
+        assertTrue(AccountController.passwordChecker("aaaaaaaaaaaäaaa"));
+    }
+
+    @Test
+    void test_Password_Checker_Bad() {
+        assertFalse(AccountController.passwordChecker("aaaaaaa"));
+        assertFalse(AccountController.passwordChecker(""));
+        assertFalse(AccountController.passwordChecker("1"));
+        assertFalse(AccountController.passwordChecker("12"));
+        assertFalse(AccountController.passwordChecker("123"));
+        assertFalse(AccountController.passwordChecker("1234"));
+        assertFalse(AccountController.passwordChecker("12345"));
+        assertFalse(AccountController.passwordChecker("123456"));
+        assertFalse(AccountController.passwordChecker("1234567"));
     }
 }

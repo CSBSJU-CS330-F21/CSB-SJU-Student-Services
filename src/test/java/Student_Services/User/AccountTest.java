@@ -1,29 +1,28 @@
 package Student_Services.User;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class AccountTest {
     @Test
-    public void testGetUsername() {
-        Account testAccount1 = new Account("test", "test");
-        assertTrue(testAccount1.getUsername().equals("test"));
-        Account testAccount2 = new Account("1", "test");
-        assertTrue(testAccount2.getUsername().equals("1"));
-        Account testAccount3 = new Account("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf", "test");
-        assertTrue(testAccount3.getUsername().equals("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf"));
+    public void test_Get_Username() {
+        Account testAccount1 = new realAccount("test", "test");
+        assertEquals("test", testAccount1.getUsername());
+        Account testAccount2 = new realAccount("1", "test");
+        assertEquals("1", testAccount2.getUsername());
+        Account testAccount3 = new realAccount("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf", "test");
+        assertEquals("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf", testAccount3.getUsername());
     }
     @Test
-    public void testGetPassword() {
-        Account testAccount1 = new Account("test", "test");
-        assertTrue(testAccount1.getPassword().equals("test"));
-        Account testAccount2 = new Account("test", "1");
-        assertTrue(testAccount2.getPassword().equals("1"));
-        Account testAccount3 = new Account("test", "sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf");
-        assertTrue(testAccount3.getPassword().equals("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf"));
+    public void test_Get_Password() {
+        Account testAccount1 = new realAccount("test", "test");
+        assertEquals("test", testAccount1.getPassword());
+        Account testAccount2 = new realAccount("test", "1");
+        assertEquals("1", testAccount2.getPassword());
+        Account testAccount3 = new realAccount("test", "sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf");
+        assertEquals("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf", testAccount3.getPassword());
     }
 
 }
