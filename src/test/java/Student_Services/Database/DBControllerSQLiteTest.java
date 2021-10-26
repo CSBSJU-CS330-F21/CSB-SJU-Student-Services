@@ -63,7 +63,7 @@ class DBControllerSQLiteTest {
         String userinfo = "test1@csbsju.edu";
         String userpass = "test1";
         Account testAccount1 = new Account(userinfo, userpass);
-        Account retrievedAccount1 = controller.getAccount(userinfo, tableName);
+        Account retrievedAccount1 = controller.getAccount(userinfo);
         assertEquals(testAccount1, retrievedAccount1);
     }
 
@@ -71,7 +71,7 @@ class DBControllerSQLiteTest {
     public void testGetUserFail() {
         String userinfo = "failure";
         Account nullAccount = new Account(null, null);
-        Account retrievedAccount1 = controller.getAccount(userinfo, tableName);
+        Account retrievedAccount1 = controller.getAccount(userinfo);
         assertEquals(nullAccount, retrievedAccount1);
     }
 
@@ -79,19 +79,19 @@ class DBControllerSQLiteTest {
     public void testCreateAccountSuccessful() {
         String Userinfo = "create_test";
         Account createAccount1 = new Account(Userinfo, Userinfo);
-        assertTrue(controller.createAccount(Userinfo, Userinfo, tableName));
-        Account retrievedAccount1 = controller.getAccount(Userinfo, tableName);
+        assertTrue(controller.createAccount(Userinfo, Userinfo));
+        Account retrievedAccount1 = controller.getAccount(Userinfo);
         assertEquals(createAccount1, retrievedAccount1);
     }
 
     @Test
     public void testCreateAccountFail() {
         String Userinfo = "create_test_fail";
-        assertFalse(controller.createAccount(Userinfo, "", tableName));
-        assertFalse(controller.createAccount(Userinfo, null, tableName));
-        assertFalse(controller.createAccount("", Userinfo, tableName));
-        assertFalse(controller.createAccount(null, Userinfo, tableName));
-        assertFalse(controller.createAccount("", "", tableName));
-        assertFalse(controller.createAccount(null, null, tableName));
+        assertFalse(controller.createAccount(Userinfo, ""));
+        assertFalse(controller.createAccount(Userinfo, null));
+        assertFalse(controller.createAccount("", Userinfo));
+        assertFalse(controller.createAccount(null, Userinfo));
+        assertFalse(controller.createAccount("", ""));
+        assertFalse(controller.createAccount(null, null));
     }
 }
