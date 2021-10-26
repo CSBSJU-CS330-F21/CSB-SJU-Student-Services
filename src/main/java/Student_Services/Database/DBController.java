@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public abstract class DBController {
     protected final String tableName;
-    private final boolean debug = false;
+    private final boolean debug = true;
 
     public DBController(String tableName) {
         this.tableName = tableName;
@@ -27,16 +27,20 @@ public abstract class DBController {
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, Username);
             ResultSet rs = pstmt.executeQuery();
-            rs.next();
-            con.close();
-            return new Account(rs.getString(1), rs.getString(2));
+            if (rs.next()) {
+                return new Account(rs.getString(1), rs.getString(2));
+            }
+            else {
+                return new Account(null, null);
+            }
+
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
             if (debug) {
                 e.printStackTrace();
             }
-            return new Account(null, null);
+            return null;
         }
     }
 
@@ -62,7 +66,6 @@ public abstract class DBController {
             pstmt.setString(1, Username);
             pstmt.setString(2, Password);
             pstmt.execute();
-            con.close();
             return true;
         } catch (SQLException e) {
             if (debug) {
