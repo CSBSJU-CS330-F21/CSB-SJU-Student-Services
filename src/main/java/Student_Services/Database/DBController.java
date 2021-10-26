@@ -28,6 +28,7 @@ public abstract class DBController {
             pstmt.setString(1, Username);
             ResultSet rs = pstmt.executeQuery();
             rs.next();
+            con.close();
             return new Account(rs.getString(1), rs.getString(2));
         }
         // Handle any errors that may have occurred.
@@ -61,6 +62,7 @@ public abstract class DBController {
             pstmt.setString(1, Username);
             pstmt.setString(2, Password);
             pstmt.execute();
+            con.close();
             return true;
         } catch (SQLException e) {
             if (debug) {

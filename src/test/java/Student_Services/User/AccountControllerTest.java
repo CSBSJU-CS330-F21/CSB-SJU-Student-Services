@@ -36,8 +36,6 @@ class AccountControllerTest {
                 addUserRow.addBatch();
             }
             addUserRow.executeBatch();
-
-
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
