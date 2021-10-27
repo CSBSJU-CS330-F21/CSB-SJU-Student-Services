@@ -2,6 +2,9 @@ package Student_Services.User;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.sql.*;
 
@@ -30,7 +33,7 @@ class AccountControllerTest {
             stmt.executeUpdate(sql);
             PreparedStatement addUserRow = con.prepareStatement("insert into " + tableName + " values(?, ?)");
 
-            for (int i = 1; i <= 20; i++) {
+            for (int i = 0; i < 5; i++) {
                 addUserRow.setString(1, "test" + i + "@csbsju.edu");
                 addUserRow.setString(2, "test" + i);
                 addUserRow.addBatch();
@@ -65,102 +68,123 @@ class AccountControllerTest {
         }
     }
 
-    @Test
-    void test_Login_User_Successful() {
-        assertTrue(AccountController.loginUser("test1@csbsju.edu", "test1"));
-        assertTrue(AccountController.loginUser("test2@csbsju.edu", "test2"));
-        assertTrue(AccountController.loginUser("test3@csbsju.edu", "test3"));
-        assertTrue(AccountController.loginUser("test4@csbsju.edu", "test4"));
-        assertTrue(AccountController.loginUser("test5@csbsju.edu", "test5"));
-        assertTrue(AccountController.loginUser("test6@csbsju.edu", "test6"));
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "test0@csbsju.edu,test0",
+            "test1@csbsju.edu,test1",
+            "test2@csbsju.edu,test2",
+            "test3@csbsju.edu,test3",
+            "test4@csbsju.edu,test4"
+    })
+    void test_Login_User_Successful(String username, String pass) {
+        assertTrue(AccountController.loginUser(username, pass));
     }
 
-    @Test
-    void test_Login_User_Pass_Fail() {
-        assertFalse(AccountController.loginUser("test1@csbsju.edu", "fail"));
-        assertFalse(AccountController.loginUser("test2@csbsju.edu", "fail"));
-        assertFalse(AccountController.loginUser("test3@csbsju.edu", "fail"));
-        assertFalse(AccountController.loginUser("test4@csbsju.edu", "fail"));
-        assertFalse(AccountController.loginUser("test5@csbsju.edu", "fail"));
-        assertFalse(AccountController.loginUser("test6@csbsju.edu", "fail"));
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "test0@csbsju.edu,fail",
+            "test1@csbsju.edu,''",
+            "test2@csbsju.edu,failed",
+            "test3@csbsju.edu,fa547il",
+            "test4@csbsju.edu,fa654347536il"
+    })
+    void test_Login_User_Pass_Fail(String username, String pass) {
+        assertFalse(AccountController.loginUser(username, pass));
     }
 
-    @Test
-    void test_Login_User_Username_Fail() {
-        assertFalse(AccountController.loginUser("fail1@csbsju.edu", "test1"));
-        assertFalse(AccountController.loginUser("fail2@csbsju.edu", "test2"));
-        assertFalse(AccountController.loginUser("fail3@csbsju.edu", "test3"));
-        assertFalse(AccountController.loginUser("fail4@csbsju.edu", "test4"));
-        assertFalse(AccountController.loginUser("fail5@csbsju.edu", "test5"));
-        assertFalse(AccountController.loginUser("fail6@csbsju.edu", "test6"));
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "fail1@csbsju.edu,test1",
+            "2@csbsju.edu,test2",
+            "@csbsju.edu,test3",
+            "faidfgshdghsdfl4@csbsju.edu,test4"
+    })
+    void test_Login_User_Username_Fail(String username, String pass) {
+        assertFalse(AccountController.loginUser(username, pass));
     }
-    @Test
-    void test_Login_User_Username_Domain_Fail() {
-        assertFalse(AccountController.loginUser("domainTest1@umn.edu", "test1"));
-        assertFalse(AccountController.loginUser("domainTest2@gmail.com", "test2"));
-        assertFalse(AccountController.loginUser("domainTest3", "test3"));
-        assertFalse(AccountController.loginUser("domainTest4@", "test4"));
-        assertFalse(AccountController.loginUser("domainTest5@yahoo.com", "test5"));
-        assertFalse(AccountController.loginUser("domainTest6@csp.edu", "test6"));
-    }
-
-    @Test
-    void test_Create_User_Successful() {
-        assertTrue(AccountController.createUser("createTest1@csbsju.edu", "test12345678"));
-        assertTrue(AccountController.createUser("createTest2@csbsju.edu", "test22345690"));
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "domainTest1@umn.edu,test1",
+            "domainTest2@csbsju.edu@gmail.com,test2",
+            "domainTest3,test3",
+            "domainTest4@,test4",
+            "domainTest6@csp.edu@csbsju.edu,test6"
+    })
+    void test_Login_User_Username_Domain_Fail(String username, String pass) {
+        assertFalse(AccountController.loginUser(username, pass));
     }
 
-    @Test
-    void test_Create_User_Fail_Bad_Domain() {
-        assertFalse(AccountController.createUser("createTest1@umn.edu", "test1"));
-        assertFalse(AccountController.createUser("createTest2@gmail.com", "test2"));
-        assertFalse(AccountController.createUser("createTest3", "test3"));
-        assertFalse(AccountController.createUser("createTest4@", "test4"));
-        assertFalse(AccountController.createUser("createTest5@yahoo.com", "test5"));
-        assertFalse(AccountController.createUser("createTest6@csp.edu", "test6"));
-        //TODO add checks for usernames w/ spaces
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "createTest1@csbsju.edu,test12345678",
+            "createTest2@csbsju.edu,test22345690"
+    })
+    void test_Create_User_Successful(String username, String pass) {
+        assertTrue(AccountController.createUser(username, pass));
     }
 
-    @Test
-    void test_Create_User_Fail_Spaces() {
-        assertFalse(AccountController.createUser("space test1", "test1"));
-        assertFalse(AccountController.createUser(" spaceTest2", "test1"));
-        assertFalse(AccountController.createUser(" spaceTest3 ", "test1"));
-        assertFalse(AccountController.createUser("spaceTest3 ", "test1"));
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "createTest1@umn.edu,test123456789",
+            "createTest2@gmail.com,test4567890",
+            "createTest3,test423567890",
+            "createTest4@,test9876543",
+            "createTest5@yahoo.com,test5432643758"
+    })
+    void test_Create_User_Fail_Bad_Domain(String username, String pass) {
+        assertFalse(AccountController.createUser(username, pass));
     }
 
-    @Test
-    void test_Create_User_Fail_Semicolon() {
-        assertFalse(AccountController.createUser("semicolon;test1", "test1"));
-        assertFalse(AccountController.createUser(";semicolonTest2;", "test1"));
-        assertFalse(AccountController.createUser(";semicolonTest3;", "test1"));
-        assertFalse(AccountController.createUser("semicolonTest4;", "test1"));
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "space test1,test42356",
+            " spaceTest2,test63685",
+            " spaceTest3 ,test574286",
+            "spaceTest4 ,test634089"
+    })
+    void test_Create_User_Fail_Spaces(String username, String pass) {
+        assertFalse(AccountController.createUser(username, pass));
     }
 
-    @Test
-    void test_Password_Checker_Good() {
-        assertTrue(AccountController.passwordChecker("12345678"));
-        assertTrue(AccountController.passwordChecker("qwertyuiop"));
-        assertTrue(AccountController.passwordChecker("ghvarvnai;wo"));
-        assertTrue(AccountController.passwordChecker("nusrte@vwaberytwve"));
-        assertTrue(AccountController.passwordChecker("aaaaaaaa"));
-        assertTrue(AccountController.passwordChecker("5432*^&12345678"));
-        assertTrue(AccountController.passwordChecker("qwert^(#%yuiop"));
-        assertTrue(AccountController.passwordChecker("ghvar}{:vnai;wo"));
-        assertTrue(AccountController.passwordChecker("nusrt|:{_*e@vwaberytwve"));
-        assertTrue(AccountController.passwordChecker("aaaaaaaaaaaäaaa"));
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "semicolon;test1,test63425",
+            ";semicolonTest2;,test85476",
+            "semicolonTest4;,test3462"
+    })
+    void test_Create_User_Fail_Semicolon(String username, String pass) {
+        assertFalse(AccountController.createUser(username, pass));
     }
 
-    @Test
-    void test_Password_Checker_Bad() {
-        assertFalse(AccountController.passwordChecker("aaaaaaa"));
-        assertFalse(AccountController.passwordChecker(""));
-        assertFalse(AccountController.passwordChecker("1"));
-        assertFalse(AccountController.passwordChecker("12"));
-        assertFalse(AccountController.passwordChecker("123"));
-        assertFalse(AccountController.passwordChecker("1234"));
-        assertFalse(AccountController.passwordChecker("12345"));
-        assertFalse(AccountController.passwordChecker("123456"));
-        assertFalse(AccountController.passwordChecker("1234567"));
+    @ParameterizedTest(name="[{index}] pass: {0}")
+    @ValueSource(strings = {
+            "12345678",
+            "qwertyuiop",
+            "ghvarvnai;wo",
+            "nusrte@vwaberytwve",
+            "aaaaaaaa",
+            "5432*^&12345678",
+            "qwert^(#%yuiop",
+            "nusrt|:{_*e@vwaberytwve",
+            "aaaaaaaaaaaäaaa"
+    })
+    void test_Password_Checker_Good(String pass) {
+        assertTrue(AccountController.passwordChecker(pass));
+    }
+
+    @ParameterizedTest(name="[{index}] pass: {0}")
+    @ValueSource(strings = {
+            "",
+            "aaaaaaa",
+            "1",
+            "12",
+            "123",
+            "1234",
+            "12345",
+            "123456",
+            "1234567"
+    })
+    void test_Password_Checker_Bad(String pass) {
+        assertFalse(AccountController.passwordChecker(pass));
     }
 }

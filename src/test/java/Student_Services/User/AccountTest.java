@@ -4,25 +4,30 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class AccountTest {
-    @Test
-    public void test_Get_Username() {
-        Account testAccount1 = new realAccount("test", "test");
-        assertEquals("test", testAccount1.getUsername());
-        Account testAccount2 = new realAccount("1", "test");
-        assertEquals("1", testAccount2.getUsername());
-        Account testAccount3 = new realAccount("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf", "test");
-        assertEquals("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf", testAccount3.getUsername());
+    @ParameterizedTest
+    @CsvSource({
+            "test, test",
+            "1, test",
+            "sdfaghsassghjdhgjfdsf, test"
+    })
+    public void test_Get_Username(String username, String pass) {
+        Account testAccount = new realAccount(username, pass);
+        assertEquals(username, testAccount.getUsername());
     }
-    @Test
-    public void test_Get_Password() {
-        Account testAccount1 = new realAccount("test", "test");
-        assertEquals("test", testAccount1.getPassword());
-        Account testAccount2 = new realAccount("test", "1");
-        assertEquals("1", testAccount2.getPassword());
-        Account testAccount3 = new realAccount("test", "sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf");
-        assertEquals("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf", testAccount3.getPassword());
+    @ParameterizedTest
+    @CsvSource({
+            "test, test",
+            "test, 1",
+            "test, sdfaghsassghjdhgjfdsf"
+    })
+    public void test_Get_Password(String username, String pass) {
+        Account testAccount = new realAccount(username, pass);
+        assertEquals(pass, testAccount.getPassword());
     }
 
 }

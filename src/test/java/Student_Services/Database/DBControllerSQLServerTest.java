@@ -6,6 +6,8 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -97,15 +99,17 @@ class DBControllerSQLServerTest {
         assertEquals(createAccount1, retrievedAccount1, "Account did not match expected account");
     }
 
-    @Test
-    public void test_Create_Account_Fail() {
-        String Userinfo = "create_test_fail";
-        assertFalse(controller.createAccount(Userinfo, ""));
-        assertFalse(controller.createAccount(Userinfo, null));
-        assertFalse(controller.createAccount("", Userinfo));
-        assertFalse(controller.createAccount(null, Userinfo));
-        assertFalse(controller.createAccount("", ""));
-        assertFalse(controller.createAccount(null, null));
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "create_test_fail,''",
+            "create_test_fail,",
+            "'',create_test_fail",
+            ",create_test_fail",
+            "'',''",
+            ","
+    })
+    public void test_Create_Account_Fail(String username, String pass) {
+        assertFalse(controller.createAccount(username, pass));
     }
 
     @Test

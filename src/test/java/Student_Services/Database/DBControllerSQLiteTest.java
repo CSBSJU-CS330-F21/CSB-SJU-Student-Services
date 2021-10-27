@@ -2,6 +2,8 @@ package Student_Services.Database;
 
 import Student_Services.User.Account;
 import Student_Services.User.AccountFactory;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.sqlite.SQLiteDataSource;
 import org.junit.jupiter.api.*;
 
@@ -85,14 +87,24 @@ class DBControllerSQLiteTest {
         assertEquals(createAccount1, retrievedAccount1);
     }
 
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "create_test_fail,''",
+            "create_test_fail,",
+            "'',create_test_fail",
+            ",create_test_fail",
+            "'',''",
+            ","
+    })
+    public void test_Create_Account_Fail(String username, String pass) {
+        assertFalse(controller.createAccount(username, pass));
+    }
+
     @Test
-    public void test_Create_Account_Fail() {
+    public void test_Create_Duplicate_Account_Fail() {
+        assertFalse(controller.createAccount("test1@csbsju.edu", "test168745"));
         String Userinfo = "create_test_fail";
-        assertFalse(controller.createAccount(Userinfo, ""));
-        assertFalse(controller.createAccount(Userinfo, null));
-        assertFalse(controller.createAccount("", Userinfo));
-        assertFalse(controller.createAccount(null, Userinfo));
-        assertFalse(controller.createAccount("", ""));
-        assertFalse(controller.createAccount(null, null));
+        assertTrue(controller.createAccount(Userinfo, Userinfo));
+        assertFalse(controller.createAccount(Userinfo, Userinfo));
     }
 }
