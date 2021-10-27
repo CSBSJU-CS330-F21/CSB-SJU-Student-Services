@@ -2,29 +2,17 @@ package Student_Services.User;
 
 import java.util.Objects;
 
-public class Account {
+public abstract class Account {
 
-    private final String username;
-    private final String password;
+    protected String username;
+    protected String password;
 
-    /**
-     *
-     * @author John Engh
-     * @param username username field of database
-     * @param password password field of database
-     */
-    public Account(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 
-    public String getUsername() {
-        return username;
-    }
+    public abstract String getUsername();
 
-    public String getPassword() {
-        return password;
-    }
+    public abstract String getPassword();
+
+    public abstract boolean getIsNull();
 
     @Override
     public boolean equals(Object o) {
@@ -40,14 +28,8 @@ public class Account {
 
     }
 
+    @Override
+    public abstract String toString();
 
-    public String toString() {
-        return "username: " + this.getUsername() + "\npassword: " + this.getPassword();
-    }
-
-    public boolean DomainCheck(String username) {
-        return username.endsWith("csbsju.edu");
-
-
-    }
+    public abstract boolean DomainCheck();
 }

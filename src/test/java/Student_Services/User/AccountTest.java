@@ -1,29 +1,33 @@
 package Student_Services.User;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class AccountTest {
-    @Test
-    public void testGetUsername() {
-        Account testAccount1 = new Account("test", "test");
-        assertTrue(testAccount1.getUsername().equals("test"));
-        Account testAccount2 = new Account("1", "test");
-        assertTrue(testAccount2.getUsername().equals("1"));
-        Account testAccount3 = new Account("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf", "test");
-        assertTrue(testAccount3.getUsername().equals("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf"));
+    @ParameterizedTest
+    @CsvSource({
+            "test, test",
+            "1, test",
+            "sdfaghsassghjdhgjfdsf, test"
+    })
+    public void test_Get_Username(String username, String pass) {
+        Account testAccount = new realAccount(username, pass);
+        assertEquals(username, testAccount.getUsername());
     }
-    @Test
-    public void testGetPassword() {
-        Account testAccount1 = new Account("test", "test");
-        assertTrue(testAccount1.getPassword().equals("test"));
-        Account testAccount2 = new Account("test", "1");
-        assertTrue(testAccount2.getPassword().equals("1"));
-        Account testAccount3 = new Account("test", "sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf");
-        assertTrue(testAccount3.getPassword().equals("sdfaghjdfdsadghsfjhgfdsghgsfjdhsassghjdhgjfdsf"));
+    @ParameterizedTest
+    @CsvSource({
+            "test, test",
+            "test, 1",
+            "test, sdfaghsassghjdhgjfdsf"
+    })
+    public void test_Get_Password(String username, String pass) {
+        Account testAccount = new realAccount(username, pass);
+        assertEquals(pass, testAccount.getPassword());
     }
 
 }

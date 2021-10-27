@@ -16,10 +16,14 @@ public class AccountController {
      */
     public static boolean loginUser(String username, String password) {
         Account loginAccount = dbController.getAccount(username);
-        if (loginAccount.getUsername() == null || loginAccount.getPassword() == null) {
+        if (loginAccount.getIsNull()) {
             return false;
         }
         return (loginAccount.getUsername().equals(username)) && (loginAccount.getPassword().equals(password));
+    }
+
+    public static Account getAccount(String username) {
+        return dbController.getAccount(username);
     }
 
     /**
@@ -29,10 +33,18 @@ public class AccountController {
      * @return returns true if account was successfully created
      */
     public static boolean createUser(String username, String password) {
-        if (!(username.endsWith("@csbsju.edu")) || username.contains(" ") || username.contains(";")) {
+        if (!(usernameChecker(username) && passwordChecker(password))) {
             return false;
         }
         return dbController.createAccount(username, password);
+    }
+
+    public static boolean usernameChecker(String username) {
+        return (username.matches("^[a-zA-Z0-9+_.-]+@csbsju.edu$"));
+    }
+
+    public static boolean passwordChecker(String password) {
+        return (password.length() > 7);
     }
 
     public static void setUserTable(String userTable) {

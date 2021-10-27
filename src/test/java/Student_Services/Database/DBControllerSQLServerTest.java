@@ -1,10 +1,13 @@
 package Student_Services.Database;
 
 import Student_Services.User.Account;
+import Student_Services.User.AccountFactory;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -71,44 +74,46 @@ class DBControllerSQLServerTest {
     }
 
     @Test
-    public void testGetUserSuccessful() {
+    public void test_Get_User_Successful() {
         String userinfo = "test1@csbsju.edu";
         String userpass = "test1";
-        Account testAccount1 = new Account(userinfo, userpass);
+        Account testAccount1 = AccountFactory.newAccount(userinfo, userpass);
         Account retrievedAccount1 = controller.getAccount(userinfo);
         assertEquals(testAccount1, retrievedAccount1);
     }
 
     @Test
-    public void testGetUserFail() {
+    public void test_Get_User_Fail() {
         String userinfo = "failure";
-        Account nullAccount = new Account(null, null);
+        Account nullAccount = AccountFactory.newAccount(null, null);
         Account retrievedAccount1 = controller.getAccount(userinfo);
         assertEquals(nullAccount, retrievedAccount1);
     }
 
     @Test
-    public void testCreateAccountSuccessful() {
+    public void test_Create_Account_Successful() {
         String Userinfo = "create_test";
-        Account createAccount1 = new Account(Userinfo, Userinfo);
+        Account createAccount1 = AccountFactory.newAccount(Userinfo, Userinfo);
         assertTrue(controller.createAccount(Userinfo, Userinfo), "Couldn't create account");
         Account retrievedAccount1 = controller.getAccount(Userinfo);
         assertEquals(createAccount1, retrievedAccount1, "Account did not match expected account");
     }
 
-    @Test
-    public void testCreateAccountFail() {
-        String Userinfo = "create_test_fail";
-        assertFalse(controller.createAccount(Userinfo, ""));
-        assertFalse(controller.createAccount(Userinfo, null));
-        assertFalse(controller.createAccount("", Userinfo));
-        assertFalse(controller.createAccount(null, Userinfo));
-        assertFalse(controller.createAccount("", ""));
-        assertFalse(controller.createAccount(null, null));
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "create_test_fail,''",
+            "create_test_fail,",
+            "'',create_test_fail",
+            ",create_test_fail",
+            "'',''",
+            ","
+    })
+    public void test_Create_Account_Fail(String username, String pass) {
+        assertFalse(controller.createAccount(username, pass));
     }
 
     @Test
-    public void testCreateDuplicateAccountFail() {
+    public void test_Create_Duplicate_Account_Fail() {
         assertFalse(controller.createAccount("test1@csbsju.edu", "test1"));
         String Userinfo = "create_test_fail";
         assertTrue(controller.createAccount(Userinfo, Userinfo));
