@@ -131,6 +131,7 @@ class AccountControllerTest {
             "createTest4@,test9876543",
             "createTest5@yahoo.com,test5432643758"
     })
+    @DisplayName("Check creating users that have usernames with bad domains")
     void test_Create_User_Fail_Bad_Domain(String username, String pass) {
         assertFalse(AccountController.createUser(username, pass));
     }
@@ -142,6 +143,7 @@ class AccountControllerTest {
             " spaceTest3 ,test574286",
             "spaceTest4 ,test634089"
     })
+    @DisplayName("Check creating users that have usernames with spaces")
     void test_Create_User_Fail_Spaces(String username, String pass) {
         assertFalse(AccountController.createUser(username, pass));
     }
@@ -152,6 +154,7 @@ class AccountControllerTest {
             ";semicolonTest2;,test85476",
             "semicolonTest4;,test3462"
     })
+    @DisplayName("check creating users that have usernames with semicolons")
     void test_Create_User_Fail_Semicolon(String username, String pass) {
         assertFalse(AccountController.createUser(username, pass));
     }
@@ -168,6 +171,7 @@ class AccountControllerTest {
             "nusrt|:{_*e@vwaberytwve",
             "aaaaaaaaaaaäaaa"
     })
+    @DisplayName("Check Valid passwords")
     void test_Password_Checker_Good(String pass) {
         assertTrue(AccountController.passwordChecker(pass));
     }
@@ -184,6 +188,7 @@ class AccountControllerTest {
             "123456",
             "1234567"
     })
+    @DisplayName("Check invalid passwords")
     void test_Password_Checker_Bad(String pass) {
         assertFalse(AccountController.passwordChecker(pass));
     }
