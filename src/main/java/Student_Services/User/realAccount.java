@@ -7,7 +7,7 @@ public class realAccount extends Account{
      * @param username username field of database
      * @param password password field of database
      */
-    public realAccount(String username, String password) {
+    protected realAccount(String username, String password) {
         this.username = username;
         this.password = password;
     }
