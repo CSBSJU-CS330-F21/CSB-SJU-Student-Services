@@ -6,6 +6,14 @@
 - users can create tags
 - add tasks to listing image
 
+## Tools used
+- Intellij Idea
+- Maven
+- Azure SQL Server
+- SQLite
+- JUnit 5
+- Github Workflows
+- Microsoft Teams
 ## Created by:
 Scrum and Coke team
 ## Members:
