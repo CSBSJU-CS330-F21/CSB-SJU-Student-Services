@@ -1,27 +1,18 @@
 package Student_Services.User;
-public class Account {
 
-    private String username;
-    private String password;
+import java.util.Objects;
 
-    /**
-     *
-     * @author John Engh
-     * @param username username field of database
-     * @param password password field of database
-     */
-    public Account(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+public abstract class Account {
 
-    public String getUsername() {
-        return username;
-    }
+    protected String username;
+    protected String password;
 
-    public String getPassword() {
-        return password;
-    }
+
+    public abstract String getUsername();
+
+    public abstract String getPassword();
+
+    public abstract boolean getIsNull();
 
     @Override
     public boolean equals(Object o) {
@@ -30,21 +21,15 @@ public class Account {
         if (this.getClass() != o.getClass())
             return false;
         Account account = (Account) o;
-        if (account.getUsername() == this.getUsername() && account.getPassword() == this.getPassword()) {
+        if (Objects.equals(account.getUsername(), this.getUsername()) && Objects.equals(account.getPassword(), this.getPassword())) {
             return true;
         }
         return  (this.getUsername().equals(account.getUsername()) && this.getPassword().equals(account.getPassword()));
 
     }
 
-    public boolean DomainCheck(String username) {
-        if (username.endsWith("csbsju.edu")) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    @Override
+    public abstract String toString();
 
-
-    }
+    public abstract boolean DomainCheck();
 }
