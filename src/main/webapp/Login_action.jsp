@@ -8,14 +8,17 @@
 <%@ page import="Student_Services.Database.DBControllerSQLServer" %>
 <%@ page import="Student_Services.User.Account" %>
 <%@ page import="Student_Services.User.AccountController" %>
+<%@ page import="Student_Services.Database.DBController" %>
 
 <%
     String username = request.getParameter("username");
     String password = request.getParameter("password");
     if (AccountController.loginUser(username, password)){
-        response.sendRedirect("StandIn.jsp");
-        //session.setAttribute("test", test);
-    }
+        DBController test = new DBControllerSQLServer("users");
+        Account acc = test.getAccount(username);
+        response.sendRedirect("Welcome.jsp");
+        session.setAttribute("account", acc);
+        }
 
     else{
             response.sendRedirect("index.jsp?error=Your username or password is incorrect, please try again");

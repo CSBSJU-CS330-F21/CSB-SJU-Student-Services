@@ -50,4 +50,11 @@ public class AccountController {
     public static void setUserTable(String userTable) {
         dbController = new DBControllerSQLServer(userTable);
     }
+    public static boolean passwordChecker(String pass) {
+        if (pass.length() <= 7 || !pass.matches(".*\\d.*")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
