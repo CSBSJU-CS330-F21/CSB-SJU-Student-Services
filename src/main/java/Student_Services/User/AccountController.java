@@ -22,6 +22,10 @@ public class AccountController {
         return (loginAccount.getUsername().equals(username)) && (loginAccount.getPassword().equals(password));
     }
 
+    /**
+     * @param username username of account to retrieve
+     * @return returns account object with given username
+     */
     public static Account getAccount(String username) {
         return dbController.getAccount(username);
     }
@@ -39,14 +43,27 @@ public class AccountController {
         return dbController.createAccount(username, password);
     }
 
+    /**
+     * @param username username to check
+     * @return true if username meets criteria
+     */
     public static boolean usernameChecker(String username) {
         return (username.matches("^[a-zA-Z0-9+_.-]+@csbsju.edu$"));
     }
 
+    /**
+     * Checks if password meets criteria
+     * @param password password to check
+     * @return returns true if password criteria is met, otherwise false
+     */
     public static boolean passwordChecker(String password) {
         return (password.length() > 7);
     }
 
+    /**
+     * Sets the table the database controller will use for user lookups
+     * @param userTable table to use as user table
+     */
     public static void setUserTable(String userTable) {
         dbController = new DBControllerSQLServer(userTable);
     }

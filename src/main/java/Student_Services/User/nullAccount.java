@@ -2,6 +2,8 @@ package Student_Services.User;
 
 public class nullAccount extends Account{
 
+    protected nullAccount() {}
+
     @Override
     public String getUsername() {
         return "null";
