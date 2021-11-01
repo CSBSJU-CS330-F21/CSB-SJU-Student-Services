@@ -25,7 +25,7 @@ public class realAccount extends Account{
         return false;
     }
 
-    public boolean DomainCheck() {
+    public boolean domainCheck() {
         return username.endsWith("csbsju.edu");
     }
 

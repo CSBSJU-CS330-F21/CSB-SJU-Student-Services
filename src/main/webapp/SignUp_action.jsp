@@ -16,13 +16,15 @@
         response.sendRedirect("Sign_Up.jsp?error=The passwords do not match!");
     }
     else if (!AccountController.passwordChecker(password)) {
-        response.sendRedirect("Sign_Up.jsp?error=Password must be at least 8 characters long and have at least one digit");
+        response.sendRedirect("Sign_Up.jsp?error=Password must be at least 8 characters long");
+    }
+    else if (!AccountController.usernameChecker(username)){
+        response.sendRedirect("Sign_Up.jsp?error=Only CSBSJU emails are allowed to sign up");
     }
     else if (AccountController.createUser(username, password)){
-        response.sendRedirect("index.jsp");
-        //session.setAttribute("test", test);
+        response.sendRedirect("index.jsp?error= Account Created, Sign In Now");
     }
     else{
-        response.sendRedirect("Sign_Up.jsp?error=Please enter a valid username and password");
+        response.sendRedirect("Sign_Up.jsp?error=Username already taken");
     }
 %>
