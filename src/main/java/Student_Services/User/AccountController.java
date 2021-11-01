@@ -37,9 +37,9 @@ public class AccountController {
      * @return returns true if account was successfully created
      */
     public static boolean createUser(String username, String password) {
-        if (!(usernameChecker(username) && passwordChecker(password))) {
-            return false;
-        }
+       // if (!(usernameChecker(username) && passwordChecker(password))) {
+      //      return false;
+    //    }
         return dbController.createAccount(username, password);
     }
 

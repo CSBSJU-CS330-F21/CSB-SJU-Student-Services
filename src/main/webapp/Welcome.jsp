@@ -10,6 +10,7 @@
 <head>
     <title>Welcome User</title>
     <link rel="stylesheet" type="text/css" href="welcome.css">
+
 </head>
 <%Account acc =  (Account) session.getAttribute("account"); %>
 <div class="bgimg">
@@ -19,9 +20,7 @@
         <h1>Welcome User <%=acc.getUsername()%></h1>
         <hr>
         <p>CSB|SJU Student Services</p>
-    </div>
-    <div class="bottomleft">
-        <p>User Page</p>
+        <a href="Logout.jsp" class="myButton">Logout</a>
     </div>
 </div>
 </html>

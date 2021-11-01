@@ -25,7 +25,7 @@ public class nullAccount extends Account{
     }
 
     @Override
-    public boolean DomainCheck() {
+    public boolean domainCheck() {
         return false;
     }
 }
