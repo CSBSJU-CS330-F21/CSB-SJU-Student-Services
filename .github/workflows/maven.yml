@@ -21,9 +21,7 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: 'maven'
-    - run: mvn --batch-mode --update-snapshots compile
-    - run: mvn --batch-mode surefire:test
-    - run: mvn --batch-mode war:exploded
+    - run: mvn --batch-mode --update-snapshots verify
     - run: mkdir staging && cp target/*.war staging
     - uses: actions/upload-artifact@v2
       with:
