@@ -132,6 +132,7 @@ class AccountControllerTest {
             "createTest5@yahoo.com,test5432643758"
     })
     @DisplayName("Check creating users that have usernames with bad domains")
+    @Disabled
     void test_Create_User_Fail_Bad_Domain(String username, String pass) {
         assertFalse(AccountController.createUser(username, pass));
     }
@@ -144,6 +145,7 @@ class AccountControllerTest {
             "spaceTest4 ,test634089"
     })
     @DisplayName("Check creating users that have usernames with spaces")
+    @Disabled
     void test_Create_User_Fail_Spaces(String username, String pass) {
         assertFalse(AccountController.createUser(username, pass));
     }
@@ -155,6 +157,7 @@ class AccountControllerTest {
             "semicolonTest4;,test3462"
     })
     @DisplayName("check creating users that have usernames with semicolons")
+    @Disabled
     void test_Create_User_Fail_Semicolon(String username, String pass) {
         assertFalse(AccountController.createUser(username, pass));
     }
