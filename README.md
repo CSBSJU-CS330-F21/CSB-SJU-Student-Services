@@ -11,7 +11,7 @@
 - Microsoft Teams
 ## Created by:
 Scrum and Coke team
-## Members:
+### Members:
 - Kayli Thulin @kaylithulin
 - Benjamin Murray @BMURRAY002
 - Dennis Dean @dennisd001 
