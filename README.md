@@ -1,10 +1,5 @@
 # CSB-SJU-Student-Services
 ## TODOs
-- split "add tags" story into three stories, add tags, view tags, and edit tags
-- split "view, edit, and delete products" into three stories, view products, edit products, and delete products
-- clarify difference between tags and categories
-- users can create tags
-- add tasks to listing image
 
 ## Tools used
 - Intellij Idea
