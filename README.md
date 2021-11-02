@@ -1,5 +1,7 @@
 # CSB-SJU-Student-Services
 ## TODOs
+-[ ] Create testing policy
+-[ ] add password critieria on sign up page
 
 ## Tools used
 - Intellij Idea
