@@ -4,7 +4,8 @@
 
 ## Group Policies
 - Pull requests must pass tests before they can be merged
-- update group member(s) that missed a standup on discussion 
+- update group member(s) that missed a standup on discussion
+- each method must include a javadoc
 ## Tools used
 - Intellij Idea
 - Maven
