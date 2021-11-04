@@ -4,6 +4,7 @@
 
 ## Group Policies
 - Pull requests must pass tests before they can be merged
+- update group member(s) that missed a standup on discussion 
 ## Tools used
 - Intellij Idea
 - Maven
