@@ -1,6 +1,9 @@
 # CSB-SJU-Student-Services
 ## TODOs
+- add password critieria on sign up page
 
+## Group Policies
+- Pull requests must pass tests before they can be merged
 ## Tools used
 - Intellij Idea
 - Maven
