@@ -6,6 +6,7 @@
 - Pull requests must pass tests before they can be merged
 - update group member(s) that missed a standup on discussion
 - each method must include a javadoc
+- If stuck, make sure to check in with the rest of the group
 ## Tools used
 - Intellij Idea
 - Maven
