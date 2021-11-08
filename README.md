@@ -7,7 +7,7 @@
 #### Fields
 - name/title
 - author/creator
-- descriptipon
+- description
 - image (add separately)
 - tags (add seperatly)
 - category (add seperately)
