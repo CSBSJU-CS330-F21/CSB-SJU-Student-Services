@@ -10,7 +10,6 @@ on:
       - 'doc/**'
       - 'README.md'
   pull_request:
-    branches: [ main ]
 
 jobs:
   build_and_test:
