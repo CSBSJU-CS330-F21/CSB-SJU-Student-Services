@@ -18,7 +18,7 @@
         <p>Email</p>
         <input type="text" name="username" placeholder="Enter CSBSJU domain email" required>
         <p>Password</p>
-        <input type="password" name="password" placeholder="Enter Password" required>
+        <input type="password" name="password" placeholder="Enter Password (Must be at least 8 characters)" minlength="8">
         <p>Confirm Password</p>
         <input type="password" name="confirmPass" placeholder="Confirm Password" required>
         <% if (request.getParameter("error") != null) {%>
