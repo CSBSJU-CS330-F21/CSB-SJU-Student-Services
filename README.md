@@ -1,6 +1,6 @@
 # CSB-SJU-Student-Services
 ## TODOs
-- add password critieria on sign up page
+
 
 ## Design
 ### Products
