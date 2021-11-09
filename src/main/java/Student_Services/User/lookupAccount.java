@@ -1,33 +1,29 @@
 package Student_Services.User;
 
-public class realAccount extends Account{
+public class lookupAccount extends Account{
     /**
      *
      * @author John Engh
      * @param username username field of database
      * @param password password field of database
      */
-    protected realAccount(String username, String password, String first, String last, int userID) {
+    protected lookupAccount(String username, String password) {
         this.username = username;
         this.password = password;
-        this.first_name = first;
-        this.last_name = last;
-        this.userID = userID;
     }
-
     @Override
     public String getFirst_name() {
-        return first_name;
+        return null;
     }
 
     @Override
     public String getLast_name() {
-        return last_name;
+        return null;
     }
 
     @Override
     public int getUserID() {
-        return userID;
+        return -1;
     }
 
     public String getUsername() {
@@ -45,7 +41,7 @@ public class realAccount extends Account{
 
     @Override
     public accountType getAccountType() {
-        return accountType.REAL;
+        return accountType.LOOKUP;
     }
 
     public boolean domainCheck() {

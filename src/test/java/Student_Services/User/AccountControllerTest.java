@@ -28,14 +28,22 @@ class AccountControllerTest {
             //stmt.executeUpdate("if object_id('" + tableName + "','U') is not null drop table " + tableName);
             stmt.executeUpdate("drop table if exists " + tableName);
 
-            String sql = "create table " + tableName + " (username nvarchar(max) NOT NULL, user_password nvarchar(max) NOT NULL);";
+            String sql = "create table " + tableName + " (" +
+                    "userID integer primary key identity," +
+                    "username nvarchar(max) not null ," +
+                    "user_password nvarchar(max) not null , " +
+                    "first_name nvarchar(max) null, " +
+                    "last_name nvarchar(max) null" +
+                    ")";
 
             stmt.executeUpdate(sql);
-            PreparedStatement addUserRow = con.prepareStatement("insert into " + tableName + " values(?, ?)");
+            PreparedStatement addUserRow = con.prepareStatement("insert into " + tableName + "(username, user_password, first_name, last_name) values(?, ?, ?, ?)");
 
             for (int i = 0; i < 5; i++) {
                 addUserRow.setString(1, "test" + i + "@csbsju.edu");
                 addUserRow.setString(2, "test" + i);
+                addUserRow.setString(3, "test" + i);
+                addUserRow.setString(4, "test" + i);
                 addUserRow.addBatch();
             }
             addUserRow.executeBatch();
@@ -121,6 +129,15 @@ class AccountControllerTest {
     })
     void test_Create_User_Successful(String username, String pass) {
         assertTrue(AccountController.createUser(username, pass));
+    }
+
+    @ParameterizedTest(name="[{index}] username: {0} password: {1}")
+    @CsvSource({
+            "createTest3@csbsju.edu,test12345678,test1,test1",
+            "createTest4@csbsju.edu,test22345690,test2,test2"
+    })
+    void test_Create_User_extended_Successful(String username, String pass, String first, String last) {
+        assertTrue(AccountController.createUser(username, pass, first, last));
     }
 
     @ParameterizedTest(name="[{index}] username: {0} password: {1}")

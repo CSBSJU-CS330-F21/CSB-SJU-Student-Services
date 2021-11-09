@@ -5,6 +5,21 @@ public class nullAccount extends Account{
     protected nullAccount() {}
 
     @Override
+    public String getFirst_name() {
+        return null;
+    }
+
+    @Override
+    public String getLast_name() {
+        return null;
+    }
+
+    @Override
+    public int getUserID() {
+        return 0;
+    }
+
+    @Override
     public String getUsername() {
         return "null";
     }
@@ -17,6 +32,11 @@ public class nullAccount extends Account{
     @Override
     public boolean getIsNull() {
         return true;
+    }
+
+    @Override
+    public accountType getAccountType() {
+        return accountType.NULL;
     }
 
     @Override

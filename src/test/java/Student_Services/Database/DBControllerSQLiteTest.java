@@ -24,15 +24,17 @@ class DBControllerSQLiteTest {
 //            remove any leftover table
             stmt.executeUpdate("drop table if exists " + tableName);
 
-            String sql = "create table " + tableName + " (username nvarchar, user_password nvarchar);";
+            String sql = "create table " + tableName + " (userID integer primary key autoincrement, username nvarchar, user_password nvarchar, first_name nvarchar, last_name nvarchar);";
 
             stmt.executeUpdate(sql);
 
-            PreparedStatement addUserRow = con.prepareStatement("insert into " + tableName + " values(?, ?)");
+            PreparedStatement addUserRow = con.prepareStatement("insert into " + tableName + "(username, user_password, first_name, last_name) values(?, ?, ?, ?)");
 
             for (int i = 1; i <= 20; i++) {
                 addUserRow.setString(1, "test" + i + "@csbsju.edu");
                 addUserRow.setString(2, "test" + i);
+                addUserRow.setString(3, "test" + i);
+                addUserRow.setString(4, "test" + i);
                 addUserRow.addBatch();
             }
             addUserRow.executeBatch();
