@@ -12,6 +12,11 @@ public abstract class Account {
     protected String first_name;
     protected String last_name;
     protected int userID;
+    /**
+     * returns the account type. either null, real, or lookup
+     * @return account type of account
+     */
+    public abstract accountType getAccountType();
 
     /**
      * returns first name of user
@@ -49,6 +54,12 @@ public abstract class Account {
      * @return null status of object
      */
     public abstract boolean getIsNull();
+
+    public enum accountType {
+        NULL,
+        LOOKUP,
+        REAL
+    }
 
     /**
      * compares username and password to check if two account objects are equal

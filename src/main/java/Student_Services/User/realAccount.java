@@ -43,6 +43,11 @@ public class realAccount extends Account{
         return false;
     }
 
+    @Override
+    public accountType getAccountType() {
+        return accountType.REAL;
+    }
+
     public boolean domainCheck() {
         return username.endsWith("csbsju.edu");
     }

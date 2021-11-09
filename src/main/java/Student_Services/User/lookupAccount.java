@@ -39,6 +39,11 @@ public class lookupAccount extends Account{
         return false;
     }
 
+    @Override
+    public accountType getAccountType() {
+        return accountType.LOOKUP;
+    }
+
     public boolean domainCheck() {
         return username.endsWith("csbsju.edu");
     }

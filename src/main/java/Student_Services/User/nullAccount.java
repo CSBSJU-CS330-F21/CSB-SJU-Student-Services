@@ -35,6 +35,11 @@ public class nullAccount extends Account{
     }
 
     @Override
+    public accountType getAccountType() {
+        return accountType.NULL;
+    }
+
+    @Override
     public String toString() {
         return "null Account";
     }

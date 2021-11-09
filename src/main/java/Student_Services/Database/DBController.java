@@ -50,7 +50,7 @@ public abstract class DBController {
      * username and password must not be null or empty strings
      * @param Username Username to use for new account
      * @param Password password to use for new account
-     * @return account object with specified values
+     * @return boolean with success of creation
      */
     public boolean createAccount(String Username, String Password) {
         if (Username == null || Username.equals("") || Password == null || Password.equals("") || accountExists(Username)) {
@@ -61,6 +61,34 @@ public abstract class DBController {
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, Username);
             pstmt.setString(2, Password);
+            pstmt.execute();
+            return true;
+        } catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
+
+    /**
+     * creates new account from provided parameters
+     * username and password must not be null or empty strings
+     * @param Username Username to use for new account
+     * @param Password password to use for new account
+     * @return boolean with success of creation
+     */
+    public boolean createAccount(String Username, String Password, String first, String last) {
+        if (Username == null || Username.equals("") || Password == null || Password.equals("") || accountExists(Username)) {
+            return false;
+        }
+        try (Connection con = createConnection()) {
+            String sql = "insert into " + tableName + "(username, user_password, first_name, last_name) values(?, ?, ?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, Username);
+            pstmt.setString(2, Password);
+            pstmt.setString(3,first);
+            pstmt.setString(4, last);
             pstmt.execute();
             return true;
         } catch (SQLException e) {

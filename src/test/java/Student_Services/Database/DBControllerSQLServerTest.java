@@ -41,11 +41,13 @@ class DBControllerSQLServerTest {
 
             stmt.executeUpdate(sql);
 
-            PreparedStatement addUserRow = con.prepareStatement("insert into " + tableName + "(username, user_password) values(?, ?)");
+            PreparedStatement addUserRow = con.prepareStatement("insert into " + tableName + "(username, user_password, first_name, last_name) values(?, ?, ?, ?)");
 
             for (int i = 1; i <= 5; i++) {
                 addUserRow.setString(1, "test" + i + "@csbsju.edu");
                 addUserRow.setString(2, "test" + i);
+                addUserRow.setString(3, "test" + i);
+                addUserRow.setString(4, "test" + i);
                 addUserRow.addBatch();
             }
             addUserRow.executeBatch();
