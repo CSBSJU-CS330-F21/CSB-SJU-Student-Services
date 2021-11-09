@@ -9,6 +9,27 @@ public abstract class Account {
 
     protected String username;
     protected String password;
+    protected String first_name;
+    protected String last_name;
+    protected int userID;
+
+    /**
+     * returns first name of user
+     * @return first name of user
+     */
+    public abstract String getFirst_name();
+
+    /**
+     * returns the last name of the user
+     * @return last name of user
+     */
+    public abstract String getLast_name();
+
+    /**
+     * returns userID assigned to account by the database
+     * @return userID set by database
+     */
+    public abstract int getUserID();
 
 
     /**
@@ -38,7 +59,7 @@ public abstract class Account {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (this.getClass() != o.getClass())
+        if (this.getClass().getGenericSuperclass() != o.getClass().getGenericSuperclass())
             return false;
         Account account = (Account) o;
         if (Objects.equals(account.getUsername(), this.getUsername()) && Objects.equals(account.getPassword(), this.getPassword())) {

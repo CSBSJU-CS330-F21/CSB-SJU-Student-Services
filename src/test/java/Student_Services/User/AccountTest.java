@@ -16,7 +16,7 @@ class AccountTest {
             "sdfaghsassghjdhgjfdsf, test"
     })
     public void test_Get_Username(String username, String pass) {
-        Account testAccount = new realAccount(username, pass);
+        Account testAccount = new lookupAccount(username, pass);
         assertEquals(username, testAccount.getUsername());
     }
     @ParameterizedTest
@@ -26,7 +26,7 @@ class AccountTest {
             "test, sdfaghsassghjdhgjfdsf"
     })
     public void test_Get_Password(String username, String pass) {
-        Account testAccount = new realAccount(username, pass);
+        Account testAccount = new lookupAccount(username, pass);
         assertEquals(pass, testAccount.getPassword());
     }
 

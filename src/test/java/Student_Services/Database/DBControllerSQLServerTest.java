@@ -31,11 +31,17 @@ class DBControllerSQLServerTest {
             //remove any leftover table
             stmt.executeUpdate("if object_id('" + tableName + "','U') is not null" + " drop table " + tableName);
 
-            String sql = "create table " + tableName + " (" + "username nvarchar(max)," + "user_password nvarchar(max) " + ");";
+            String sql = "create table " + tableName + " (" +
+                    "userID integer primary key identity," +
+                    "username nvarchar(max)," +
+                    "user_password nvarchar(max), " +
+                    "first_name nvarchar(max) null, " +
+                    "last_name nvarchar(max) null" +
+                    ")";
 
             stmt.executeUpdate(sql);
 
-            PreparedStatement addUserRow = con.prepareStatement("insert into " + tableName + " values(?, ?)");
+            PreparedStatement addUserRow = con.prepareStatement("insert into " + tableName + "(username, user_password) values(?, ?)");
 
             for (int i = 1; i <= 5; i++) {
                 addUserRow.setString(1, "test" + i + "@csbsju.edu");

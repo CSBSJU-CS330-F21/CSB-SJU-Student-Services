@@ -28,7 +28,7 @@ public abstract class DBController {
             pstmt.setString(1, Username);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return AccountFactory.newAccount(rs.getString(1), rs.getString(2));
+                return AccountFactory.newAccount(rs.getString("username"), rs.getString("user_password"), rs.getString("first_name"), rs.getString("last_name"), rs.getInt("userID"));
             }
             else {
                 return AccountFactory.newAccount(null, null);
@@ -75,7 +75,7 @@ public abstract class DBController {
             return false;
         }
         try (Connection con = createConnection()) {
-            String query = "SELECT * FROM " + tableName + " WHERE username= ?;";
+            String query = "SELECT username FROM " + tableName + " WHERE username= ?;";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, Username);
             ResultSet rs = pstmt.executeQuery();

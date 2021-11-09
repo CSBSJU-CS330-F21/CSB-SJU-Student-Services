@@ -14,7 +14,15 @@ public class AccountFactory {
             return new nullAccount();
         }
         else {
-            return new realAccount(username, password);
+            return new lookupAccount(username, password);
+        }
+    }
+    public static Account newAccount(String username, String password, String first, String last, int userID) {
+        if (username == null || password == null || userID < 1) {
+            return new nullAccount();
+        }
+        else {
+            return new realAccount(username, password, first, last, userID);
         }
     }
 }
