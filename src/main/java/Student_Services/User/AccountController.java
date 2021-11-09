@@ -16,7 +16,7 @@ public class AccountController {
      */
     public static boolean loginUser(String username, String password) {
         Account loginAccount = dbController.getAccount(username);
-        if (loginAccount.getIsNull()) {
+        if (loginAccount.getAccountType() == Account.accountType.NULL) {
             return false;
         }
         return (loginAccount.getUsername().equals(username)) && (loginAccount.getPassword().equals(password));
@@ -41,6 +41,21 @@ public class AccountController {
       //      return false;
     //    }
         return dbController.createAccount(username, password);
+    }
+
+    /**
+     * Method creates a new user account
+     * @param username username to assign to account
+     * @param password password to assign to account
+     * @param first first name to assign to account
+     * @param last last name to assign to account
+     * @return returns true if account was successfully created
+     */
+    public static boolean createUser(String username, String password, String first, String last) {
+        // if (!(usernameChecker(username) && passwordChecker(password))) {
+        //      return false;
+        //    }
+        return dbController.createAccount(username, password, first, last);
     }
 
     /**

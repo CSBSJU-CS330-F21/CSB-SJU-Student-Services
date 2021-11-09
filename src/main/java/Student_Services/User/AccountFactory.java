@@ -14,7 +14,24 @@ public class AccountFactory {
             return new nullAccount();
         }
         else {
-            return new realAccount(username, password);
+            return new lookupAccount(username, password);
+        }
+    }
+
+    /**
+     * @param username username to assign to account object
+     * @param password password to assign to account object
+     * @param first first name to assign to account object
+     * @param last last name to assign to account object
+     * @param userID userID to assign to account object, must be greater than 0
+     * @return account object with supplied paramters
+     */
+    public static Account newAccount(String username, String password, String first, String last, int userID) {
+        if (username == null || password == null || userID < 1) {
+            return new nullAccount();
+        }
+        else {
+            return new realAccount(username, password, first, last, userID);
         }
     }
 }
