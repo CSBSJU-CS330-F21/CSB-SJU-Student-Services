@@ -3,17 +3,19 @@ package Student_Services.Database;
 import Student_Services.User.Account;
 import Student_Services.User.AccountFactory;
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public abstract class DBController {
-    protected final String tableName;
+    protected final String userTable;
+    protected final String imageTable = "images";
     private final boolean debug = true;
 
     public DBController(String tableName) {
-        this.tableName = tableName;
+        this.userTable = tableName;
     }
 
     /**
@@ -23,7 +25,7 @@ public abstract class DBController {
      */
     public Account getAccount(String Username) {
         try (Connection con = createConnection()) {
-            String query = "SELECT * FROM " + tableName + " WHERE username= ?;";
+            String query = "SELECT * FROM " + userTable + " WHERE username= ?;";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, Username);
             ResultSet rs = pstmt.executeQuery();
@@ -57,7 +59,7 @@ public abstract class DBController {
             return false;
         }
         try (Connection con = createConnection()) {
-            String sql = "insert into " + tableName + "(username, user_password) values(?, ?)";
+            String sql = "insert into " + userTable + "(username, user_password) values(?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, Username);
             pstmt.setString(2, Password);
@@ -83,7 +85,7 @@ public abstract class DBController {
             return false;
         }
         try (Connection con = createConnection()) {
-            String sql = "insert into " + tableName + "(username, user_password, first_name, last_name) values(?, ?, ?, ?)";
+            String sql = "insert into " + userTable + "(username, user_password, first_name, last_name) values(?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, Username);
             pstmt.setString(2, Password);
@@ -98,12 +100,18 @@ public abstract class DBController {
             return false;
         }
     }
+
+    /**
+     * checks if user account exists in database
+     * @param Username username to check for in database
+     * @return true if account is found
+     */
     public boolean accountExists(String Username) {
         if (Username == null || Username.equals("")) {
             return false;
         }
         try (Connection con = createConnection()) {
-            String query = "SELECT username FROM " + tableName + " WHERE username= ?;";
+            String query = "SELECT username FROM " + userTable + " WHERE username= ?;";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, Username);
             ResultSet rs = pstmt.executeQuery();
@@ -116,5 +124,36 @@ public abstract class DBController {
             return false;
         }
     }
+
+    /**
+     * adds an image file
+     * @param imageFile serialized blob of image file
+     * @return boolean of success of insert
+     */
+    public int addImage(SerialBlob imageFile) {
+        if (imageFile == null) {
+            return -1;
+        }
+        try (Connection con = createConnection()) {
+            String query = "insert into " + imageTable + " values(?)";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setBlob(1, imageFile);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            return rs.getInt("imageID");
+        }
+        catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return -1;
+        }
+
+    }
+
+    public SerialBlob getImage(int imageID) {
+        
+    }
+
     abstract Connection createConnection() throws SQLException;
 }
