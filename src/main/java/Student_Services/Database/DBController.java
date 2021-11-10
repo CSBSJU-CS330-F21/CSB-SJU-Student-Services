@@ -4,10 +4,7 @@ import Student_Services.User.Account;
 import Student_Services.User.AccountFactory;
 
 import javax.sql.rowset.serial.SerialBlob;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public abstract class DBController {
     protected final String userTable;
@@ -130,7 +127,7 @@ public abstract class DBController {
      * @param imageFile serialized blob of image file
      * @return boolean of success of insert
      */
-    public int addImage(SerialBlob imageFile) {
+    public int addImage(Blob imageFile) {
         if (imageFile == null) {
             return -1;
         }
@@ -151,8 +148,31 @@ public abstract class DBController {
 
     }
 
-    public SerialBlob getImage(int imageID) {
-        
+    /**
+     * gets an image from the database
+     * @param imageID int id number of image in database
+     * @return serial blob of image
+     */
+    public Blob getImage(int imageID) {
+        if (imageID < 1) {
+            return null;
+        }
+        try (Connection con = createConnection()) {
+            String query = "select image_file from " + imageTable + "where imageID=?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, imageID);
+            ResultSet rs = pstmt.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+            return rs.getBlob("image_file");
+        }
+        catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
     abstract Connection createConnection() throws SQLException;

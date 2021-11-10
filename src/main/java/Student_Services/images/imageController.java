@@ -16,7 +16,7 @@ public class imageController {
     public int addImage(SerialBlob imageFile) {
         return imageDB.addImage(imageFile);
     }
-    public SerialBlob getImage(int imageID) {
-        return null;
+    public Blob getImage(int imageID) {
+        return imageDB.getImage(imageID);
     }
 }
