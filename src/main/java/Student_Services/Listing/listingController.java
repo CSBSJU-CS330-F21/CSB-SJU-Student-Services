@@ -16,4 +16,8 @@ public class listingController {
     public static void setlistTable(String listTable) {
         dbController = new DBControllerSQLServer(listTable);
     }
+
+    public static boolean deleteListing(int postID) {
+        return dbController.deleteListing(postID);
+    }
 }
