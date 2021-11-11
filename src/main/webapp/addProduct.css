@@ -1,0 +1,25 @@
+.AddProduct {
+    position:absolute;
+    bottom: -30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 420px;
+    padding: 80px 40px;
+    background-color: rgba(52, 58, 64, 0.6);
+}
+
+body
+{
+    margin: 0;
+    padding: 0;
+    background: url(https://www.csbsju.edu/documents/CSB%20Alumnae/beni-411/2019-campus-aerial-16x9-screensavers.jpg);
+    background-size: cover;
+    font-family: sans-serif;
+}
+
+h3
+{
+    color: #262626;
+    font-family: sans-serif;
+}
