@@ -127,8 +127,7 @@ public abstract class DBController {
             pstmt.setString(3, product.getDescription());
             pstmt.setFloat(4, product.getPrice());
             pstmt.setDate(5, product.getPost_date());
-            ResultSet rs = pstmt.executeQuery();
-            return rs.next();
+            return pstmt.execute();
         }
         catch (SQLException e) {
             if (debug) {
