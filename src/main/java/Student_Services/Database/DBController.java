@@ -1,5 +1,6 @@
 package Student_Services.Database;
 
+import Student_Services.Listing.listing;
 import Student_Services.User.Account;
 import Student_Services.User.AccountFactory;
 
@@ -116,5 +117,48 @@ public abstract class DBController {
             return false;
         }
     }
+
+    public boolean addListing(listing product) {
+        try (Connection con = createConnection()) {
+            String query = "insert into " + tableName + "(author, title, description, price, post_date) values(?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, product.getAuthorID());
+            pstmt.setString(2, product.getTitle());
+            pstmt.setString(3, product.getDescription());
+            pstmt.setFloat(4, product.getPrice());
+            pstmt.setDate(5, product.getPost_date());
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next();
+        }
+        catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
     abstract Connection createConnection() throws SQLException;
+
+    public listing getListing(int postID) {
+        try (Connection con = createConnection()) {
+            String query = "SELECT * FROM " + tableName + " WHERE listingID= ?;";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, postID);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new listing(rs.getString("title"), rs.getString("description"), rs.getInt("author"), rs.getFloat("price"), rs.getDate("post_date"));
+            }
+            else {
+                return null;
+            }
+
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 }
