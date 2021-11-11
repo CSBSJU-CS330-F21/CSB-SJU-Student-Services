@@ -127,7 +127,7 @@ public abstract class DBController {
             pstmt.setString(3, product.getDescription());
             pstmt.setFloat(4, product.getPrice());
             pstmt.setDate(5, product.getPost_date());
-            return pstmt.execute();
+            return pstmt.executeUpdate() > 0;
         }
         catch (SQLException e) {
             if (debug) {
@@ -145,7 +145,7 @@ public abstract class DBController {
             pstmt.setInt(1, postID);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return new listing(rs.getString("title"), rs.getString("description"), rs.getInt("author"), rs.getFloat("price"), rs.getDate("post_date"));
+                return new listing(rs.getString("title"), rs.getString("description"), rs.getInt("author"), rs.getFloat("price"), rs.getDate("post_date"), postID);
             }
             else {
                 return null;

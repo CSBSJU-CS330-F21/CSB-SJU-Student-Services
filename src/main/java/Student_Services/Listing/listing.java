@@ -13,8 +13,9 @@ public class listing {
     private final Date post_date;
     private final ArrayList<Integer> tags;
     private final int catID;
+    private int postID;
 
-    protected listing(String title, String description, int authorID, int likes, int imageID, float price, Date post_date, ArrayList<Integer> tags, int catID) {
+    protected listing(String title, String description, int authorID, int likes, int imageID, float price, Date post_date, ArrayList<Integer> tags, int catID, int postID) {
 
         this.title = title;
         this.description = description;
@@ -25,13 +26,15 @@ public class listing {
         this.post_date = post_date;
         this.tags = tags;
         this.catID = catID;
+        this.postID = postID;
     }
 
-    public listing(String title, String description, int authorID, int imageID, float price, Date post_date, ArrayList<Integer> tags, int catID) {
+    public listing(String title, String description, int authorID, int imageID, float price, Date post_date, ArrayList<Integer> tags, int catID, int postID) {
 
         this.title = title;
         this.description = description;
         this.authorID = authorID;
+        this.postID = postID;
         this.likes = 0;
         this.imageID = imageID;
         this.price = price;
@@ -40,11 +43,12 @@ public class listing {
         this.catID = catID;
     }
 
-    public listing(String title, String description, int authorID, float price, Date post_date, int catID) {
+    public listing(String title, String description, int authorID, float price, Date post_date, int catID, int postID) {
 
         this.title = title;
         this.description = description;
         this.authorID = authorID;
+        this.postID = postID;
         this.likes = 0;
         this.imageID = -1;
         this.price = price;
@@ -64,6 +68,20 @@ public class listing {
         this.post_date = post_date;
         this.tags = new ArrayList<Integer>();
         this.catID = -1;
+    }
+
+    public listing(String title, String description, int authorID, float price, Date post_date, int postID) {
+
+        this.title = title;
+        this.description = description;
+        this.authorID = authorID;
+        this.price = price;
+        this.post_date = post_date;
+        this.postID = postID;
+        this.likes = 0;
+        this.imageID = -1;
+        this.catID = -1;
+        this.tags = new ArrayList<Integer>();
     }
 
     public String getTitle() {
@@ -100,5 +118,9 @@ public class listing {
 
     public float getPrice() {
         return price;
+    }
+
+    public int getPostID() {
+        return postID;
     }
 }
