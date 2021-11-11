@@ -13,15 +13,24 @@
 </head>
 <body>
 <div class="AddProduct">
-    <h2>Add Information for your Product/Service</h2>
-    <form action="AddProduct_action.jsp" method="post">
+    <h2>Create Listing</h2>
+    <form action="test.jsp" method="post">
         <h3>Product/Service Name</h3>
         <input type="text" name="productName" placeholder="Enter product/service" required>
-        <h3>Description</h3>
-        <input type="text" name="description" placeholder="Enter description of your product/service" required>
+        <h3>Category</h3>
+        <select name="categories" id="categories">
+            <option value="Outdoor">Sports & Outdoors</option>
+            <option value="Food">Food & Kitchen</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Electronics">Electronics</option>
+        </select>
+        <br>
+        <br>
         <h3>Image</h3>
-        <input type="file" name="productImage">
-        <input type="submit" value="Add Product"
+        <input type="file" name="productImage" class="custom-file-input" >
+        <h3>Description</h3>
+        <textarea name="description" id="" placeholder="Enter description of your product/service" style=width:350px;height:90px class="form-control" required></textarea>
+        <input type="submit" value="Add Product" onclick="window.location='test.jsp'" >>
     </form>
 
 </div>
