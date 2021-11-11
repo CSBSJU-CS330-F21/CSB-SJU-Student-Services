@@ -1,25 +1,312 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    background: #E4E9F7;
+    background-size: cover;
+    font-family: Tahoma;
+}
 .AddProduct {
     position:absolute;
     bottom: -30%;
-    left: 50%;
+    left: 20%;
     transform: translate(-50%, -50%);
     width: 350px;
     height: 420px;
     padding: 80px 40px;
     background-color: rgba(52, 58, 64, 0.6);
 }
+.menuBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1200px;
+    height: 500px;
+    padding: 80px 40px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, .5);
+}
 
-body
+.logo {
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    box-sizing: border-box;
+    top: 410px;
+    left: 130px;
+}
+h1 {
+    color: #efed40;
+    text-align: center;
+}
+h2 {
+    margin: 0;
+    padding: 0 40px 20px;
+    color: #ffffff;
+    text-align: center;
+}
+h3 {
+    color: #efed40;
+    margin: 0;
+    padding: 0 0 10px;
+    text-align: left;
+    font-size: 14px;
+}
+.AddProduct p
 {
     margin: 0;
     padding: 0;
-    background: url(https://www.csbsju.edu/documents/CSB%20Alumnae/beni-411/2019-campus-aerial-16x9-screensavers.jpg);
-    background-size: cover;
-    font-family: sans-serif;
+    font-weight: bold;
+    color: #ffff;
+}
+.AddProduct input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.AddProduct textarea {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.AddProduct input[type="text"],
+.AddProduct input[type="password"]
+.AddProduct input[type="file"]
+.AddProduct textarea
+.AddProduct select
+
+{
+    border: none;
+    border-bottom: 1px solid #ffff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px
+}
+::placeholder
+{
+    color: #ffffff;
+}
+.AddProduct input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    color: #ffffff;
+    font-size: 16px;
+    background: #dc3545;
+    cursor: pointer;
+    border-radius: 20px;
+}
+.AddProduct input[type ="submit"]:hover
+{
+    background: #efed40;
+    color: #262626;
+}
+.AddProduct a
+{
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.AddProduct input[type="button"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    color: #ffffff;
+    font-size: 16px;
+    background: #dc3545;
+    cursor: pointer;
+    border-radius: 20px;
+}
+.AddProduct input[type ="button"]:hover
+{
+    background: #efed40;
+    color: #262626;
 }
 
-h3
-{
-    color: #262626;
+* {
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
+    width: 90%;
+    margin: 0 auto;
+}
+header{
+    width: 100%;
+    height: 100px;
+    background: #dc3545;
+    position: fixed;
+}
+.title{
+    width: 40%;
+    float: left;
+    text-align: left;
+    font-weight: bolder;
+    line-height: 100px;
+}
+.title a{
+    text-decoration: none;
+    font-size: 30px;
+    font-family: "Baskerville Old Face";
+    color: #ffffff;
+    letter-spacing: 4px;
+}
+nav{
+    float: right;
+    line-height:100px;
+}
+nav a{
+    text-decoration: none;
+    font-family: Georgia;
+    letter-spacing: 3px;
+    font-size: 20px;
+    color: #ffffff;
+    padding: 36px 10px;
+    margin: 0 1px;
+}
+nav a:hover{
+    font-weight: 700;
+    color: white;
+}
+.custom-file-input {
+    color: yellow;
+    position: -webkit-sticky;
+}
+.custom-file-input::-webkit-file-upload-button {
+    visibility: visible;
+    background: -webkit-linear-gradient(top, #dc3545,#dc3545);
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 10px 20px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    font-size: 10pt;
+}
+
+.custom-file-input::-webkit-file-upload-button:hover {
+    color: black;
+    background: #efed40;
+}
+
+.custom-file-input:hover::before {
+    border-color: black;
+    color: black;
+    background: #efed40;
+}
+.custom-file-input:active {
+    outline: 0;
+}
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+textarea {
+    font-family: "Georgia";
+    font-size: 16px ;
+    background: transparent;
+    height: 40px;
+    color: #ffffff;
+    border: none;
+    border-bottom: 1px solid #ffff;
+}
+body {
+    padding: 20px;
+}
+select {
+    width: 140px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    border: 1px solid black;
+    height: 30px;
+    background: #dc3545;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+select:hover {
+   color: black;
+    background: #efed40;
+}
+section {
+    margin: 20px;
+}
+
+.cards {
+    margin: 0 auto;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+    grid-auto-rows: auto;
+    gap: 20px;
     font-family: sans-serif;
+    padding-top: 30px;
+}
+
+.cards * {
+    box-sizing: border-box;
+}
+
+.card__image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+    border-top: 2px solid #333333;
+    border-right: 2px solid #333333;
+    border-left: 2px solid #333333;
+}
+
+.card__content {
+    line-height: 1.5;
+    font-size: 0.9em;
+    padding: 15px;
+    background: #fafafa;
+    border-right: 2px solid #333333;
+    border-left: 2px solid #333333;
+}
+
+.card__content > p:first-of-type {
+    margin-top: 0;
+}
+
+.card__content > p:last-of-type {
+    margin-bottom: 0;
+}
+
+.card__info {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #555555;
+    background: #eeeeee;
+    font-size: 0.8em;
+    border-bottom: 2px solid #333333;
+    border-right: 2px solid #333333;
+    border-left: 2px solid #333333;
+}
+
+.card__info i {
+    font-size: 0.9em;
+    margin-right: 8px;
+}
+
+.card__link {
+    color: #64968c;
+    text-decoration: none;
+}
+
+.card__link:hover {
+    text-decoration: underline;
 }
