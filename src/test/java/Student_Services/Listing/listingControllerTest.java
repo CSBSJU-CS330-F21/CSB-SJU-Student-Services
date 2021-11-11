@@ -37,12 +37,14 @@ class listingControllerTest {
                     "post_date datetime null" +
                     ")";
             stmt.executeUpdate(sql);
+            stmt.executeUpdate("set IDENTITY_INSERT " + tableName + " ON");
 
-            PreparedStatement addListingRow = con.prepareStatement("insert into " + tableName + "(author, title, description, price) values(?, ?, ?, ?);");
+            PreparedStatement addListingRow = con.prepareStatement("insert into " + tableName + "(author, title, description, price, listingID) values(?, ?, ?, ?, ?);");
             addListingRow.setInt(1, 3);
             addListingRow.setString(2, "test entry 1");
             addListingRow.setString(3, "a test entry");
             addListingRow.setFloat(4, (float) 1.1);
+            addListingRow.setInt(5, 900);
             addListingRow.addBatch();
 
             addListingRow.executeBatch();
@@ -79,11 +81,13 @@ class listingControllerTest {
 
     @Test
     void addListing() {
-    listing testProduct = new listing("test 2", "this is a test object", 999, (float) 1.10, new Date(10));
-    assertTrue(listingController.addListing(testProduct));
+        listing testProduct = new listing("test 2", "this is a test object", 999, (float) 1.10, new Date(10), 450);
+        assertTrue(listingController.addListing(testProduct));
     }
 
     @Test
     void getListing() {
+        assertEquals(listingController.getListing(900).getPostID(), 900);
+
     }
 }
