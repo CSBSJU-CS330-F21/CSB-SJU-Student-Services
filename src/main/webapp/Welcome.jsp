@@ -44,7 +44,7 @@
             <span class="tooltip">Messages</span>
         </li>
         <li>
-            <a href="#">
+            <a href="AddProduct.jsp">
                 <i class='bx bxs-plus-square'></i>
                 <span class="links_name">Add Listing</span>
             </a>
