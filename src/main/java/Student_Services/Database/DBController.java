@@ -162,7 +162,7 @@ public abstract class DBController {
     }
     public boolean deleteListing(int postID) {
         try (Connection con = createConnection()) {
-            String query = "DELETE FROM " + tableName + " WHERE postID= ?;";
+            String query = "DELETE FROM " + tableName + " WHERE listingID= ?;";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, postID);
             int result = pstmt.executeUpdate();
@@ -175,4 +175,7 @@ public abstract class DBController {
             return false;
         }
     }
+//    public boolean editListing(int postID) {
+//
+//    }
 }
