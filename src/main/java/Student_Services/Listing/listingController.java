@@ -12,4 +12,8 @@ public class listingController {
     public static listing getListing(int postID) {
         return dbController.getListing(postID);
     }
+
+    public static void setlistTable(String listTable) {
+        dbController = new DBControllerSQLServer(listTable);
+    }
 }
