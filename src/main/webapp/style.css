@@ -166,6 +166,16 @@ nav a:hover{
     font-weight: 700;
     color: white;
 }
+.AddProduct {
+    position:absolute;
+    bottom: -30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 420px;
+    padding: 80px 40px;
+    background-color: rgba(52, 58, 64, 0.6);
+}
 .iframe {
     position: absolute;
     width: 100%;
