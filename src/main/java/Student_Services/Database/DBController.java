@@ -160,4 +160,22 @@ public abstract class DBController {
             return null;
         }
     }
+    public boolean deleteListing(int postID) {
+        try (Connection con = createConnection()) {
+            String query = "DELETE FROM " + tableName + " WHERE listingID= ?;";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, postID);
+            int result = pstmt.executeUpdate();
+            return result > 0;
+        }
+        catch(SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
+//    public boolean editListing(int postID) {
+//
+//    }
 }

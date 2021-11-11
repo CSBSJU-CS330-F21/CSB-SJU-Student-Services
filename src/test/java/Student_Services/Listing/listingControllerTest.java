@@ -47,6 +47,13 @@ class listingControllerTest {
             addListingRow.setInt(5, 900);
             addListingRow.addBatch();
 
+            addListingRow.setInt(1, 3);
+            addListingRow.setString(2, "test entry 2");
+            addListingRow.setString(3, "another test entry");
+            addListingRow.setFloat(4, (float) 1.1);
+            addListingRow.setInt(5, 910);
+            addListingRow.addBatch();
+
             addListingRow.executeBatch();
 
         }
@@ -89,5 +96,10 @@ class listingControllerTest {
     void getListing() {
         assertEquals(listingController.getListing(900).getPostID(), 900);
 
+    }
+
+    @Test
+    void deleteListing() {
+        assertTrue(listingController.deleteListing(910));
     }
 }
