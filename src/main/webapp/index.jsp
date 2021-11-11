@@ -34,7 +34,6 @@
         <% } %>
         <input type="submit" value="Login">
         <input type="button" value="Sign Up" onclick="window.location='Sign_Up.jsp'" >
-        <input type="button" value="Add Listings Test" onclick="window.location='AddProduct.jsp'" >
     </form>
 </div>
 </body>
