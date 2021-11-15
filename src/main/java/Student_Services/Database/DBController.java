@@ -175,7 +175,21 @@ public abstract class DBController {
             return false;
         }
     }
-//    public boolean editListing(int postID) {
-//
-//    }
+   public boolean editListing(listing Product) {
+       try (Connection con = createConnection()) {
+           String query = "UPDATE " + tableName + " SET title = ?, description = ?, price= ?" + " WHERE listingID= ?;";
+           PreparedStatement pstmt = con.prepareStatement(query);
+           pstmt.setString(1, Product.getTitle());
+           pstmt.setString(2, Product.getDescription());
+           pstmt.setFloat(3, Product.getPrice());
+           int result = pstmt.executeUpdate();
+           return result > 0;
+       }
+       catch(SQLException e) {
+           if (debug) {
+               e.printStackTrace();
+           }
+           return false;
+       }
+    }
 }
