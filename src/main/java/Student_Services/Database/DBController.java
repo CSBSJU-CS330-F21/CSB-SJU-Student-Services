@@ -45,6 +45,34 @@ public abstract class DBController {
         }
     }
 
+    /**
+     * Gets account from database, returns an account filled with null values if account doesn't exist
+     * @param UserID username of account to retrieve
+     * @return Account object filled with values from table if it exists, otherwise account filled with null values
+     */
+    public Account getAccount(int UserID) {
+        try (Connection con = createConnection()) {
+            String query = "SELECT * FROM " + tableName + " WHERE userID= ?;";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, UserID);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return AccountFactory.newAccount(rs.getString("username"), rs.getString("user_password"), rs.getString("first_name"), rs.getString("last_name"), rs.getInt("userID"));
+            }
+            else {
+                return AccountFactory.newAccount(null, null);
+            }
+
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
 
     /**
      * creates new account from provided parameters
