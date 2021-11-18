@@ -7,6 +7,10 @@
 --%>
 <%@ page import="Student_Services.User.Account" %>
 <%@ page import="Student_Services.User.AccountController" %>
+<%@ page import="Student_Services.Listing.listingController" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="Student_Services.Listing.listing" %>
 
 <%
     String username = request.getParameter("username");
@@ -15,6 +19,13 @@
         Account acc = AccountController.getAccount(username);
         response.sendRedirect("Welcome.jsp");
         session.setAttribute("account", acc);
+        List<listing> listings = new ArrayList<>();
+        for (int i = 1; i < 15; i++) {
+            if (listingController.getListing(i) != null) {
+                listings.add(listingController.getListing(i));
+            }
+        }
+        session.setAttribute("listings",listings);
         }
 
     else{

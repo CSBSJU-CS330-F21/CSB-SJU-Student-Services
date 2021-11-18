@@ -6,6 +6,7 @@ import Student_Services.Database.DBControllerSQLServer;
 /**
  * Login Controller gets an account username and verifies that the password associated is correct.
  */
+
 public class AccountController {
     static DBController dbController = new DBControllerSQLServer("users");
     /**
@@ -29,7 +30,6 @@ public class AccountController {
     public static Account getAccount(String username) {
         return dbController.getAccount(username);
     }
-
     /**
      * @param userID user id of account to retrieve
      * @return returns account object with given username
