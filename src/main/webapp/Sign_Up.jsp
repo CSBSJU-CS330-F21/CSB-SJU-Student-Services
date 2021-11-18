@@ -15,6 +15,10 @@
 <div class="LoginBox">
     <h2>Sign Up</h2>
     <form action="SignUp_action.jsp" method="post">
+        <p>First Name</p>
+        <input type="text" name="fname" placeholder="Enter your First Name" required>
+        <p>Last Name</p>
+        <input type="text" name="lname" placeholder="Enter your Last Name" required>
         <p>Email</p>
         <input type="text" name="username" placeholder="Enter CSBSJU domain email" required>
         <p>Password</p>
