@@ -123,4 +123,5 @@ public class listing {
     public int getPostID() {
         return postID;
     }
+
 }

@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <%@ page import="Student_Services.User.Account" %>
+<%@ page import="Student_Services.Listing.listing" %>
+<%@ page import="java.util.List" %>
+<%@ page import ="Student_Services.Database.DBController"%>
+<%@ page import ="Student_Services.User.AccountController"%>
+<%@ page import="Student_Services.Database.DBControllerSQLServer" %>
 <%Account acc =  (Account) session.getAttribute("account");%>
+<%List<listing> listings = (List<listing>) session.getAttribute("listings");%>
+<%
+
+%>
+
 <html lang="en" dir="ltr">
 <head>
+    <title> Welcome Page </title>
     <meta charset="UTF-8">
     <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
     <link rel="stylesheet" href="welcome.css">
+    <link rel="stylesheet" href="tester.css">
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+
 <div class="sidebar">
     <div class="logo-details">
         <div class="logo_name">CSB|SJU <br> Student Services</div>
@@ -48,20 +60,29 @@
                 <i class='bx bxs-plus-square'></i>
                 <span class="links_name">Add Listing</span>
             </a>
-            <span class="tooltip">Order</span>
+            <span class="tooltip">Add Listing</span>
         </li>
         <li>
-            <a href="#">
-                <i class='bx bxs-bookmarks'></i>
-                <span class="links_name">Bookmarks</span>
+            <a href="viewListing.jsp">
+                <i class='bx bx-list-ul'></i>
+                <span class="links_name">My Listings</span>
             </a>
-            <span class="tooltip">Bookmarks</span>
+            <span class="tooltip">My Listings</span>
         </li>
         <li class="profile">
             <div class="profile-details">
                 <!--<img src="profile.jpg" alt="profileImg">-->
                 <div class="name_job">
-                    <div class="name"><%=acc.getUsername()%></div>
+                    <%
+                        String user;
+                        if (acc.getFirst_name() == null || acc.getLast_name() == null) {
+                            user = acc.getUsername();
+                        }
+                        else {
+                            user = acc.getFirst_name() + " " + acc.getLast_name();
+                        }
+                    %>
+                    <div class="name"><%=user%></div>
                     <div class="details">User Account</div>
                 </div>
             </div>
@@ -75,7 +96,82 @@
     </ul>
 </div>
 <section class="home-section">
-    <div class="text">Home</div>
+    <div class="text">Listings</div>
+    <%
+        for (int i = 0; i < listings.size(); i++) {
+
+    %>
+    <div class="container">
+        <div class="product">
+            <div class="product-card">
+                <h2 class="name"> <%= listings.get(i).getTitle()%></h2>
+                <span class="price"> $<%= String.format("%.2f",listings.get(i).getPrice())%></span>
+                <a class="popup-btn">View Listing</a>
+                <img src="csbsju_logo.png" class="product-img" alt="">
+                <span class="date"><i class='bx bxs-calendar'></i> Posted on: <%= listings.get(i).getPost_date()%></span>
+            </div>
+            <div class="popup-view">
+                <div class="popup-card">
+                    <a><i class='bx bx-x close-btn'></i></a>
+                    <div class="product-img">
+                        <img src="csbsju_logo.png" alt="">
+                    </div>
+                    <div class="info">
+                        <h2><%= listings.get(i).getTitle()%><br><span>Author's Name: <%= listings.get(i).getAuthorID() %></span></h2>
+                        <p><%= listings.get(i).getDescription()%></p>
+                        <span class="price"> $<%= String.format("%.2f",listings.get(i).getPrice())%></span>
+                        <a href="#"> <i class='bx bxs-heart'></i> </a>
+                    </div>
+                </div>
+            </div>
+        </div> <% }    %>
+    <div class="product">
+        <div class="product-card">
+            <h2 class="name">Testing Listing</h2>
+            <span class="price">$120.00</span>
+            <a class="popup-btn">Quick View</a>
+            <img src="csbsju_logo.png" class="product-img" alt="">
+            <span class="date"><i class='bx bxs-calendar'></i> Posted on: 11/11/11</span>
+
+        </div>
+        <div class="popup-view">
+            <div class="popup-card">
+                <a><i class='bx bx-x close-btn'></i></a>
+                <div class="product-img">
+                    <img src="csbsju_logo.png" alt="">
+                </div>
+                <div class="info">
+                    <h2>Nike Shoe<br><span>Men's Sport</span></h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <span class="price">$120.00</span>
+                    <a href="#"> <i class='bx bxs-heart'></i> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product">
+        <div class="product-card">
+            <h2 class="name">Smart Watch</h2>
+            <span class="price">$100.00</span>
+            <a class="popup-btn">Quick View</a>
+            <img src="csbsju_logo.png" class="product-img" alt="">
+        </div>
+        <div class="popup-view">
+            <div class="popup-card">
+                <a><i class="bx bx-x close-btn"></i></a>
+                <div class="product-img">
+                    <img src="2.png" alt="">
+                </div>
+                <div class="info">
+                    <h2>Smart Watch<br><span>Smart Sport Modes</span></h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <span class="price">$100.00</span>
+                    <a href="#"> <i class='bx bxs-heart'></i> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </section>
 <script>
     let sidebar = document.querySelector(".sidebar");
@@ -100,6 +196,29 @@
             closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
         }
     }
+    var popupViews = document.querySelectorAll('.popup-view');
+    var popupBtns = document.querySelectorAll('.popup-btn');
+    var closeBtns = document.querySelectorAll('.close-btn');
+
+    //javascript for quick view button
+    var popup = function(popupClick){
+        popupViews[popupClick].classList.add('active');
+    }
+
+    popupBtns.forEach((popupBtn, i) => {
+        popupBtn.addEventListener("click", () => {
+            popup(i);
+        });
+    });
+
+    //javascript for close button
+    closeBtns.forEach((closeBtn) => {
+        closeBtn.addEventListener("click", () => {
+            popupViews.forEach((popupView) => {
+                popupView.classList.remove('active');
+            });
+        });
+    });
 </script>
 </body>
 </html>

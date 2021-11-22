@@ -1,77 +1,3 @@
-body, html {
-    height: 100%
-}
-.bgimg {
-    /* Background image */
-
-   background-image: url('https://www.csbsju.edu/images/Alums%20and%20Friends/Zoom/Zoom%20Background_honeycomb%20graphic-01.png');
-
-    /* Full-screen */
-    height: 100%;
-    /* Center the background image */
-    background-position: center;
-    /* Scale and zoom in the image */
-    background-size: cover;
-    /* Add position: relative to enable absolutely positioned elements inside the image (place text) */
-    position: relative;
-    /* Add a white text color to all elements inside the .bgimg container */
-    color: white;
-    /* Add a font */
-    font-family: "Courier New", Courier, monospace;
-    /* Set the font-size to 25 pixels */
-    font-size: 25px;
-}
-
-/* Position text in the top-left corner */
-.topleft {
-    position: absolute;
-    top: 0;
-    left: 16px;
-}
-
-/* Position text in the bottom-left corner */
-.bottomleft {
-    position: absolute;
-    bottom: 0;
-    left: 16px;
-}
-
-/* Position text in the middle */
-.middle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-/* Style the <hr> element */
-hr {
-    margin: auto;
-    width: 40%;
-}
-.myButton {
-    background-color:#e03a3a;
-    border-radius:28px;
-    border:1px solid #ffbfbf;
-    display:inline-block;
-    cursor:pointer;
-    color:#ffffff;
-    font-family:Arial;
-    font-size:17px;
-    font-weight:bold;
-    padding:16px 31px;
-    text-decoration:none;
-    text-shadow:0px 1px 0px #2f6627;
-}
-.myButton:hover {
-    background-color:#000000;
-}
-.myButton:active {
-    position:relative;
-    top:1px;
-}
-
 /* Google Font Link */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 *{
@@ -298,6 +224,9 @@ hr {
 .sidebar.open .profile #log_out{
     width: 50px;
     background: none;
+}
+.bx-menu:hover{
+    color: #1d1b31;
 }
 .home-section{
     position: relative;

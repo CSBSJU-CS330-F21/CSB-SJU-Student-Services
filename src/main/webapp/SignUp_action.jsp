@@ -11,6 +11,8 @@
 <%
     String username = request.getParameter("username");
     String password = request.getParameter("password");
+    String fName = request.getParameter("fname");
+    String lName = request.getParameter("lname");
     String confirm =  request.getParameter("confirmPass");
     if (!confirm.equals(password)) {
         response.sendRedirect("Sign_Up.jsp?error=The passwords do not match!");
@@ -21,7 +23,7 @@
     else if (!AccountController.usernameChecker(username)){
         response.sendRedirect("Sign_Up.jsp?error=Only CSBSJU emails are allowed to sign up");
     }
-    else if (AccountController.createUser(username, password)){
+    else if (AccountController.createUser(username, password, fName, lName)){
         response.sendRedirect("index.jsp?error= Account Created, Sign In Now");
     }
     else{
