@@ -5,6 +5,7 @@ import Student_Services.User.Account;
 import Student_Services.User.AccountFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public abstract class DBController {
     protected final String tableName;
@@ -215,5 +216,27 @@ public abstract class DBController {
            }
            return false;
        }
+    }
+
+    public ArrayList<Integer> getAllListingIDs() {
+        try (Connection con = createConnection()) {
+            String query = "SELECT (listingID) FROM " + tableName + ";";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            ArrayList<Integer> postList = new ArrayList<Integer>();
+            while (rs.next()) {
+                postList.add(rs.getInt("listingID"));
+            }
+            return postList;
+
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
     }
 }
