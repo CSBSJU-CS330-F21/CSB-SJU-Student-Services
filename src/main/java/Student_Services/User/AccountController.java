@@ -31,6 +31,14 @@ public class AccountController {
         return dbController.getAccount(username);
     }
     /**
+     * @param userID user id of account to retrieve
+     * @return returns account object with given username
+     */
+    public static Account getAccount(int userID) {
+        return dbController.getAccount(userID);
+    }
+
+    /**
      * Method creates a new user account
      * @param username username to assign to account
      * @param password password to assign to account
