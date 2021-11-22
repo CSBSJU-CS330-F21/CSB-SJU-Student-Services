@@ -117,7 +117,10 @@
                         <img src="csbsju_logo.png" alt="">
                     </div>
                     <div class="info">
-                        <h2><%= listings.get(i).getTitle()%><br><span>Author's Name: <%= listings.get(i).getAuthorID() %></span></h2>
+                        <%
+                            Account a = AccountController.getAccount(listings.get(i).getAuthorID());
+                        %>
+                        <h2><%= listings.get(i).getTitle()%><br><span>Author's Name: <%= a.getFirst_name() + " " + a.getLast_name() %></span></h2>
                         <p><%= listings.get(i).getDescription()%></p>
                         <span class="price"> $<%= String.format("%.2f",listings.get(i).getPrice())%></span>
                         <a href="#"> <i class='bx bxs-heart'></i> </a>
@@ -125,53 +128,7 @@
                 </div>
             </div>
         </div> <% }    %>
-    <div class="product">
-        <div class="product-card">
-            <h2 class="name">Testing Listing</h2>
-            <span class="price">$120.00</span>
-            <a class="popup-btn">Quick View</a>
-            <img src="csbsju_logo.png" class="product-img" alt="">
-            <span class="date"><i class='bx bxs-calendar'></i> Posted on: 11/11/11</span>
-
-        </div>
-        <div class="popup-view">
-            <div class="popup-card">
-                <a><i class='bx bx-x close-btn'></i></a>
-                <div class="product-img">
-                    <img src="csbsju_logo.png" alt="">
-                </div>
-                <div class="info">
-                    <h2>Nike Shoe<br><span>Men's Sport</span></h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <span class="price">$120.00</span>
-                    <a href="#"> <i class='bx bxs-heart'></i> </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product">
-        <div class="product-card">
-            <h2 class="name">Smart Watch</h2>
-            <span class="price">$100.00</span>
-            <a class="popup-btn">Quick View</a>
-            <img src="csbsju_logo.png" class="product-img" alt="">
-        </div>
-        <div class="popup-view">
-            <div class="popup-card">
-                <a><i class="bx bx-x close-btn"></i></a>
-                <div class="product-img">
-                    <img src="2.png" alt="">
-                </div>
-                <div class="info">
-                    <h2>Smart Watch<br><span>Smart Sport Modes</span></h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <span class="price">$100.00</span>
-                    <a href="#"> <i class='bx bxs-heart'></i> </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+   </div>
 </section>
 <script>
     let sidebar = document.querySelector(".sidebar");

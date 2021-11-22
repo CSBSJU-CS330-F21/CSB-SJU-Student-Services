@@ -36,7 +36,7 @@
 
 
             %>
-        <form method="post" name="f1" action="Welcome.jsp">
+        <form method="post" name="f1" action="deleteListing_action.jsp">
         <tr>
             <td>
                 <%= myListings.get(n).getPostID()%>
