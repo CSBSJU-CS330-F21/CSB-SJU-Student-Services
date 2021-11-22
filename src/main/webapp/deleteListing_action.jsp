@@ -16,12 +16,10 @@
    int id = Integer.parseInt(request.getParameter("listID"));
 listingController.deleteListing(id);
     List<listing> listings = new ArrayList<>();
-    for (int i = 1; i < 15; i++) {
-        if (listingController.getListing(i) != null) {
-            listings.add(listingController.getListing(i));
-        }
+    ArrayList<Integer> list = listingController.getAllListingIDs();
+    for(Integer i : list) {
+        listings.add(listingController.getListing(i));
     }
-
     session.setAttribute("listings",listings);
     response.sendRedirect("viewListing.jsp?error=Listing "+ id+ " has been successfully deleted!");
 %>

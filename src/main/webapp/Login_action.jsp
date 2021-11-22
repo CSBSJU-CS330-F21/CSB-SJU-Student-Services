@@ -20,11 +20,10 @@
         response.sendRedirect("Welcome.jsp");
         session.setAttribute("account", acc);
         List<listing> listings = new ArrayList<>();
-        for (int i = 1; i < 15; i++) {
-            if (listingController.getListing(i) != null) {
-                listings.add(listingController.getListing(i));
-            }
-        }
+        ArrayList<Integer> list = listingController.getAllListingIDs();
+       for(Integer i : list) {
+           listings.add(listingController.getListing(i));
+       }
         session.setAttribute("listings",listings);
         }
 

@@ -15,18 +15,12 @@
 <%
 Account acc =  (Account) session.getAttribute("account");
     int id = Integer.parseInt(request.getParameter("listId"));
-    float price = Float.parseFloat(request.getParameter("listPrice"));
-    String desc = request.getParameter("listDescription");
-    String name = request.getParameter("listName");
-    long millis = System.currentTimeMillis();
-    java.sql.Date date = new java.sql.Date(millis);
-    listing l = new listing(name, desc, acc.getUserID(), price, date, id);
-   listingController.editListing(l);
+    listing edit = listingController.getListing(id);
+   listingController.editListing(edit);
     List<listing> listings = new ArrayList<>();
-    for (int i = 1; i < 15; i++) {
-        if (listingController.getListing(i) != null) {
-            listings.add(listingController.getListing(i));
-        }
+    ArrayList<Integer> list = listingController.getAllListingIDs();
+    for(Integer i : list) {
+        listings.add(listingController.getListing(i));
     }
 
     session.setAttribute("listings",listings);
