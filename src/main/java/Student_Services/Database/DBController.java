@@ -4,10 +4,7 @@ import Student_Services.Listing.listing;
 import Student_Services.User.Account;
 import Student_Services.User.AccountFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public abstract class DBController {
     protected final String tableName;
@@ -72,7 +69,6 @@ public abstract class DBController {
             return null;
         }
     }
-
 
     /**
      * creates new account from provided parameters

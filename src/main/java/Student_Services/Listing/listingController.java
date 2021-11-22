@@ -21,7 +21,6 @@ public class listingController {
         return dbController.deleteListing(postID);
     }
 
-    public static boolean editListing(listing product) {
-        return dbController.editListing(product);
-    }
+    public static boolean editListing(listing Product) { return dbController.editListing(Product); }
+
 }

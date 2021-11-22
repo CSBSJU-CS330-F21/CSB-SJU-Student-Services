@@ -89,6 +89,7 @@ public abstract class Account {
 
     /**
      * checks if username matches the csbsju.edu domain
+     * checks if username matches the csbsju.edu domain
      * @return true if domain check is passed
      */
     public abstract boolean domainCheck();
