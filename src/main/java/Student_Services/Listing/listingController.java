@@ -20,4 +20,8 @@ public class listingController {
     public static boolean deleteListing(int postID) {
         return dbController.deleteListing(postID);
     }
+
+    public static boolean editListing(listing product) {
+        return dbController.editListing(product);
+    }
 }
