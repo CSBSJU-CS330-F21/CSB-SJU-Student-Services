@@ -4,15 +4,15 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class listing {
-    private final String title;
-    private final String description;
-    private final int authorID;
-    private final int likes;
-    private final int imageID;
-    private final float price;
-    private final Date post_date;
-    private final ArrayList<Integer> tags;
-    private final int catID;
+    private String title;
+    private String description;
+    private int authorID;
+    private int likes;
+    private int imageID;
+    private float price;
+    private Date post_date;
+    private ArrayList<Integer> tags;
+    private int catID;
     private int postID;
 
     protected listing(String title, String description, int authorID, int likes, int imageID, float price, Date post_date, ArrayList<Integer> tags, int catID, int postID) {
@@ -122,6 +122,46 @@ public class listing {
 
     public int getPostID() {
         return postID;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String desc) {
+        this.description = desc;
+    }
+
+    public void setAuthorID(int authorID) {
+        this.authorID = authorID;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public void setImageID(int imageID) {
+        this.imageID = imageID;
+    }
+
+    public void setPost_date(Date post_date) {
+        this.post_date = post_date;
+    }
+
+    public void setTags(ArrayList<Integer> tags) {
+        this.tags = tags;
+    }
+
+    public void setCatID(int catID) {
+        this.catID = catID;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public void setPostID(int postID) {
+        this.postID = postID;
     }
 
 }
