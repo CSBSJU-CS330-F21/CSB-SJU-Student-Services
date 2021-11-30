@@ -17,8 +17,7 @@
     <div class="AddProduct">
         <h2>Edit Listing</h2>
         <form action="editListingAction.jsp" method="post">
-            <h3>Edited Listing ID</h3>
-            <input type="text" name="listId" value="<%=id%>"  readonly>
+            <input type="text" name="listId" value="<%=id%>"  readonly hidden>
             <h3>Product/Service Name</h3>
             <input type="text" name="listName" placeholder="Enter product/service" required>
             <h3>Price</h3>
