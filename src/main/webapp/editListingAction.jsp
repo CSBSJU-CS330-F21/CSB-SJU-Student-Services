@@ -13,10 +13,17 @@
 <%@ page import="Student_Services.Listing.listing" %>
 
 <%
-Account acc =  (Account) session.getAttribute("account");
     int id = Integer.parseInt(request.getParameter("listId"));
+    String title = request.getParameter("listName");
+    float price = Float.parseFloat(request.getParameter("listPrice"));
+    String desc = request.getParameter("listDescription");
     listing edit = listingController.getListing(id);
+    edit.setTitle(title);
+    edit.setPrice(price);
+    edit.setDescription(desc);
    listingController.editListing(edit);
+
+
     List<listing> listings = new ArrayList<>();
     ArrayList<Integer> list = listingController.getAllListingIDs();
     for(Integer i : list) {
