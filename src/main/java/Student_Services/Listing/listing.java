@@ -164,4 +164,19 @@ public class listing {
         this.postID = postID;
     }
 
+    @Override
+    public String toString() {
+        return "listing{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", authorID=" + authorID +
+                ", likes=" + likes +
+                ", imageID=" + imageID +
+                ", price=" + price +
+                ", post_date=" + post_date +
+                ", tags=" + tags +
+                ", catID=" + catID +
+                ", postID=" + postID +
+                '}';
+    }
 }
