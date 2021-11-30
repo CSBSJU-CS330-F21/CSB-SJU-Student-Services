@@ -1,18 +1,18 @@
 package Student_Services.Database;
 
+import Student_Services.Listing.listing;
 import Student_Services.User.Account;
 import Student_Services.User.AccountFactory;
 
-import javax.sql.rowset.serial.SerialBlob;
 import java.sql.*;
+import java.util.ArrayList;
 
 public abstract class DBController {
-    protected final String userTable;
-    protected final String imageTable = "images";
+    protected final String tableName;
     private final boolean debug = true;
 
     public DBController(String tableName) {
-        this.userTable = tableName;
+        this.tableName = tableName;
     }
 
     /**
@@ -22,7 +22,7 @@ public abstract class DBController {
      */
     public Account getAccount(String Username) {
         try (Connection con = createConnection()) {
-            String query = "SELECT * FROM " + userTable + " WHERE username= ?;";
+            String query = "SELECT * FROM " + tableName + " WHERE username= ?;";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, Username);
             ResultSet rs = pstmt.executeQuery();
@@ -71,7 +71,6 @@ public abstract class DBController {
         }
     }
 
-
     /**
      * creates new account from provided parameters
      * username and password must not be null or empty strings
@@ -84,7 +83,7 @@ public abstract class DBController {
             return false;
         }
         try (Connection con = createConnection()) {
-            String sql = "insert into " + userTable + "(username, user_password) values(?, ?)";
+            String sql = "insert into " + tableName + "(username, user_password) values(?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, Username);
             pstmt.setString(2, Password);
@@ -110,7 +109,7 @@ public abstract class DBController {
             return false;
         }
         try (Connection con = createConnection()) {
-            String sql = "insert into " + userTable + "(username, user_password, first_name, last_name) values(?, ?, ?, ?)";
+            String sql = "insert into " + tableName + "(username, user_password, first_name, last_name) values(?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, Username);
             pstmt.setString(2, Password);
@@ -125,18 +124,12 @@ public abstract class DBController {
             return false;
         }
     }
-
-    /**
-     * checks if user account exists in database
-     * @param Username username to check for in database
-     * @return true if account is found
-     */
     public boolean accountExists(String Username) {
         if (Username == null || Username.equals("")) {
             return false;
         }
         try (Connection con = createConnection()) {
-            String query = "SELECT username FROM " + userTable + " WHERE username= ?;";
+            String query = "SELECT username FROM " + tableName + " WHERE username= ?;";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, Username);
             ResultSet rs = pstmt.executeQuery();
@@ -150,51 +143,41 @@ public abstract class DBController {
         }
     }
 
-    /**
-     * adds an image file
-     * @param imageFile serialized blob of image file
-     * @return boolean of success of insert
-     */
-    public int addImage(Blob imageFile) {
-        if (imageFile == null) {
-            return -1;
-        }
+    public boolean addListing(listing product) {
         try (Connection con = createConnection()) {
-            String query = "insert into " + imageTable + " values(?)";
+            String query = "insert into " + tableName + "(author, title, description, price, post_date) values(?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setBlob(1, imageFile);
-            ResultSet rs = pstmt.executeQuery();
-            rs.next();
-            return rs.getInt("imageID");
+            pstmt.setInt(1, product.getAuthorID());
+            pstmt.setString(2, product.getTitle());
+            pstmt.setString(3, product.getDescription());
+            pstmt.setFloat(4, product.getPrice());
+            pstmt.setDate(5, product.getPost_date());
+            return pstmt.executeUpdate() > 0;
         }
         catch (SQLException e) {
             if (debug) {
                 e.printStackTrace();
             }
-            return -1;
+            return false;
         }
-
     }
+    abstract Connection createConnection() throws SQLException;
 
-    /**
-     * gets an image from the database
-     * @param imageID int id number of image in database
-     * @return serial blob of image
-     */
-    public Blob getImage(int imageID) {
-        if (imageID < 1) {
-            return null;
-        }
+    public listing getListing(int postID) {
         try (Connection con = createConnection()) {
-            String query = "select image_file from " + imageTable + "where imageID=?";
+            String query = "SELECT * FROM " + tableName + " WHERE listingID= ?;";
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, imageID);
+            pstmt.setInt(1, postID);
             ResultSet rs = pstmt.executeQuery();
-            if (!rs.next()) {
+            if (rs.next()) {
+                return new listing(rs.getString("title"), rs.getString("description"), rs.getInt("author"), rs.getFloat("price"), rs.getDate("post_date"), postID);
+            }
+            else {
                 return null;
             }
-            return rs.getBlob("image_file");
+
         }
+        // Handle any errors that may have occurred.
         catch (SQLException e) {
             if (debug) {
                 e.printStackTrace();
@@ -202,6 +185,59 @@ public abstract class DBController {
             return null;
         }
     }
+    public boolean deleteListing(int postID) {
+        try (Connection con = createConnection()) {
+            String query = "DELETE FROM " + tableName + " WHERE listingID= ?;";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, postID);
+            int result = pstmt.executeUpdate();
+            return result > 0;
+        }
+        catch(SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
+   public boolean editListing(listing Product) {
+       try (Connection con = createConnection()) {
+           String query = "UPDATE " + tableName + " SET title = ?, description = ?, price= ?" + " WHERE listingID= ?;";
+           PreparedStatement pstmt = con.prepareStatement(query);
+           pstmt.setString(1, Product.getTitle());
+           pstmt.setString(2, Product.getDescription());
+           pstmt.setFloat(3, Product.getPrice());
+           pstmt.setInt(4, Product.getPostID());
+           int result = pstmt.executeUpdate();
+           return result > 0;
+       }
+       catch(SQLException e) {
+           if (debug) {
+               e.printStackTrace();
+           }
+           return false;
+       }
+    }
 
-    abstract Connection createConnection() throws SQLException;
+    public ArrayList<Integer> getAllListingIDs() {
+        try (Connection con = createConnection()) {
+            String query = "SELECT (listingID) FROM " + tableName + ";";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            ArrayList<Integer> postList = new ArrayList<Integer>();
+            while (rs.next()) {
+                postList.add(rs.getInt("listingID"));
+            }
+            return postList;
+
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+    }
 }

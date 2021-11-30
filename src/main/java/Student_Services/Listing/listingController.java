@@ -3,6 +3,8 @@ package Student_Services.Listing;
 import Student_Services.Database.DBController;
 import Student_Services.Database.DBControllerSQLServer;
 
+import java.util.ArrayList;
+
 public class listingController {
     static DBController dbController = new DBControllerSQLServer("listings");
     public static boolean addListing(listing product) {
@@ -21,7 +23,12 @@ public class listingController {
         return dbController.deleteListing(postID);
     }
 
-    public static boolean editListing(listing product) {
-        return dbController.editListing(product);
+    public static boolean editListing(listing Product) {
+        return dbController.editListing(Product);
     }
+
+    public static ArrayList<Integer> getAllListingIDs() {
+        return dbController.getAllListingIDs();
+    }
+
 }
