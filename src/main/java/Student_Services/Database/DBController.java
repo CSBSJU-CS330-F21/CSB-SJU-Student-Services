@@ -3,6 +3,7 @@ package Student_Services.Database;
 import Student_Services.Listing.listing;
 import Student_Services.User.Account;
 import Student_Services.User.AccountFactory;
+import Student_Services.images.image;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -239,5 +240,41 @@ public abstract class DBController {
             return null;
         }
 
+    }
+    public image getImage(int ImageID) {
+        try (Connection con = createConnection()) {
+            String query = "SELECT (imageID, image_file) FROM " + tableName + " WHERE imageID= ?;";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            image imageobj = new image(null, 0);
+            if (rs.next()) {
+                imageobj.setImageID(rs.getInt("imageID"));
+                imageobj.setImageFile(rs.getBlob("image_file"));
+            }
+            return imageobj;
+
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+    public int addImage(Blob imageFile) {
+        try (Connection con = createConnection()) {
+            String query = "insert into " + tableName + "(image_file) values(?)";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setBinaryStream(1, imageFile.getBinaryStream());
+
+            return pstmt.executeUpdate();
+        }
+        catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return 0;
+        }
     }
 }
