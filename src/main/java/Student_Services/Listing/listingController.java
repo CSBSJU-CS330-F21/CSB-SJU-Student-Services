@@ -23,7 +23,9 @@ public class listingController {
         return dbController.deleteListing(postID);
     }
 
-    public static boolean editListing(listing Product) { return dbController.editListing(Product); }
+    public static boolean editListing(listing Product) {
+        return dbController.editListing(Product);
+    }
 
     public static ArrayList<Integer> getAllListingIDs() {
         return dbController.getAllListingIDs();

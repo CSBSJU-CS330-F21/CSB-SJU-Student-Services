@@ -21,7 +21,7 @@
     edit.setTitle(title);
     edit.setPrice(price);
     edit.setDescription(desc);
-   listingController.editListing(edit);
+    listingController.editListing(edit);
 
 
     List<listing> listings = new ArrayList<>();

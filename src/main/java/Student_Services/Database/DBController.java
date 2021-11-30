@@ -207,6 +207,7 @@ public abstract class DBController {
            pstmt.setString(1, Product.getTitle());
            pstmt.setString(2, Product.getDescription());
            pstmt.setFloat(3, Product.getPrice());
+           pstmt.setInt(4, Product.getPostID());
            int result = pstmt.executeUpdate();
            return result > 0;
        }
