@@ -236,7 +236,7 @@ select {
     appearance: none;
 }
 select:hover {
-   color: black;
+    color: black;
     background: #efed40;
 }
 section {
@@ -319,4 +319,3 @@ section {
     width: 820px;
     border: none;
 }
-

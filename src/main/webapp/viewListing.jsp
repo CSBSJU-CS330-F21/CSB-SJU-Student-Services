@@ -54,7 +54,7 @@
                 <%=myListings.get(n).getPost_date()%>
             </td>
             <td><button type="submit"class='bx bxs-edit' formaction="editListing.jsp" ></button></td>
-            <td><button type="submit" class='bx bxs-x-circle'></button></td>
+            <td><button type="submit" class='bx bxs-x-circle' onclick="return confirm('Are you sure you want to delete this Listing?');"></button></td>
 
         </tr>
         </form>

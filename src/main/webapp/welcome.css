@@ -261,3 +261,23 @@
     display: block;
     /* Other styles here */
 }
+select {
+    color: white;
+    font-weight: bold;
+    width: 12%;
+    height: 5%;
+    margin: 18px;
+    position: absolute;
+    top: 0;
+    right: 100px;
+    border-radius: 25px;
+    border: 1px solid black;
+    background: #1d1b31;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+select:hover {
+    cursor: pointer;
+}
