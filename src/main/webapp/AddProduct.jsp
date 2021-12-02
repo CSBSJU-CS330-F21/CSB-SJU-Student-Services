@@ -8,8 +8,9 @@
 <%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <jsp:include page="/sidebar/sidebar.jsp"></jsp:include>
-
 <link rel="stylesheet" href="addProduct.css">
+<head>
+</head>
 <section class="home-section">
     <div class="AddProduct">
         <h2>Create Listing</h2>
@@ -37,7 +38,6 @@
             <textarea name="description" id="" placeholder="Enter description of your product/service" style=width:350px;height:90px class="form-control" required></textarea>
             <input type="submit" value="Add Product" >
         </form>
-    </div>
+          </div>
 </section>
-
 
