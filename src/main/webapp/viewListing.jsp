@@ -2,20 +2,21 @@
 <%@ page import="Student_Services.Listing.listing" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="Student_Services.Listing.listingController" %>
 <jsp:include page="/sidebar/sidebar.jsp"></jsp:include>
 <link rel="stylesheet" href="Welcome.jsp">
 <link rel="stylesheet" href="table.css">
 <%Account acc =  (Account) session.getAttribute("account");%>
-<%List<listing> listings = (List<listing>) session.getAttribute("listings");%>
-<%List <listing> myListings = new ArrayList<>();%>
+<%List<listing> listings = listingController.getAllListings();%>
+<%List <listing> myListings = listingController.getAuthorListings(acc.getUserID());%>
 <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-<%
-    for(int i = 0; i < listings.size(); i++) {
-        if (listings.get(i).getAuthorID() == acc.getUserID()) {
-            myListings.add(listings.get(i));
-        }
-    }
-%>
+<%--<%--%>
+<%--    for(int i = 0; i < listings.size(); i++) {--%>
+<%--        if (listings.get(i).getAuthorID() == acc.getUserID()) {--%>
+<%--            myListings.add(listings.get(i));--%>
+<%--        }--%>
+<%--    }--%>
+<%--%>--%>
 <section class = "home-section">
     <div class="text">My Listings</div>
 <div class="table-wrapper">
