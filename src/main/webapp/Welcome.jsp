@@ -31,30 +31,11 @@
     </div>
     <ul class="nav-list">
         <li>
-            <i class='bx bx-search' ></i>
-            <input type="text" placeholder="Search...">
-            <span class="tooltip">Search</span>
-        </li>
-        <li>
             <a href="Welcome.jsp">
                 <i class='bx bxs-home' ></i>
                 <span class="links_name">Home</span>
             </a>
             <span class="tooltip">Home</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class='bx bx-user' ></i>
-                <span class="links_name">Account</span>
-            </a>
-            <span class="tooltip">Account</span>
-        </li>
-        <li>
-            <a href="#">
-                <i class='bx bx-chat' ></i>
-                <span class="links_name">Messages</span>
-            </a>
-            <span class="tooltip">Messages</span>
         </li>
         <li>
             <a href="AddProduct.jsp">
