@@ -3,18 +3,22 @@
 <%@ page import="Student_Services.Listing.listing" %>
 <%@ page import="Student_Services.Listing.listingController" %>
 <%@ page import="java.util.List" %>
-<%--<%@ page import ="Student_Services.Database.DBController"%>--%>
-<%--<%@ page import ="Student_Services.User.AccountController"%>--%>
-<%--<%@ page import="Student_Services.Database.DBControllerSQLServer" %>--%>
-<%Account acc =  (Account) session.getAttribute("account");%>
-<%List<listing> listings = listingController.getAllListings();%>
+<%@ page import="Student_Services.Category.CategoryController" %>
+<%@ page import="Student_Services.Category.Category" %>
 <%
-
+    Account acc =  (Account) session.getAttribute("account");
+    int categoryID = 1;
+    if (session.getAttribute("postCategory") != null) {
+        categoryID = (int) session.getAttribute("postCategory");
+    }
+    Category pageCat = CategoryController.getCatByID(categoryID);
+    List<listing> listings = listingController.getCatListings(categoryID);
+    List<Category> categories = CategoryController.getCategories();
 %>
 
 <html lang="en" dir="ltr">
 <head>
-    <title> Welcome Page </title>
+    <title> Category: <%=pageCat.getName()%> </title>
     <meta charset="UTF-8">
     <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
     <link rel="stylesheet" href="welcome.css">
@@ -50,11 +54,11 @@
             <span class="tooltip">Account</span>
         </li>
         <li>
-            <a href="category.jsp">
-                <i class='bx bx-archive' ></i>
-                <span class="links_name">Categories</span>
+            <a href="#">
+                <i class='bx bx-chat' ></i>
+                <span class="links_name">Messages</span>
             </a>
-            <span class="tooltip">Categories</span>
+            <span class="tooltip">Messages</span>
         </li>
         <li>
             <a href="AddProduct.jsp">
@@ -91,24 +95,27 @@
             <br>
             <br>
             <a href="Logout.jsp">
-            <i class='bx bx-log-out' id="log_out" ></i>
+                <i class='bx bx-log-out' id="log_out" ></i>
             </a>
         </li>
     </ul>
 </div>
 <section class="home-section">
-    <div class="text">Listings</div>
-    <form action="viewListing.jsp" method="post">
-    <select name="categories" id="categories">
-        <option value="NewToOld">Date: Newest to Oldest</option>
-        <option value="OldToNew">Date: Oldest to Newest</option>
-        <option value="LowToHigh">Price: Low to High</option>
-        <option value="HighToLow">Price: High to Low</option>
-        <option value="Liked">Most Liked</option>
-    </select>
+    <div class="text"><%=pageCat.getName()%></div>
+    <form action="categoryAction.jsp" method="post">
+        <select name="postCategory" id="postCategory" value=<%=pageCat.getCatID()%>>
+            <%
+                for (Category cat: categories) {
+            %>
+            <option value= <%= cat.getCatID() %> ><%=cat.getName() %></option>
+            <%
+                }
+            %>
+        </select>
+        <input type="submit" value="Go" >
     </form>
     <%
-//        for (int i = 0; i < listings.size(); i++) {
+        //        for (int i = 0; i < listings.size(); i++) {
         for (listing post: listings) {
     %>
     <div class="container">
@@ -127,9 +134,9 @@
                         <img src="csbsju_logo.png" alt="">
                     </div>
                     <div class="info">
-<%--                        <%--%>
-<%--                            Account a = AccountController.getAccount(listings.get(i).getAuthorID());--%>
-<%--                        %>--%>
+                        <%--                        <%--%>
+                        <%--                            Account a = AccountController.getAccount(listings.get(i).getAuthorID());--%>
+                        <%--                        %>--%>
                         <h2><%= post.getTitle()%><br><span>User: <%= post.getAuthorName() %><br><%=post.getCatName()%></span></h2>
                         <p><%= post.getDescription()%></p>
                         <span class="price"> $<%= String.format("%.2f",post.getPrice())%></span>
@@ -138,7 +145,7 @@
                 </div>
             </div>
         </div> <% }    %>
-   </div>
+    </div>
 </section>
 <script>
     let sidebar = document.querySelector(".sidebar");

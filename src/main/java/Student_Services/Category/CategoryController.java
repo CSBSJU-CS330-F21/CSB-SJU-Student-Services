@@ -11,4 +11,8 @@ public class CategoryController {
     public static ArrayList<Category> getCategories() {
         return dbController.getCategories();
     }
+
+    public static Category getCatByID(int categoryID) {
+        return dbController.getCatByID(categoryID);
+    }
 }

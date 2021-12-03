@@ -379,4 +379,60 @@ public abstract class DBController {
         }
 
     }
+
+    public Category getCatByID(int categoryID) {
+        try (Connection con = createConnection()) {
+            String query = "SELECT * FROM " + tableName + " WHERE catID = ?;";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, categoryID);
+            ResultSet rs = pstmt.executeQuery();
+            Category tempCat= new Category();
+            while (rs.next()) {
+                tempCat.setCatID(rs.getInt("catID"));
+                tempCat.setName(rs.getString("catName"));
+            }
+            return tempCat;
+
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public ArrayList<listing> getCatListings(int catID) {
+        try (Connection con = createConnection()) {
+            String query = "SELECT l.listingID, l.title, l.description, l.image, l.likes, l.price, l.post_date, u.first_name, u.last_name, c.catName FROM " + tableName + " l join categories c on c.catID = l.category join users u on u.userID = l.author WHERE category = ?;";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, catID);
+            ResultSet rs = pstmt.executeQuery();
+            ArrayList<listing> postList = new ArrayList<>();
+            while (rs.next()) {
+                listing tempListing = new listing();
+                tempListing.setPostID(rs.getInt("listingID"));
+                tempListing.setTitle(rs.getString("title"));
+                tempListing.setDescription(rs.getString("description"));
+                tempListing.setLikes(rs.getInt("likes"));
+                tempListing.setPrice(rs.getFloat("price"));
+                tempListing.setImageID(rs.getInt("image"));
+                tempListing.setPost_date(rs.getDate("post_date"));
+                String authorName = String.join(" ", rs.getString("first_name"), rs.getString("last_name"));
+                tempListing.setAuthorName(authorName);
+                tempListing.setCatName(rs.getString("catName"));
+                postList.add(tempListing);
+            }
+            return postList;
+
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            if (debug) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 }
