@@ -12,7 +12,7 @@
 <%@ page import="Student_Services.Listing.listingController" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/sidebar/sidebar.jsp"></jsp:include>
-
+<%@ page import="Student_Services.Listing.listingController" %>
 <%
     int id = Integer.parseInt(request.getParameter("listID"));
     listing post = listingController.getListing(id);

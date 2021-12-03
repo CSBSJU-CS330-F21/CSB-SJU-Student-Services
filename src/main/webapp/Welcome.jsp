@@ -98,6 +98,15 @@
 </div>
 <section class="home-section">
     <div class="text">Listings</div>
+    <form action="viewListing.jsp" method="post">
+    <select name="categories" id="categories">
+        <option value="NewToOld">Date: Newest to Oldest</option>
+        <option value="OldToNew">Date: Oldest to Newest</option>
+        <option value="LowToHigh">Price: Low to High</option>
+        <option value="HighToLow">Price: High to Low</option>
+        <option value="Liked">Most Liked</option>
+    </select>
+    </form>
     <%
 //        for (int i = 0; i < listings.size(); i++) {
         for (listing post: listings) {
