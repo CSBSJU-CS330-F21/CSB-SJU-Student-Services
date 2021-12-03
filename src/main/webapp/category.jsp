@@ -101,7 +101,7 @@
     </ul>
 </div>
 <section class="home-section">
-    <div class="text">Listings</div>
+    <div class="text"><%=pageCat.getName()%></div>
     <form action="categoryAction.jsp" method="post">
         <select name="postCategory" id="postCategory" value=<%=pageCat.getCatID()%>>
             <%

@@ -50,11 +50,11 @@
             <span class="tooltip">Account</span>
         </li>
         <li>
-            <a href="#">
-                <i class='bx bx-chat' ></i>
-                <span class="links_name">Messages</span>
+            <a href="category.jsp">
+                <i class='bx bx-archive' ></i>
+                <span class="links_name">Categories</span>
             </a>
-            <span class="tooltip">Messages</span>
+            <span class="tooltip">Categories</span>
         </li>
         <li>
             <a href="AddProduct.jsp">
