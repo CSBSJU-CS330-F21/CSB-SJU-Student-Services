@@ -39,4 +39,8 @@ public class listingController {
         return dbController.getAuthorListings(authorID);
     }
 
+    public static ArrayList<listing> getCatListings(int catID) {
+        return dbController.getCatListings(catID);
+    }
+
 }
