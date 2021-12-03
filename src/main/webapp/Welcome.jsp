@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <%@ page import="Student_Services.User.Account" %>
 <%@ page import="Student_Services.Listing.listing" %>
+<%@ page import="Student_Services.Listing.listingController" %>
 <%@ page import="java.util.List" %>
-<%@ page import ="Student_Services.Database.DBController"%>
-<%@ page import ="Student_Services.User.AccountController"%>
-<%@ page import="Student_Services.Database.DBControllerSQLServer" %>
+<%--<%@ page import ="Student_Services.Database.DBController"%>--%>
+<%--<%@ page import ="Student_Services.User.AccountController"%>--%>
+<%--<%@ page import="Student_Services.Database.DBControllerSQLServer" %>--%>
 <%Account acc =  (Account) session.getAttribute("account");%>
-<%List<listing> listings = (List<listing>) session.getAttribute("listings");%>
+<%List<listing> listings = listingController.getAllListings();%>
+<%
+
+%>
 
 <html lang="en" dir="ltr">
 <head>
@@ -104,17 +108,17 @@
     </select>
     </form>
     <%
-        for (int i = 0; i < listings.size(); i++) {
-
+//        for (int i = 0; i < listings.size(); i++) {
+        for (listing post: listings) {
     %>
     <div class="container">
         <div class="product">
             <div class="product-card">
-                <h2 class="name"> <%= listings.get(i).getTitle()%></h2>
-                <span class="price"> $<%= String.format("%.2f",listings.get(i).getPrice())%></span>
+                <h2 class="name"> <%= post.getTitle()%></h2>
+                <span class="price"> $<%= String.format("%.2f", post.getPrice())%></span>
                 <a class="popup-btn">View Listing</a>
                 <img src="csbsju_logo.png" class="product-img" alt="">
-                <span class="date"><i class='bx bxs-calendar'></i> Posted on: <%= listings.get(i).getPost_date()%></span>
+                <span class="date"><i class='bx bxs-calendar'></i> Posted on: <%= post.getPost_date()%></span>
             </div>
             <div class="popup-view">
                 <div class="popup-card">
@@ -123,12 +127,12 @@
                         <img src="csbsju_logo.png" alt="">
                     </div>
                     <div class="info">
-                        <%
-                            Account a = AccountController.getAccount(listings.get(i).getAuthorID());
-                        %>
-                        <h2><%= listings.get(i).getTitle()%><br><span>Author's Name: <%= a.getFirst_name() + " " + a.getLast_name() %></span></h2>
-                        <p><%= listings.get(i).getDescription()%></p>
-                        <span class="price"> $<%= String.format("%.2f",listings.get(i).getPrice())%></span>
+<%--                        <%--%>
+<%--                            Account a = AccountController.getAccount(listings.get(i).getAuthorID());--%>
+<%--                        %>--%>
+                        <h2><%= post.getTitle()%><br><span>User: <%= post.getAuthorName() %><br><%=post.getCatName()%></span></h2>
+                        <p><%= post.getDescription()%></p>
+                        <span class="price"> $<%= String.format("%.2f",post.getPrice())%></span>
                         <a href="#"> <i class='bx bxs-heart'></i> </a>
                     </div>
                 </div>

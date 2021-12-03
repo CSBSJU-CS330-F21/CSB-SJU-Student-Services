@@ -14,6 +14,8 @@ public class listing {
     private ArrayList<Integer> tags;
     private int catID;
     private int postID;
+    private String catName;
+    private String authorName;
 
     protected listing(String title, String description, int authorID, int likes, int imageID, float price, Date post_date, ArrayList<Integer> tags, int catID, int postID) {
 
@@ -82,6 +84,9 @@ public class listing {
         this.imageID = -1;
         this.catID = -1;
         this.tags = new ArrayList<Integer>();
+    }
+    public listing() {
+        super();
     }
 
     public String getTitle() {
@@ -178,5 +183,21 @@ public class listing {
                 ", catID=" + catID +
                 ", postID=" + postID +
                 '}';
+    }
+
+    public String getCatName() {
+        return catName;
+    }
+
+    public void setCatName(String catName) {
+        this.catName = catName;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 }

@@ -31,4 +31,12 @@ public class listingController {
         return dbController.getAllListingIDs();
     }
 
+    public static ArrayList<listing> getAllListings() {
+        return dbController.getAllListings();
+    }
+
+    public static ArrayList<listing> getAuthorListings(int authorID) {
+        return dbController.getAuthorListings(authorID);
+    }
+
 }

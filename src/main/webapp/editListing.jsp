@@ -6,13 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="java.util.*" %>
+<%@ page import="Student_Services.Category.Category" %>
+<%@ page import="Student_Services.Category.CategoryController" %>
+<%@ page import="Student_Services.Listing.listing" %>
+<%@ page import="Student_Services.Listing.listingController" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/sidebar/sidebar.jsp"></jsp:include>
 <%@ page import="Student_Services.Listing.listingController" %>
 <%
     int id = Integer.parseInt(request.getParameter("listID"));
-    String title = request.getParameter("listTitle");
-    float price = Float.parseFloat(request.getParameter("listPrice"));
+    listing post = listingController.getListing(id);
+    List<Category> categories = CategoryController.getCategories();
 %>
 <link rel="stylesheet" href="addProduct.css">
 <section class="home-section">
@@ -21,11 +25,23 @@
         <form action="editListingAction.jsp" method="post">
             <input type="text" name="listId" value="<%=id%>"  readonly hidden>
             <h3>Product/Service Name</h3>
-            <input type="text" name="listName" value="<%=title%>" required>
+            <input type="text" name="listName" placeholder="Enter product/service" value="<%=post.getTitle()%>" required>
             <h3>Price</h3>
-            <input type="number" name="listPrice" min="1" value="<%=price%>"  step="any">
+            <input type="number" name="listPrice" min="1" step="any" value=<%=post.getPrice()%>>
+            <h3>Category</h3>
+            <select name="categories" id="categories" value=<%=post.getCatID()%>>
+                <%
+                    for (Category cat: categories) {
+                %>
+                <option value= <%= cat.getCatID() %> ><%=cat.getName() %></option>
+                <%
+                    }
+                %>
+            </select>
+            <br>
+            <br>
              <h3>Description</h3>
-            <textarea name="listDescription" id="" style=width:350px;height:90px class="form-control" required> <%=listingController.getListing(id).getDescription()%> </textarea>
+            <textarea name="listDescription" id="" placeholder="Enter description of your product/service" style=width:350px;height:90px class="form-control" value="<%=post.getDescription()%>"required></textarea>
             <input type="submit" value="Edit Product" >
         </form>
     </div>

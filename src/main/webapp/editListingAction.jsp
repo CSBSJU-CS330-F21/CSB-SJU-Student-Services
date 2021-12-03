@@ -15,12 +15,15 @@
 <%
     int id = Integer.parseInt(request.getParameter("listId"));
     String title = request.getParameter("listName");
+    String categoryString = request.getParameter("categories");
+    int category = Integer.parseInt(categoryString);
     float price = Float.parseFloat(request.getParameter("listPrice"));
     String desc = request.getParameter("listDescription");
     listing edit = listingController.getListing(id);
     edit.setTitle(title);
     edit.setPrice(price);
     edit.setDescription(desc);
+    edit.setCatID(category);
     listingController.editListing(edit);
 
 

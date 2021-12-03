@@ -6,8 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="java.util.*" %>
+<%@ page import="Student_Services.Category.Category" %>
+<%@ page import="Student_Services.Category.CategoryController" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <jsp:include page="/sidebar/sidebar.jsp"></jsp:include>
+<%List<Category> categories = CategoryController.getCategories();%>
 <link rel="stylesheet" href="addProduct.css">
 <head>
 </head>
@@ -21,14 +24,13 @@
             <input type="number" name="price" min="1" step="any">
             <h3>Category</h3>
             <select name="categories" id="categories">
-                <option value="Outdoor">Sports & Outdoors</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Food">Food</option>
-                <option value="Kitchen">Kitchen</option>
-                <option value="Furniture">Furniture</option>
-                <option value="Clothing and Accessories">Clothing and Accessories</option>
-                <option value="Miscellaneous">Miscellaneous</option>
+                <%
+                    for (Category cat: categories) {
+                %>
+                <option value= <%= cat.getCatID() %> ><%=cat.getName() %></option>
+                <%
+                    }
+                %>
             </select>
             <br>
             <br>
