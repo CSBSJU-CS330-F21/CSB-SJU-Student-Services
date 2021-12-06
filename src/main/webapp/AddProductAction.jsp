@@ -20,12 +20,5 @@
         listing listing = new listing(title, description, acc.getUserID(), price, date);
         listing.setCatID(category);
     listingController.addListing(listing);
-//    List<listing> listings = new ArrayList<>();
-//    for (int i = 1; i < 15; i++) {
-//        if (listingController.getListing(i) != null) {
-//            listings.add(listingController.getListing(i));
-//        }
-//    }
-//    session.setAttribute("listings",listings);
     response.sendRedirect("Welcome.jsp");
 %>

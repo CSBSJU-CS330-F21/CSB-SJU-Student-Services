@@ -6,6 +6,8 @@ import Student_Services.User.Account;
 import Student_Services.User.AccountFactory;
 import Student_Services.images.image;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -147,7 +149,7 @@ public abstract class DBController {
 
     public boolean addListing(listing product) {
         try (Connection con = createConnection()) {
-            String query = "insert into " + tableName + "(author, title, description, price, post_date, category) values(?, ?, ?, ?, ?, ?)";
+            String query = "insert into " + tableName + "(author, title, description, price, post_date, category, image) values(?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, product.getAuthorID());
             pstmt.setString(2, product.getTitle());
@@ -160,6 +162,7 @@ public abstract class DBController {
             else {
                 pstmt.setInt(6, -1);
             }
+            pstmt.setInt(7, product.getImageID());
             return pstmt.executeUpdate() > 0;
         }
         catch (SQLException e) {
@@ -339,13 +342,16 @@ public abstract class DBController {
             return null;
         }
     }
-    public int addImage(Blob imageFile) {
+    public int addImage(InputStream imageFile) {
         try (Connection con = createConnection()) {
-            String query = "insert into " + tableName + "(image_file) values(?)";
+            String query = "insert into " + tableName + "(image_file) OUTPUT INSERTED.imageID values(?) ";
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setBinaryStream(1, imageFile.getBinaryStream());
-
-            return pstmt.executeUpdate();
+            pstmt.setBinaryStream(1, imageFile);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return -2;
         }
         catch (SQLException e) {
             if (debug) {
