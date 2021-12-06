@@ -30,12 +30,8 @@
                     for (Category cat: categories) {
                 %>
                 <option value= <%= cat.getCatID() %> ><%=cat.getName() %></option>
-                <%
-                    }
-                %>
+                <% } %>
             </select>
-            <br>
-            <br>
             <h3>Image</h3>
             <input type="file" name="productImage" accept="image/png, image/jpg" class="custom-file-input" >
             <h3>Description</h3>
