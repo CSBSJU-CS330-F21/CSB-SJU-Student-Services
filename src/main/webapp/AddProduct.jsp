@@ -24,16 +24,10 @@
             <input type="number" name="price" min="1" step="any">
             <h3>Category</h3>
             <select name="categories" id="categoryPicker">
-                <%
-                    for (Category cat: categories) {
-                %>
+                <% for (Category cat: categories) { %>
                 <option value= <%= cat.getCatID() %> ><%=cat.getName() %></option>
-                <%
-                    }
-                %>
+                <% } %>
             </select>
-            <br>
-            <br>
             <h3>Image</h3>
             <input type="file" name="productImage" accept="image/png, image/jpg" class="custom-file-input" >
             <h3>Description</h3>
