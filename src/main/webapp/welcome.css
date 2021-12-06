@@ -267,6 +267,7 @@
     width: 12%;
     height: 5%;
     margin: 18px;
+    margin-bottom: 0;
     position: absolute;
     top: 0;
     right: 100px;
@@ -279,5 +280,30 @@
     appearance: none;
 }
 #categories:hover  {
+
+::selection {
+    color: gold;
+    background-color: red;
+}
     cursor: pointer;
+}
+input[type="submit"] {
+    position: absolute;
+    top: 70px;
+    left: 1200px;
+    color: #FFFFFF;
+    background: #1d1b31;
+    text-align: center;
+    cursor: pointer;
+    width: 70px;
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 25px;
+    font-weight: bold;
+    height: 5%;
+
+}
+input[type="submit"]:hover {
+    background: #FFFFFF;
+    color: #1d1b31;
 }
