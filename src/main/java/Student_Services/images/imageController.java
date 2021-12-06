@@ -4,6 +4,8 @@ import Student_Services.Database.DBController;
 import Student_Services.Database.DBControllerSQLServer;
 
 import javax.sql.rowset.serial.SerialBlob;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Blob;
 
 public class imageController {
@@ -14,10 +16,10 @@ public class imageController {
 
 
     }
-    public int addImage(Blob imageFile) {
+    public static int addImage(InputStream imageFile) {
         return imageDB.addImage(imageFile);
     }
-    public Blob getImage(int imageID) {
+    public static Blob getImage(int imageID) {
         return imageDB.getImage(imageID).getImageFile();
     }
 }
