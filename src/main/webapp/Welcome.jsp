@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <%@ page import="Student_Services.User.Account" %>
 <%@ page import="Student_Services.Listing.listing" %>
-<%@ page import="Student_Services.Listing.listingController" %>
 <%@ page import="java.util.List" %>
-<%--<%@ page import ="Student_Services.Database.DBController"%>--%>
-<%--<%@ page import ="Student_Services.User.AccountController"%>--%>
-<%--<%@ page import="Student_Services.Database.DBControllerSQLServer" %>--%>
-<%Account acc =  (Account) session.getAttribute("account");%>
-<%List<listing> listings = listingController.getAllListings();%>
-<%
+<%@ page import ="Student_Services.Database.DBController"%>
+<%@ page import ="Student_Services.User.AccountController"%>
+<%@ page import="Student_Services.Database.DBControllerSQLServer" %>
 
+<%Account acc =  (Account) session.getAttribute("account");
+    List<listing> listings;
+if (request.getParameter("sorted") != null) {
+    listings = (List<listing>) session.getAttribute("sortedList");
+}
+else {
+     listings = (List<listing>) session.getAttribute("listings");
+}
 %>
 
 <html lang="en" dir="ltr">
@@ -50,11 +54,11 @@
             <span class="tooltip">Account</span>
         </li>
         <li>
-            <a href="category.jsp">
-                <i class='bx bx-archive' ></i>
-                <span class="links_name">Categories</span>
+            <a href="#">
+                <i class='bx bx-chat' ></i>
+                <span class="links_name">Messages</span>
             </a>
-            <span class="tooltip">Categories</span>
+            <span class="tooltip">Messages</span>
         </li>
         <li>
             <a href="AddProduct.jsp">
@@ -97,28 +101,32 @@
     </ul>
 </div>
 <section class="home-section">
-    <div class="text">Listings</div>
-    <form action="viewListing.jsp" method="post">
-    <select name="categories" id="categories">
-        <option value="NewToOld">Date: Newest to Oldest</option>
-        <option value="OldToNew">Date: Oldest to Newest</option>
-        <option value="LowToHigh">Price: Low to High</option>
-        <option value="HighToLow">Price: High to Low</option>
-        <option value="Liked">Most Liked</option>
+    <div class="text">Listings
+        <% if (request.getParameter("sorted") != null) { %>
+        | <%=request.getParameter("sorted")%>
+        <% }%>
+    </div>
+    <form action="SortAction.jsp" method="post">
+    <select name="sorting" id="sorting" onclick="this.form.submit()">
+        <option value="Date: Oldest to Newest">Date: Oldest to Newest</option>
+        <option value="Date: Newest to Oldest">Date: Newest to Oldest</option>
+        <option value="Price: Low to High">Price: Low to High</option>
+        <option value="Price: High to Low">Price: High to Low</option>
+        <option value="Most Liked">Most Liked</option>
     </select>
     </form>
     <%
-//        for (int i = 0; i < listings.size(); i++) {
-        for (listing post: listings) {
+        for (int i = 0; i < listings.size(); i++) {
+
     %>
     <div class="container">
         <div class="product">
             <div class="product-card">
-                <h2 class="name"> <%= post.getTitle()%></h2>
-                <span class="price"> $<%= String.format("%.2f", post.getPrice())%></span>
+                <h2 class="name"> <%= listings.get(i).getTitle()%></h2>
+                <span class="price"> $<%= String.format("%.2f",listings.get(i).getPrice())%></span>
                 <a class="popup-btn">View Listing</a>
                 <img src="csbsju_logo.png" class="product-img" alt="">
-                <span class="date"><i class='bx bxs-calendar'></i> Posted on: <%= post.getPost_date()%></span>
+                <span class="date"><i class='bx bxs-calendar'></i> Posted on: <%= listings.get(i).getPost_date()%></span>
             </div>
             <div class="popup-view">
                 <div class="popup-card">
@@ -127,12 +135,12 @@
                         <img src="csbsju_logo.png" alt="">
                     </div>
                     <div class="info">
-<%--                        <%--%>
-<%--                            Account a = AccountController.getAccount(listings.get(i).getAuthorID());--%>
-<%--                        %>--%>
-                        <h2><%= post.getTitle()%><br><span>User: <%= post.getAuthorName() %><br><%=post.getCatName()%></span></h2>
-                        <p><%= post.getDescription()%></p>
-                        <span class="price"> $<%= String.format("%.2f",post.getPrice())%></span>
+                        <%
+                            Account a = AccountController.getAccount(listings.get(i).getAuthorID());
+                        %>
+                        <h2><%= listings.get(i).getTitle()%><br><span>Author's Name: <%= a.getFirst_name() + " " + a.getLast_name() %></span></h2>
+                        <p><%= listings.get(i).getDescription()%></p>
+                        <span class="price"> $<%= String.format("%.2f",listings.get(i).getPrice())%></span>
                         <a href="#"> <i class='bx bxs-heart'></i> </a>
                     </div>
                 </div>
