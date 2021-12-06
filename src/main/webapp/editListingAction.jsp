@@ -15,7 +15,7 @@
 <%
     int id = Integer.parseInt(request.getParameter("listId"));
     String title = request.getParameter("listName");
-    String categoryString = request.getParameter("categories");
+    String categoryString = request.getParameter("categoryPicker");
     int category = Integer.parseInt(categoryString);
     float price = Float.parseFloat(request.getParameter("listPrice"));
     String desc = request.getParameter("listDescription");

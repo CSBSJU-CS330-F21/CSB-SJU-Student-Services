@@ -10,7 +10,7 @@
 %><%Account acc =  (Account) session.getAttribute("account");%>
 <%
         String title = request.getParameter("productName");
-        String categoryString = request.getParameter("categories");
+        String categoryString = request.getParameter("categoryPicker");
         int category = Integer.parseInt(categoryString);
         String description = request.getParameter("description");
         String mon = request.getParameter("price");

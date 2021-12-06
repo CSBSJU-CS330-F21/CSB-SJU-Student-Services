@@ -261,7 +261,7 @@
     display: block;
     /* Other styles here */
 }
-select {
+#categories {
     color: white;
     font-weight: bold;
     width: 12%;
@@ -278,6 +278,6 @@ select {
     -moz-appearance: none;
     appearance: none;
 }
-select:hover {
+#categories:hover  {
     cursor: pointer;
 }
