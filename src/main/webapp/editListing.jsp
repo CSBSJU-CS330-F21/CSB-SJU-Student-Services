@@ -41,7 +41,7 @@
             <br>
             <br>
              <h3>Description</h3>
-            <textarea name="listDescription" id="" placeholder="Enter description of your product/service" style=width:350px;height:90px class="form-control" value="<%=post.getDescription()%>" required></textarea>
+            <textarea name="listDescription" id="" style=width:350px;height:90px class="form-control" value="<%=post.getDescription()%>" required>  <%=post.getDescription()%> </textarea>
             <input type="submit" value="Edit Product" >
         </form>
     </div>
