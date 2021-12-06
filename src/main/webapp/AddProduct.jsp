@@ -23,7 +23,7 @@
             <h3>Price</h3>
             <input type="number" name="price" min="1" step="any">
             <h3>Category</h3>
-            <select name="categories" id="categories">
+            <select name="categories" id="categoryPicker">
                 <%
                     for (Category cat: categories) {
                 %>

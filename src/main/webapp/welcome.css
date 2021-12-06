@@ -261,7 +261,7 @@
     display: block;
     /* Other styles here */
 }
-select {
+#categories {
     color: white;
     font-weight: bold;
     width: 12%;
@@ -279,11 +279,12 @@ select {
     -moz-appearance: none;
     appearance: none;
 }
+#categories:hover  {
+
 ::selection {
     color: gold;
     background-color: red;
 }
-select:hover {
     cursor: pointer;
 }
 input[type="submit"] {

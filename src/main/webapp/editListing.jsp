@@ -29,7 +29,7 @@
             <h3>Price</h3>
             <input type="number" name="listPrice" min="1" step="any" value=<%=post.getPrice()%>>
             <h3>Category</h3>
-            <select name="categories" id="categories" value=<%=post.getCatID()%>>
+            <select name="categories" id="categoryPicker" value=<%=post.getCatID()%>>
                 <%
                     for (Category cat: categories) {
                 %>
@@ -41,7 +41,7 @@
             <br>
             <br>
              <h3>Description</h3>
-            <textarea name="listDescription" id="" placeholder="Enter description of your product/service" style=width:350px;height:90px class="form-control" value="<%=post.getDescription()%>"required></textarea>
+            <textarea name="listDescription" id="" placeholder="Enter description of your product/service" style=width:350px;height:90px class="form-control" value="<%=post.getDescription()%>" required></textarea>
             <input type="submit" value="Edit Product" >
         </form>
     </div>
