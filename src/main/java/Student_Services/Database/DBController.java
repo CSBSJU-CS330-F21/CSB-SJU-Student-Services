@@ -6,7 +6,6 @@ import Student_Services.User.Account;
 import Student_Services.User.AccountFactory;
 import Student_Services.images.image;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
@@ -183,6 +182,7 @@ public abstract class DBController {
             if (rs.next()) {
                 listing post = new listing(rs.getString("title"), rs.getString("description"), rs.getInt("author"), rs.getFloat("price"), rs.getDate("post_date"), postID);
                 post.setCatID(rs.getInt("category"));
+                post.setImageID(rs.getInt("image"));
                 return post;
             }
             else {
@@ -323,13 +323,14 @@ public abstract class DBController {
     }
     public image getImage(int ImageID) {
         try (Connection con = createConnection()) {
-            String query = "SELECT (imageID, image_file) FROM " + tableName + " WHERE imageID= ?;";
+            String query = "SELECT imageID, image_file FROM " + tableName + " WHERE imageID= ?;";
             PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, ImageID);
             ResultSet rs = pstmt.executeQuery();
             image imageobj = new image(null, -1);
             if (rs.next()) {
                 imageobj.setImageID(rs.getInt("imageID"));
-                imageobj.setImageFile(rs.getBlob("image_file"));
+                imageobj.setImageFile(rs.getBytes("image_file"));
             }
             return imageobj;
 
