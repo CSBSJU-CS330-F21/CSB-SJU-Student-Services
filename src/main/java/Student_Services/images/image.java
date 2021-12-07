@@ -1,18 +1,17 @@
 package Student_Services.images;
 
-import javax.sql.rowset.serial.SerialBlob;
-import java.sql.Blob;
+
 
 public class image {
-    private Blob imageFile;
+    private byte [] imageFile;
     private int imageID;
 
-    public image(Blob imageFile, int imageID) {
+    public image(byte [] imageFile, int imageID) {
         this.imageFile = imageFile;
         this.imageID = imageID;
     }
 
-    public Blob getImageFile() {
+    public byte[] getImageFile() {
         return imageFile;
     }
 
@@ -20,7 +19,7 @@ public class image {
         return imageID;
     }
 
-    public void setImageFile(Blob imageFile) {
+    public void setImageFile(byte [] imageFile) {
         this.imageFile = imageFile;
     }
 

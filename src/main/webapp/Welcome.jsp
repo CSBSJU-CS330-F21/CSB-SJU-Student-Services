@@ -2,9 +2,9 @@
 <%@ page import="Student_Services.User.Account" %>
 <%@ page import="Student_Services.Listing.listing" %>
 <%@ page import="java.util.List" %>
-<%@ page import ="Student_Services.Database.DBController"%>
 <%@ page import ="Student_Services.User.AccountController"%>
-<%@ page import="Student_Services.Database.DBControllerSQLServer" %>
+<%--<%@ page import="Student_Services.Database.DBControllerSQLServer" %>--%>
+<%@ page import="Student_Services.Listing.listingController" %>
 <jsp:include page="/sidebar/sidebar.jsp"></jsp:include>
 <%Account acc =  (Account) session.getAttribute("account");
     List<listing> listings;
@@ -12,7 +12,7 @@ if (request.getParameter("sorted") != null) {
     listings = (List<listing>) session.getAttribute("sortedList");
 }
 else {
-     listings = (List<listing>) session.getAttribute("listings");
+     listings = listingController.getAllListings();
 }
 %>
 
@@ -53,14 +53,14 @@ else {
                 <h2 class="name"> <%= listings.get(i).getTitle()%></h2>
                 <span class="price"> $<%= String.format("%.2f",listings.get(i).getPrice())%></span>
                 <a class="popup-btn">View Listing</a>
-                <img src="csbsju_logo.png" class="product-img" alt="">
+                <img src="/CSB_SJU_Student_Services_war_exploded/getImage/<%=listings.get(i).getImageID()%>" class="product-img" alt="" height="250px">
                 <span class="date"><i class='bx bxs-calendar'></i> Posted on: <%= listings.get(i).getPost_date()%></span>
             </div>
             <div class="popup-view">
                 <div class="popup-card">
                     <a><i class='bx bx-x close-btn'></i></a>
                     <div class="product-img">
-                        <img src="csbsju_logo.png" alt="">
+                        <img src="/CSB_SJU_Student_Services_war_exploded/getImage/<%=listings.get(i).getImageID()%>" alt="">
                     </div>
                     <div class="info">
                         <%
